@@ -1,14 +1,26 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_bzero.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: seokjyan <seokjyan@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/03/20 10:40:32 by seokjyan          #+#    #+#             */
+/*   Updated: 2023/03/20 16:00:30 by seokjyan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include <stddef.h>
 
-void bzero(void *s, size_t n)
+void	bzero(void *s, size_t n)
 {
-    size_t i;
+	size_t	i;
 
-    (unsigned char*)s;
-    i = 0;
-    while(i < n)
-    {
-        s[i] = 0;
-        i++;
-    }
+	(unsigned char *)s;
+	i = 0;
+	while (i < n)
+	{
+		s[i] = 0;
+		i++;
+	}
 }

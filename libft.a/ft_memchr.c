@@ -1,22 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strchr.c                                        :+:      :+:    :+:   */
+/*   ft_memchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seokjyan <seokjyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/20 10:40:56 by seokjyan          #+#    #+#             */
-/*   Updated: 2023/03/20 15:41:02 by seokjyan         ###   ########.fr       */
+/*   Created: 2023/03/20 10:40:46 by seokjyan          #+#    #+#             */
+/*   Updated: 2023/03/20 15:50:50 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-char	*ft_strchr(const char *s, int c)
+void	*ft_memchr(const void *s, int c, size_t n)
 {
-	while (*s)
+	while (*s && n)
 	{
 		if (*s == (char)c)
 			return (s);
 		s++;
+		n--;
 	}
 	return (0);
 }

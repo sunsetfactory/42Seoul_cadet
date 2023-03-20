@@ -1,22 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strchr.c                                        :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seokjyan <seokjyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/20 10:40:56 by seokjyan          #+#    #+#             */
-/*   Updated: 2023/03/20 15:41:02 by seokjyan         ###   ########.fr       */
+/*   Created: 2023/03/20 10:40:30 by seokjyan          #+#    #+#             */
+/*   Updated: 2023/03/20 16:00:52 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-char	*ft_strchr(const char *s, int c)
+int	atoi(const char *str)
 {
-	while (*s)
+	int	res;
+	int	i;
+	int	c;
+
+	res = 0;
+	i = 0;
+	c = 1;
+	while ((9 <= str[i] && str[i] <= 13) || str[i] == 32)
+		i++;
+	if (str[i] == '+' || str[i] == '-')
 	{
-		if (*s == (char)c)
-			return (s);
-		s++;
+		if (str[i] == '-')
+			c = -c;
+		i++;
 	}
-	return (0);
+	while (('0' <= str[i] && str[i] <= '9'))
+	{
+		res = res * 10 + (str[i] - '0');
+		i++;
+	}
+	return (c * res);
 }
