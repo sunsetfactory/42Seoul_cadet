@@ -6,9 +6,11 @@
 /*   By: seokjyan <seokjyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 10:40:35 by seokjyan          #+#    #+#             */
-/*   Updated: 2023/03/20 15:55:15 by seokjyan         ###   ########.fr       */
+/*   Updated: 2023/03/21 16:27:34 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "libft.h"
 
 int	ft_isdigit(int n)
 {

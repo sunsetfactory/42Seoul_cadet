@@ -1,28 +1,28 @@
 NAME=libft.a
+
+CC=gcc
+CFLAG=-Wall -Wextra -Werror
+
+RM=rm -rf
+
 SRCS=${wildcard *.c}
 
-OBJS=${SRCS:.c=.o}
+OBJS=$(SRCS:.c=.o)
 
-HEAD = libft.h
+$(NAME) : $(OBJS)
+	ar rc $@ $^
 
-CC= gcc
-RM= rm -f
+all : $(NAME)
 
-CFLAGS= -Wall -Wextra -Werror
+%.o : %.c
+	$(CC) $(CFLAG) -c $< -o $@
 
+clean :
+	$(RM) $(OBJS)
 
-$(NAME): ${OBJS}
-		ar rc ${NAME} ${OBJS}
+fclean : clean
+	$(RM) $(NAME)
 
-.c.o:
-		${CC} ${CFLAGS} -include ${HEAD} -c $< -o ${<:.c=.o}
+re : fclean all
 
-all:	${NAME}
-
-clean:
-		${RM} ${OBJS}
-
-fclean:	clean
-		${RM} ${NAME}
-
-re:		fclean all
+.PHONY : all clean fclean re

@@ -6,11 +6,11 @@
 /*   By: seokjyan <seokjyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 10:41:01 by seokjyan          #+#    #+#             */
-/*   Updated: 2023/03/20 14:09:55 by seokjyan         ###   ########.fr       */
+/*   Updated: 2023/03/21 16:51:46 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stddef.h>
+#include "libft.h"
 
 size_t	ft_strlen(const char *s)
 {

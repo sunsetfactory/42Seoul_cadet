@@ -6,11 +6,11 @@
 /*   By: seokjyan <seokjyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 10:41:03 by seokjyan          #+#    #+#             */
-/*   Updated: 2023/03/20 14:08:09 by seokjyan         ###   ########.fr       */
+/*   Updated: 2023/03/21 16:51:58 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stddef.h>
+#include "libft.h"
 
 int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {

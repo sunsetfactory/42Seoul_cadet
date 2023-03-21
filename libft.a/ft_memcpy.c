@@ -6,11 +6,11 @@
 /*   By: seokjyan <seokjyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 10:40:48 by seokjyan          #+#    #+#             */
-/*   Updated: 2023/03/20 15:46:36 by seokjyan         ###   ########.fr       */
+/*   Updated: 2023/03/21 16:51:19 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stddef.h>
+#include "libft.h"
 
 void	*ft_memcpy(void *dst, const void *src, size_t n)
 {

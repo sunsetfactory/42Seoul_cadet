@@ -6,21 +6,28 @@
 /*   By: seokjyan <seokjyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 10:40:32 by seokjyan          #+#    #+#             */
-/*   Updated: 2023/03/20 16:00:30 by seokjyan         ###   ########.fr       */
+/*   Updated: 2023/03/21 16:50:56 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stddef.h>
+#include "libft.h"
 
-void	bzero(void *s, size_t n)
+void	*ft_memset(void *b, int c, size_t len)
 {
-	size_t	i;
+	size_t			i;
+	unsigned char	*a;
 
-	(unsigned char *)s;
+	a = (unsigned char *)b;
 	i = 0;
-	while (i < n)
+	while (i < len)
 	{
-		s[i] = 0;
+		a[i] = (unsigned char)c;
 		i++;
 	}
+	return (a);
+}
+
+void	ft_bzero(void *s, size_t n)
+{
+	ft_memset(s, 0, n);
 }

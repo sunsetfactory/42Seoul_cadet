@@ -6,11 +6,11 @@
 /*   By: seokjyan <seokjyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 10:41:04 by seokjyan          #+#    #+#             */
-/*   Updated: 2023/03/20 14:02:28 by seokjyan         ###   ########.fr       */
+/*   Updated: 2023/03/21 16:52:00 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stddef.h>
+#include "libft.h"
 
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 {

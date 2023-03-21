@@ -6,9 +6,11 @@
 /*   By: seokjyan <seokjyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 10:40:44 by seokjyan          #+#    #+#             */
-/*   Updated: 2023/03/20 15:51:53 by seokjyan         ###   ########.fr       */
+/*   Updated: 2023/03/21 16:27:46 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "libft.h"
 
 int	ft_isprint(int n)
 {

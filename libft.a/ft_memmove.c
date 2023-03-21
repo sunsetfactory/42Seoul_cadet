@@ -6,14 +6,14 @@
 /*   By: seokjyan <seokjyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 10:40:50 by seokjyan          #+#    #+#             */
-/*   Updated: 2023/03/20 16:12:03 by seokjyan         ###   ########.fr       */
+/*   Updated: 2023/03/21 16:51:21 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
-#include <stddef.h>
+#include "libft.h"
 
-void	*memmove(void *dst, const void *src, size_t len)
+void	*ft_memmove(void *dst, const void *src, size_t len)
 {
 	unsigned char		tmp_dst;
 	const unsigned char	tmp_src;
