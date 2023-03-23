@@ -6,22 +6,23 @@
 /*   By: seokjyan <seokjyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 10:40:50 by seokjyan          #+#    #+#             */
-/*   Updated: 2023/03/21 16:51:21 by seokjyan         ###   ########.fr       */
+/*   Updated: 2023/03/22 18:19:07 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include "libft.h"
 
 void	*ft_memmove(void *dst, const void *src, size_t len)
 {
-	unsigned char		tmp_dst;
-	const unsigned char	tmp_src;
-	size_t				i;
+	unsigned char	*tmp_dst;
+	unsigned char	*tmp_src;
+	size_t			i;
 
-	tmp_dst = (unsigned char)dst;
-	tmp_src = (const unsigned char)src;
-	if (tmp_dst > tmp_src)
+	if (!dst && !src)
+		return (NULL);
+	tmp_dst = (unsigned char *)dst;
+	tmp_src = (unsigned char *)src;
+	if (tmp_dst < tmp_src)
 	{
 		i = 0;
 		while (i < len)
@@ -32,12 +33,12 @@ void	*ft_memmove(void *dst, const void *src, size_t len)
 	}
 	else
 	{
-		len--;
-		while (len)
+		i = 0;
+		while (i < len)
 		{
-			tmp_dst[len] = tmp_src[len];
-			len--;
+			tmp_dst[len - i - 1] = tmp_src[len - i - 1];
+			i++;
 		}
 	}	
-	return (dst);
+	return ((void *)dst);
 }

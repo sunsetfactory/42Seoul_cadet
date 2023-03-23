@@ -6,7 +6,7 @@
 /*   By: seokjyan <seokjyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 16:25:25 by seokjyan          #+#    #+#             */
-/*   Updated: 2023/03/21 16:55:44 by seokjyan         ###   ########.fr       */
+/*   Updated: 2023/03/22 20:25:25 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <stddef.h>
+
 int		ft_toupper(int c);
 int		ft_tolower(int c);
 char	*ft_strrchr(const char *s, int c);
@@ -35,6 +36,8 @@ int		ft_isascii(int n);
 int		ft_isalpha(int n);
 int		ft_isalnum(int n);
 void	ft_bzero(void *s, size_t n);
-int		atoi(const char *str);
+int		ft_atoi(const char *str);
+char	*ft_strtrim(char const	*s1, char const	*set);
+char	*ft_strdup(const char *s1);
 
 #endif
