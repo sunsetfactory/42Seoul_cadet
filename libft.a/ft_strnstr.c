@@ -6,7 +6,7 @@
 /*   By: seokjyan <seokjyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 10:41:04 by seokjyan          #+#    #+#             */
-/*   Updated: 2023/03/23 19:10:58 by seokjyan         ###   ########.fr       */
+/*   Updated: 2023/03/24 12:17:32 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,47 +14,19 @@
 
 char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 {
-	int		i;
+	size_t	i;
 
-	size_t	j;
-	int		temp;
-	if (*needle == '\0')
+	i = 0;
+	if (!(*needle))
 		return ((char *)haystack);
-	j = 0;
-	while (j < len)
+	while (*(haystack + i) && i + ft_strlen(needle) <= len)
 	{
-		if (*haystack == *needle)
+		if (*(haystack + i) == *needle)
 		{
-			i = 0;
-			temp = 0;
-			while (needle[i] != '\0')
-			{
-				if (haystack[i] != needle[i])
-					temp = 1;
-				i++;
-			}
-			if (temp == 0)
-				return ((char *)haystack);
+			if (!ft_strncmp(haystack + i, needle, ft_strlen(needle)))
+				return ((char *)(haystack + i));
 		}
-		haystack++;
-		j++;
+		i++;
 	}
-	// while (len)
-	// {
-	// 	if (*haystack == *needle)
-	// 	{
-	// 		i = 0;
-	// 		while (needle[i])
-	// 		{
-	// 			if (haystack[i] != needle[i])
-	// 				break ;
-	// 			i++;
-	// 		}
-	// 		if (!needle[i])
-	// 			return ((char *)(haystack + i));
-	// 	}
-	// 	haystack++;
-	// 	len--;
-	// }
 	return (0);
 }

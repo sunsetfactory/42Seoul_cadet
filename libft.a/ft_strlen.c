@@ -6,7 +6,7 @@
 /*   By: seokjyan <seokjyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 10:41:01 by seokjyan          #+#    #+#             */
-/*   Updated: 2023/03/22 18:22:19 by seokjyan         ###   ########.fr       */
+/*   Updated: 2023/03/24 11:53:00 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 size_t	ft_strlen(const char *s)
 {
-	size_t	i;
-
-	i = 0;
-	while (s[i])
-		i++;
-	return (i);
+	const char *p;
+	
+	p = s;
+	while (*p != '\0')
+		p++;
+	return (p - s);
 }
