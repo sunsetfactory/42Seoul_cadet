@@ -6,7 +6,7 @@
 /*   By: seokjyan <seokjyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 16:25:25 by seokjyan          #+#    #+#             */
-/*   Updated: 2023/03/24 17:06:00 by seokjyan         ###   ########.fr       */
+/*   Updated: 2023/03/25 17:03:10 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 # include <stdio.h>
 # include <stddef.h>
 
+char	*ft_itoa(int n);
+char	**ft_split(char const *s, char c);
 int		ft_toupper(int c);
 int		ft_tolower(int c);
 char	*ft_strrchr(const char *s, int c);
