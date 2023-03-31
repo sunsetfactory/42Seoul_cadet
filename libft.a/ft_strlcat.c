@@ -6,7 +6,7 @@
 /*   By: seokjyan <seokjyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 10:40:58 by seokjyan          #+#    #+#             */
-/*   Updated: 2023/03/24 18:32:30 by seokjyan         ###   ########.fr       */
+/*   Updated: 2023/03/31 14:01:33 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ size_t	ft_strlcat(char *dst, const char *src, size_t dstsize)
 
 	if (!dst && !src)
 		return (0);
-	i = ft_strlen(dst); 
+	i = ft_strlen(dst);
 	j = 0;
 	dst_len = ft_strlen(dst);
 	src_len = ft_strlen(src);

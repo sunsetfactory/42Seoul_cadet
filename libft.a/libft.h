@@ -6,7 +6,7 @@
 /*   By: seokjyan <seokjyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 16:25:25 by seokjyan          #+#    #+#             */
-/*   Updated: 2023/03/31 12:00:04 by seokjyan         ###   ########.fr       */
+/*   Updated: 2023/03/31 14:13:31 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@
 
 typedef struct s_list
 {
-    void          *content;
-    struct s_list *next;
-}              t_list;
+	void			*content;
+	struct s_list	*next;
+}				t_list;
 
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 void	ft_lstclear(t_list **lst, void (*del)(void *));
@@ -62,5 +62,7 @@ void	ft_bzero(void *s, size_t n);
 int		ft_atoi(const char *str);
 char	*ft_strtrim(char const	*s1, char const	*set);
 char	*ft_strdup(const char *s1);
+char	*ft_substr(char const *s, unsigned int start, size_t len);
+char	*ft_strjoin(char const	*s1, char const	*s2);
 
 #endif

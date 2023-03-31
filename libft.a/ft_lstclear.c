@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_lstclear.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: seokjyan <seokjyan@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/03/31 13:54:11 by seokjyan          #+#    #+#             */
+/*   Updated: 2023/03/31 13:55:58 by seokjyan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 
 void	ft_lstclear(t_list **lst, void (*del)(void *))
@@ -6,7 +18,7 @@ void	ft_lstclear(t_list **lst, void (*del)(void *))
 
 	if (!lst)
 		return ;
-	while(*lst)
+	while (*lst)
 	{
 		tmp = *lst;
 		*lst = tmp->next;
