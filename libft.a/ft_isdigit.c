@@ -6,15 +6,15 @@
 /*   By: seokjyan <seokjyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 10:40:42 by seokjyan          #+#    #+#             */
-/*   Updated: 2023/03/22 17:35:54 by seokjyan         ###   ########.fr       */
+/*   Updated: 2023/04/02 14:00:17 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_isdigit(int n)
+int	ft_isdigit(int c)
 {
-	if ('0' <= n && n <= '9')
+	if ('0' <= c && c <= '9')
 		return (1);
 	else
 		return (0);

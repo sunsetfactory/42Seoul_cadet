@@ -6,7 +6,7 @@
 /*   By: seokjyan <seokjyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 10:41:00 by seokjyan          #+#    #+#             */
-/*   Updated: 2023/03/22 20:36:58 by seokjyan         ###   ########.fr       */
+/*   Updated: 2023/04/02 18:55:52 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 		return (src_len);
 	if (!dst || !src)
 		return (0);
-	while (i + 1 < dstsize && src[i] != '\0')
+	while (i + 1 < dstsize && *(src + i) != '\0')
 	{
-		dst[i] = src[i];
+		*(dst + i) = *(src + i);
 		i++;
 	}
-	dst[i] = '\0';
+	*(dst + i) = '\0';
 	return (src_len);
 }
