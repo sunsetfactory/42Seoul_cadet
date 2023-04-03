@@ -6,7 +6,7 @@
 /*   By: seokjyan <seokjyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 13:50:26 by seokjyan          #+#    #+#             */
-/*   Updated: 2023/03/31 13:58:54 by seokjyan         ###   ########.fr       */
+/*   Updated: 2023/04/03 14:55:02 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,7 @@
 int	ft_word_count(char *s, char c)
 {
 	int	count;
-	int	i;
 
-	i = 0;
 	count = 0;
 	while (*s)
 	{

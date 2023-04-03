@@ -6,7 +6,7 @@
 /*   By: seokjyan <seokjyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 10:40:35 by seokjyan          #+#    #+#             */
-/*   Updated: 2023/03/22 18:16:38 by seokjyan         ###   ########.fr       */
+/*   Updated: 2023/04/03 16:00:42 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,5 @@
 
 int	ft_isalnum(int n)
 {
-	if (ft_isalpha(n) || ft_isdigit(n))
-		return (1);
-	else
-		return (0);
+	return ((ft_isalpha(n) || ft_isdigit(n)));
 }
