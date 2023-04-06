@@ -12,12 +12,12 @@ OBJ_O=$(SRC_MAIN:.c=.o)
 OBJ_B=$(SRC_BONUS:.c=.o)
 
 $(NAME) : $(OBJ_O)
-	ar rsc $@ $^
+	ar rsc $(NAME) $^
 	touch $@
 
 bonus : $(OBJ_O) $(OBJ_B)
 	ar rsc $(NAME) $^
-	touch $@
+	touch $(NAME)
 
 all : $(NAME)
 
