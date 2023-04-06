@@ -6,33 +6,49 @@
 /*   By: seokjyan <seokjyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/20 10:40:30 by seokjyan          #+#    #+#             */
-/*   Updated: 2023/03/22 17:15:27 by seokjyan         ###   ########.fr       */
+/*   Updated: 2023/04/05 17:39:35 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+static int	ft_isspace(char *str)
+{
+	return ((*str >= 9 && *str <= 13) || *str == 32);
+}
+
+static int	help_atoi(char *str, int *c)
+{
+	char	*tmp;
+
+	tmp = str;
+	while (ft_isspace(tmp))
+	{
+		tmp++;
+	}
+	if (*tmp == '+' || *tmp == '-')
+	{
+		if (*tmp == '-')
+			*c = -*c;
+		tmp++;
+	}
+	return (tmp - str);
+}
+
 int	ft_atoi(const char *str)
 {
-	int	res;
-	int	i;
-	int	c;
+	char	*cp_str;
+	int		res;
+	int		c;
 
 	res = 0;
-	i = 0;
 	c = 1;
-	while ((9 <= str[i] && str[i] <= 13) || str[i] == 32)
-		i++;
-	if (str[i] == '+' || str[i] == '-')
+	cp_str = (char *)str;
+	cp_str += help_atoi(cp_str, &c);
+	while ((*cp_str >= '0' && *cp_str <= '9'))
 	{
-		if (str[i] == '-')
-			c = -c;
-		i++;
-	}
-	while (('0' <= str[i] && str[i] <= '9'))
-	{
-		res = res * 10 + (str[i] - '0');
-		i++;
+		res = res * 10 + (*cp_str - '0');
+		cp_str++;
 	}
 	return (c * res);
 }
