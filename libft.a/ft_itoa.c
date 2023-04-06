@@ -6,13 +6,13 @@
 /*   By: seokjyan <seokjyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 16:01:14 by seokjyan          #+#    #+#             */
-/*   Updated: 2023/03/31 13:53:43 by seokjyan         ###   ########.fr       */
+/*   Updated: 2023/04/07 01:22:41 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_numlen(long long n)
+static int	ft_numlen(long long n)
 {
 	int	len;
 
