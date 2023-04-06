@@ -17,7 +17,7 @@ $(NAME) : $(OBJ_O)
 
 bonus : $(OBJ_O) $(OBJ_B)
 	ar rsc $(NAME) $^
-	touch $(NAME)
+	touch $@
 
 all : $(NAME)
 

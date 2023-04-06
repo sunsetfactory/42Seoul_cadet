@@ -6,11 +6,10 @@
 /*   By: seokjyan <seokjyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/21 16:23:41 by seokjyan          #+#    #+#             */
-/*   Updated: 2023/03/31 17:03:26 by seokjyan         ###   ########.fr       */
+/*   Updated: 2023/04/06 22:06:34 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "libft.h"
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)

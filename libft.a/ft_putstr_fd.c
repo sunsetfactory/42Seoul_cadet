@@ -6,7 +6,7 @@
 /*   By: seokjyan <seokjyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/31 13:58:40 by seokjyan          #+#    #+#             */
-/*   Updated: 2023/03/31 13:59:17 by seokjyan         ###   ########.fr       */
+/*   Updated: 2023/04/07 00:11:11 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,9 @@
 
 void	ft_putstr_fd(char *s, int fd)
 {
-	int	i;
-
-	i = 0;
-	while (*(s + i))
+	while (*(s))
 	{
-		write(fd, (s + i), 1);
-		i++;
+		write(fd, s, 1);
+		s++;
 	}
 }

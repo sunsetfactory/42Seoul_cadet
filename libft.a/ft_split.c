@@ -6,11 +6,11 @@
 /*   By: seokjyan <seokjyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/25 13:50:26 by seokjyan          #+#    #+#             */
-/*   Updated: 2023/04/06 14:41:16 by seokjyan         ###   ########.fr       */
+/*   Updated: 2023/04/06 23:17:30 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
+#include "libft.h"
 
 static int	ft_word_count(char *s, char c)
 {
