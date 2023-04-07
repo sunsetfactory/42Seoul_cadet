@@ -28,7 +28,7 @@ clean :
 	$(RM) $(OBJ_O) $(OBJ_B)
 
 fclean : clean
-	$(RM) $(NAME)
+	$(RM) $(NAME) bonus
 
 re : fclean all
 
