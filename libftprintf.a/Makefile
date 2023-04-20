@@ -18,11 +18,8 @@ all : $(NAME)
 %.o : %.c
 	$(CC) $(CFLAG) -c $^ -o $@
 
-%.o : %_bonus.c
-	$(CC) $(CFLAG) -c $^ -o $@
-
 clean :
-	$(RM) $(OBJ_O) $(OBJ_B)
+	$(RM) $(OBJ_O)
 
 fclean : clean
 	$(RM) $(NAME)
