@@ -6,7 +6,7 @@ CFLAG=-Wall -Wextra -Werror
 
 RM=rm -rf
 
-SRC_MAIN=*.c
+SRC_MAIN=ft_printf.c
 OBJ_O=$(SRC_MAIN:.c=.o)
 
 $(NAME) : $(OBJ_O)

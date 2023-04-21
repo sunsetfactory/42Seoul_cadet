@@ -6,7 +6,7 @@
 /*   By: seokjyan <seokjyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 14:58:35 by seokjyan          #+#    #+#             */
-/*   Updated: 2023/04/20 15:47:54 by seokjyan         ###   ########.fr       */
+/*   Updated: 2023/04/21 11:24:19 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,21 @@
 
 void	pr_check_format(char *format, va_list ap);
 int		ft_printf(const char *format, ...);
-int		pr_print_pxX(unsigned long long nb, int *len, char *format);
-int		pr_print_diu(long long nb, int *len, char *format);
+int		pr_print_diupxX(unsigned long long nb, int *len, char *format);
+void	pr_check_separator(char *format, va_list ap, int *len);
 
-int	pr_print_pxX(unsigned long long nb, int *len, char *format)
+int	pr_print_diupxX(unsigned long long nb, int *len, char *format)
 {
-	if (nb >= 16)
+	int base;
+
+	base = 16;
+	if (*format == 'd' || *format == 'i' || *format == 'u')
+		base = 10;
+	if (nb >= base)
 	{
-		if (pr_print_pxX(nb / 16, len, format) == -1)
+		if (pr_print_diupxX(nb / base, len, format) == -1)
 			return (-1);
-		pr_print_pxX(nb % 16, len, format);
+		pr_print_diupxX(nb % base, len, format);
 	}
 	else if (*format != 'X')
 	{
@@ -41,39 +46,27 @@ int	pr_print_pxX(unsigned long long nb, int *len, char *format)
 	return (0);
 }
 
-int	pr_print_diu(long long nb, int *len, char *format)
-{
-	if (nb == -2147483648)
-	{
-		len += 2;
-		if (write(1, "-2", 2) == -1)
-			return (-1);
-		nb = 147483648;
-	}
-	if (nb >= 10)
-	{
-		if (pr_print_diu(nb / 10, len, format))
-			return (-1);
-		pr_print_diu(nb % 10, len, format);
-	}
-	else
-	{
-		++len;
-		if (write(1, ('0' + (unsigned int)nb), 1) == -1)
-			return (-1);
-	}
-}
-
 void	pr_check_separator(char *format, va_list ap, int *len)
 {
-	if (*format == 'x' || *format == 'X' || *format == 'p')
+	long long	nb;
+	if (*format == 'x' || *format == 'X' || *format == 'p' \
+	|| *format == 'd' || *format == 'i' || *format == 'u')
 	{
 		if (*format == 'p')
 			*len += write(1, "0x", 2);
-		pr_print_pxX((unsigned long long)va_arg(ap, char *), len, format);
+		if (*format == 'u')
+			nb = va_arg(ap, long long);
+		else if (*format == 'x' || *format == 'X' || *format == 'p')
+			nb = (long long)va_arg(ap, char *);
+		else
+			nb = (long long)va_arg(ap, int);
+		if (nb < 0)
+		{
+			*len += write(1, "-", 1);
+			nb = -(nb);
+		}
+		pr_print_diupxX((unsigned long long)nb, len, format);
 	}
-	if (*format == 'd' || *format == 'i' || *format == 'u')
-		pr_print_diu((long long)va_arg(ap, long long), len, format);
 	if (*format == '%')
 		*len += write(1, "%", 1);
 }
@@ -107,7 +100,7 @@ int	main()
 	unsigned int u;
 
 	u = 4294967295;
-	printf("%u", u);
-	// printf("test1_ft_re : %d\n", ft_printf("TEST1_ft_wr : %x, %X, %p, %%\n", 31, 31, pp));
-	// printf("test1_or_re : %d\n", printf("TEST1_or_wr : %x, %X, %p, %%\n", 31, 31, pp));
+	// printf("%u", u);
+	printf("test1_ft_re : %d\n", ft_printf("TEST1_ft_wr : %d, %i, %u, %x, %X, %p, %%\n", -11, 12, -13, 31, 31, pp));
+	printf("test1_or_re : %d\n", printf("TEST1_or_wr : %d, %i, %u, %x, %X, %p, %%\n", -11, 12, -13, 31, 31, pp));
 }
