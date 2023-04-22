@@ -6,17 +6,20 @@
 /*   By: seokjyan <seokjyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 14:58:35 by seokjyan          #+#    #+#             */
-/*   Updated: 2023/04/22 21:39:02 by seokjyan         ###   ########.fr       */
+/*   Updated: 2023/04/22 22:28:19 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdarg.h>
 #include <unistd.h>
+#include <stdio.h>
 
 void	pr_check_format(char *format, va_list ap);
 int		ft_printf(const char *format, ...);
 int		pr_print_diupxX(unsigned long long nb, int *len, char *format);
 void	pr_check_separator(char *format, va_list ap, int *len);
+int		pr_print_sc(char *s);
+
 
 int	pr_print_diupxX(unsigned long long nb, int *len, char *format)
 {
@@ -50,9 +53,12 @@ int	pr_print_sc(char *s)
 	char *p;
 
 	p = s;
+	if (s == NULL)
+		return (write(1, "(null)", 6));
 	while (*(p))
 	{
-		write(1, p, 1);
+		if (write(1, p, 1) == -1)
+			return (-1);
 		p++;
 	}
 	return (p - s);
@@ -61,31 +67,38 @@ int	pr_print_sc(char *s)
 void	pr_check_separator(char *format, va_list ap, int *len)
 {
 	long long	nb;
+	char		ch;
 
 	if (*format == 'x' || *format == 'X' || *format == 'p' \
 	|| *format == 'd' || *format == 'i' || *format == 'u')
 	{
-		if (*format == 'p')
-			*len += write(1, "0x", 2);
 		if (*format == 'u')
 			nb = va_arg(ap, long long);
 		else if (*format == 'x' || *format == 'X' || *format == 'p')
 			nb = (long long)va_arg(ap, char *);
 		else 
 			nb = (long long)va_arg(ap, int);
-		if (nb < 0)
+		if (*format == 'p')
+			*len += write(1, "0x", 2);
+		if (nb < 0 && *format != 'p' &&  *format != 'u' &&  *format != 'x' &&  *format != 'X')
 		{
 			*len += write(1, "-", 1);
 			nb = -(nb);
 		}
 		pr_print_diupxX((unsigned long long)nb, len, format);
 	}
-	else if (*format == 's' || *format == 'c')
-	{
+	else if (*format == 's')
 		*len += pr_print_sc((char *)va_arg(ap, char *));
+	else if (*format == 'c')
+	{
+		ch = (char)va_arg(ap, int);
+		*len += write(1, &ch, 1);
 	}
 	if (*format == '%')
-		*len += write(1, "%", 1);
+	{
+		++(*len);
+		write(1, format, 1);
+	}
 }
 
 int	ft_printf(const char * format, ...)
@@ -109,18 +122,23 @@ int	ft_printf(const char * format, ...)
 	return (len);
 }
 
-#include <stdio.h>
+// #include <stdio.h>
 
-int	main()
-{
-	char *pp;
-	printf("%d\n",ft_printf("%d  :", -12));
-	printf("%d\n",ft_printf("%i  :", -13));
-	printf("%d\n",ft_printf("%u  :", -14));
-	printf("%d\n",ft_printf("%x  :", -15));
-	printf("%d\n",ft_printf("%X  :", -16));
-	printf("%d\n",ft_printf("%p  :", -17));
-	printf("%d\n",ft_printf("%%  :", -18));
-	// printf("test1_ft_re : %d\n", ft_printf("TEST1_ft_wr : %d, %i, %u, %x, %X, %p, %%\n", -11, 12, -13, 31, 31, pp));
-	// printf("test1_or_re : %d\n", printf("TEST1_or_wr : %d, %i, %u, %x, %X, %p, %%\n", -11, 12, -13, 31, 31, pp));
-}
+// #define ARGS "%x\n", -211682483
+
+// int	main()
+// {
+// 	char *pp;
+// // 	printf("%d\n",ft_printf("%d  :", -12));
+// // 	printf("%d\n",ft_printf("%i  :", -13));
+// // 	printf("%d\n",ft_printf("%u  :", -14));
+// // 	printf("%d\n",ft_printf("%x  :", -15));
+// // 	printf("%d\n",ft_printf("%X  :", -16));
+// 	// printf("%d\n", ft_printf("%p", (void *)-14523));
+// 	// printf("%d\n", printf("%p", (void *)-14523));
+// // 	printf("%d\n",ft_printf("%%  :", -18));
+// // 	// printf("test1_ft_re : %d\n", ft_printf("TEST1_ft_wr : %d, %i, %u, %x, %X, %p, %%\n", -11, 12, -13, 31, 31, pp));
+// // 	// printf("test1_or_re : %d\n", printf("TEST1_or_wr : %d, %i, %u, %x, %X, %p, %%\n", -11, 12, -13, 31, 31, pp));
+// 	ft_printf(ARGS);
+// 	printf(ARGS);
+// }
