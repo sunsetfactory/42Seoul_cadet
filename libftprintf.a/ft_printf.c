@@ -6,7 +6,7 @@
 /*   By: seokjyan <seokjyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 14:58:35 by seokjyan          #+#    #+#             */
-/*   Updated: 2023/04/22 21:08:02 by seokjyan         ###   ########.fr       */
+/*   Updated: 2023/04/22 21:38:22 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ void	pr_check_separator(char *format, va_list ap, int *len)
 	}
 	else if (*format == 's' || *format == 'c')
 	{
-		len += pr_print_sc((char *)va_arg(ap, char *));
+		*len += pr_print_sc((char *)va_arg(ap, char *));
 	}
 	if (*format == '%')
 		*len += write(1, "%", 1);
