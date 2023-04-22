@@ -6,7 +6,7 @@
 /*   By: seokjyan <seokjyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 14:58:35 by seokjyan          #+#    #+#             */
-/*   Updated: 2023/04/22 21:38:22 by seokjyan         ###   ########.fr       */
+/*   Updated: 2023/04/22 21:39:02 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	pr_check_separator(char *format, va_list ap, int *len);
 
 int	pr_print_diupxX(unsigned long long nb, int *len, char *format)
 {
-	int base;
+	unsigned long long base;
 
 	base = 16;
 	if (*format == 'd' || *format == 'i' || *format == 'u')
@@ -114,10 +114,13 @@ int	ft_printf(const char * format, ...)
 int	main()
 {
 	char *pp;
-	unsigned int u;
-
-	u = 4294967295;
-	// printf("%u", u);
-	printf("test1_ft_re : %d\n", ft_printf("TEST1_ft_wr : %d, %i, %u, %x, %X, %p, %%\n", -11, 12, -13, 31, 31, pp));
-	printf("test1_or_re : %d\n", printf("TEST1_or_wr : %d, %i, %u, %x, %X, %p, %%\n", -11, 12, -13, 31, 31, pp));
+	printf("%d\n",ft_printf("%d  :", -12));
+	printf("%d\n",ft_printf("%i  :", -13));
+	printf("%d\n",ft_printf("%u  :", -14));
+	printf("%d\n",ft_printf("%x  :", -15));
+	printf("%d\n",ft_printf("%X  :", -16));
+	printf("%d\n",ft_printf("%p  :", -17));
+	printf("%d\n",ft_printf("%%  :", -18));
+	// printf("test1_ft_re : %d\n", ft_printf("TEST1_ft_wr : %d, %i, %u, %x, %X, %p, %%\n", -11, 12, -13, 31, 31, pp));
+	// printf("test1_or_re : %d\n", printf("TEST1_or_wr : %d, %i, %u, %x, %X, %p, %%\n", -11, 12, -13, 31, 31, pp));
 }
