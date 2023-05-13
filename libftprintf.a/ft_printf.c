@@ -6,7 +6,7 @@
 /*   By: seokjyan <seokjyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 14:58:35 by seokjyan          #+#    #+#             */
-/*   Updated: 2023/04/22 22:28:19 by seokjyan         ###   ########.fr       */
+/*   Updated: 2023/05/13 17:07:51 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int		ft_printf(const char *format, ...);
 int		pr_print_diupxX(unsigned long long nb, int *len, char *format);
 void	pr_check_separator(char *format, va_list ap, int *len);
 int		pr_print_sc(char *s);
+
 
 
 int	pr_print_diupxX(unsigned long long nb, int *len, char *format)
