@@ -6,7 +6,7 @@
 /*   By: seokjyan <seokjyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 10:17:09 by seokjyan          #+#    #+#             */
-/*   Updated: 2023/05/15 10:41:00 by seokjyan         ###   ########.fr       */
+/*   Updated: 2023/05/15 10:55:21 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,40 +43,43 @@ int	pr_print_s(char *s, int *len)
 	return (1);
 }
 
-void	pr_gatef(va_list *ap, char *format, int *len)
+int	pr_gatef(va_list *ap, char *format, int *len)
 {
 	if (*format == 'c')
-		pr_print(va_arg(*ap, int), len);
+		return (pr_print(va_arg(*ap, int), len));
 	if (*format == 's')
-		pr_print_s(va_arg(*ap, void *), len);
+		return (pr_print_s(va_arg(*ap, void *), len));
 	if (*format == 'p')
-		pr_print_p(va_arg(*ap, unsigned long long), len, 1);
+		return (pr_print_p(va_arg(*ap, unsigned long long), len, 1));
 	if (*format == 'd' || *format == 'i')
-		pr_print_di((long long)va_arg(*ap, int), len);
+		return (pr_print_di((long long)va_arg(*ap, int), len));
 	if (*format == 'u')
-		pr_print_u(va_arg(*ap, unsigned int), len);
+		return (pr_print_u(va_arg(*ap, unsigned int), len));
 	if (*format == 'x')
-		pr_print_x(va_arg(*ap, unsigned int), len);
+		return (pr_print_x(va_arg(*ap, unsigned int), len));
 	if (*format == 'X')
-		pr_print_lx(va_arg(*ap, unsigned int), len);
+		return (pr_print_lx(va_arg(*ap, unsigned int), len));
 	if (*format == '%')
-		pr_print(*format, len);
+		return (pr_print(*format, len));
+	return (1);
 }
 
 int	ft_printf(const char *format, ...)
 {
 	va_list	ap;
 	int		len;
+	int		at;
 
 	va_start(ap, format);
 	len = 0;
+	at = 1;
 	while (*format != '\0')
 	{
 		if (*format == '%')
-			pr_gatef(&ap, (char *)(++format), &len);
+			at = pr_gatef(&ap, (char *)(++format), &len);
 		else
 			pr_print(*format, &len);
-		if (len == -1)
+		if (len == -1 || at != 1)
 			return (-1);
 		++format;
 	}
