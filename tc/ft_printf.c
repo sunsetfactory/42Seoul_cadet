@@ -6,7 +6,7 @@
 /*   By: seokjyan <seokjyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/15 10:17:09 by seokjyan          #+#    #+#             */
-/*   Updated: 2023/05/15 10:55:21 by seokjyan         ###   ########.fr       */
+/*   Updated: 2023/05/19 22:51:55 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,9 @@ int	ft_printf(const char *format, ...)
 		else
 			pr_print(*format, &len);
 		if (len == -1 || at != 1)
-			return (-1);
+			break ;
 		++format;
 	}
+	va_end(ap);
 	return (len);
 }
