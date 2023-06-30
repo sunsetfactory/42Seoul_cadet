@@ -5,141 +5,84 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: seokjyan <seokjyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/19 14:58:35 by seokjyan          #+#    #+#             */
-/*   Updated: 2023/05/13 17:07:51 by seokjyan         ###   ########.fr       */
+/*   Created: 2023/05/15 10:17:09 by seokjyan          #+#    #+#             */
+/*   Updated: 2023/06/26 17:21:48 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdarg.h>`
-#include <io.h>
-#include <stdio.h>
+#include "ft_printf.h"
 
-void	pr_check_format(char *format, va_list ap);
-int		ft_printf(const char *format, ...);
-int		pr_print_diupxX(unsigned long long nb, int *len, char *format);
-void	pr_check_separator(char *format, va_list ap, int *len);
-int		pr_print_sc(char *s);
-
-
-
-int	pr_print_diupxX(unsigned long long nb, int *len, char *format)
+int	pr_print(char c, int *len)
 {
-	unsigned long long base;
-
-	base = 16;
-	if (*format == 'd' || *format == 'i' || *format == 'u')
-		base = 10;
-	if (nb >= base)
+	++(*len);
+	if (write(1, &c, 1) == -1)
 	{
-		if (pr_print_diupxX(nb / base, len, format) == -1)
-			return (-1);
-		pr_print_diupxX(nb % base, len, format);
+		*len = -1;
+		return (*len);
 	}
-	else if (*format != 'X')
-	{
-		++(*len);
-		if (write(1, &"0123456789abcdef"[nb], 1) == -1)
-			return (-1);
-	}
-	else
-	{
-		++(*len);
-		if (write(1, &"0123456789ABCDEF"[nb], 1) == -1)
-			return (-1);
-	}
-	return (0);
+	return (1);
 }
-int	pr_print_sc(char *s)
-{
-	char *p;
 
-	p = s;
+int	pr_print_s(char *s, int *len)
+{
 	if (s == NULL)
-		return (write(1, "(null)", 6));
-	while (*(p))
 	{
-		if (write(1, p, 1) == -1)
-			return (-1);
-		p++;
-	}
-	return (p - s);
-}
-
-void	pr_check_separator(char *format, va_list ap, int *len)
-{
-	long long	nb;
-	char		ch;
-
-	if (*format == 'x' || *format == 'X' || *format == 'p' \
-	|| *format == 'd' || *format == 'i' || *format == 'u')
-	{
-		if (*format == 'u')
-			nb = va_arg(ap, long long);
-		else if (*format == 'x' || *format == 'X' || *format == 'p')
-			nb = (long long)va_arg(ap, char *);
-		else 
-			nb = (long long)va_arg(ap, int);
-		if (*format == 'p')
-			*len += write(1, "0x", 2);
-		if (nb < 0 && *format != 'p' &&  *format != 'u' &&  *format != 'x' &&  *format != 'X')
+		*len += 6;
+		if (write(1, "(null)", 6) == -1)
 		{
-			*len += write(1, "-", 1);
-			nb = -(nb);
+			*len = -1;
+			return (-1);
 		}
-		pr_print_diupxX((unsigned long long)nb, len, format);
 	}
-	else if (*format == 's')
-		*len += pr_print_sc((char *)va_arg(ap, char *));
-	else if (*format == 'c')
+	else if (*s != '\0')
 	{
-		ch = (char)va_arg(ap, int);
-		*len += write(1, &ch, 1);
+		if (pr_print(*s, len) == -1)
+			return (-1);
+		pr_print_s(++s, len);
 	}
-	if (*format == '%')
-	{
-		++(*len);
-		write(1, format, 1);
-	}
+	return (1);
 }
 
-int	ft_printf(const char * format, ...)
+int	pr_gatef(va_list *ap, char *format, int *len)
 {
-	va_list ap;
+	if (*format == 'c')
+		return (pr_print(va_arg(*ap, int), len));
+	if (*format == 's')
+		return (pr_print_s(va_arg(*ap, void *), len));
+	if (*format == 'p')
+		return (pr_print_p(va_arg(*ap, unsigned long long), len, 1));
+	if (*format == 'd' || *format == 'i')
+		return (pr_print_di((long long)va_arg(*ap, int), len));
+	if (*format == 'u')
+		return (pr_print_u(va_arg(*ap, unsigned int), len));
+	if (*format == 'x')
+		return (pr_print_x(va_arg(*ap, unsigned int), len));
+	if (*format == 'X')
+		return (pr_print_lx(va_arg(*ap, unsigned int), len));
+	if (*format == '%')
+		return (pr_print(*format, len));
+	return (1);
+}
+
+int	ft_printf(const char *format, ...)
+{
+	va_list	ap;
 	int		len;
+	int		at;
 
 	va_start(ap, format);
 	len = 0;
+	at = 1;
 	while (*format != '\0')
 	{
 		if (*format == '%')
-			pr_check_separator((char *)(++format), ap, &len);
+			at = pr_gatef(&ap, (char *)(++format), &len);
 		else
-		{
-			++len;
-			write(1, format, 1);
-		}
+			pr_print(*format, &len);
+		if (len == -1 || at != 1)
+			break ;
 		++format;
 	}
+	va_end(ap);
 	return (len);
 }
-
-// #include <stdio.h>
-
-// #define ARGS "%x\n", -211682483
-
-// int	main()
-// {
-// 	char *pp;
-// // 	printf("%d\n",ft_printf("%d  :", -12));
-// // 	printf("%d\n",ft_printf("%i  :", -13));
-// // 	printf("%d\n",ft_printf("%u  :", -14));
-// // 	printf("%d\n",ft_printf("%x  :", -15));
-// // 	printf("%d\n",ft_printf("%X  :", -16));
-// 	// printf("%d\n", ft_printf("%p", (void *)-14523));
-// 	// printf("%d\n", printf("%p", (void *)-14523));
-// // 	printf("%d\n",ft_printf("%%  :", -18));
-// // 	// printf("test1_ft_re : %d\n", ft_printf("TEST1_ft_wr : %d, %i, %u, %x, %X, %p, %%\n", -11, 12, -13, 31, 31, pp));
-// // 	// printf("test1_or_re : %d\n", printf("TEST1_or_wr : %d, %i, %u, %x, %X, %p, %%\n", -11, 12, -13, 31, 31, pp));
-// 	ft_printf(ARGS);
-// 	printf(ARGS);
-// }
