@@ -1,16 +1,18 @@
-this
-is
-G				:
-	N			:
-		L		:
-			"
-	:	T
-	:		E
-	:	S
-	:		T
-		"
-			F	:
-		I		:
-	L			:
-E				:
+taost
+taost
+taost
+so happy
+:	G				:
+:		N			:
+:	T		L		:
+:		E			:
+:			S		:
+:				T	:
+:					:
+:				T	:
+:			E		:
+:		X		F	:
+:	T		I		:
+:		L			:
+:	E				:
 hahaha

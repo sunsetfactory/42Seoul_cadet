@@ -1,20 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tc.c                                               :+:      :+:    :+:   */
+/*   get_next_line_util.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seokjyan <seokjyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/30 14:35:53 by seokjyan          #+#    #+#             */
-/*   Updated: 2023/06/30 17:40:12 by seokjyan         ###   ########.fr       */
+/*   Created: 2023/06/30 10:03:07 by seokjyan          #+#    #+#             */
+/*   Updated: 2023/07/02 00:55:51 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include <unistd.h>
-#include <stdio.h>
-#include <fcntl.h>
-#define BUFFER_SIZE 3
+#include "get_next_line.h"
 
 size_t	ft_strlen(const char *s)
 {
@@ -25,6 +21,27 @@ size_t	ft_strlen(const char *s)
 		p++;
 	return (p - s);
 }
+
+char	*ft_strdup(const char *s1)
+{
+	char	*str;
+	size_t	len;
+	int		i;
+
+	len = ft_strlen(s1);
+	str = (char *)malloc(len + 1);
+	if (!str)
+		return (0);
+	i = 0;
+	while (*(s1 + i))
+	{
+		*(str + i) = *(s1 + i);
+		i++;
+	}
+	*(str + i) = 0;
+	return (str);
+}
+
 void	*ft_memcpy(void *dst, const void *src, size_t n)
 {
 	size_t	i;
@@ -58,52 +75,23 @@ char	*ft_strjoin(char const	*s1, char const	*s2)
 	res[s1_len + s2_len] = 0;
 	return (res);
 }
-char	*ft_strdup(const char *s1)
-{
-	char	*str;
-	size_t	len;
-	int		i;
 
-	len = ft_strlen(s1);
-	str = (char *)malloc(len + 1);
-	if (!str)
-		return (0);
-	i = 0;
-	while (*(s1 + i))
+char	*ft_strrchr(const char *s, int c)
+{
+	char	*pos;
+
+	pos = 0;
+	if ((char)c == '\0')
 	{
-		*(str + i) = *(s1 + i);
-		i++;
+		while (*s)
+			s++;
+		pos = (char *)s;
 	}
-	*(str + i) = 0;
-	return (str);
-}
-int	main(void)
-{
-	static char	buf_stat[BUFFER_SIZE]; 
-	char		*buf_read;
-	char		*save;
-	int			ret;
-	int			fd;
-
-	fd = open("tc.txt", O_RDONLY);
-	buf_read = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
-	printf("\n\nbuf_read\n\n");
-	ret = 1;
-	// while ((ret = read(fd, buf_read, BUFFER_SIZE)) != NULL)
-	// {
-	// 	buf_read[ret] = '\0';
-	// 	printf("%s", buf_read);
-	// 	free(buf_read);
-	// }
-	// ret = read(fd, buf_read, BUFFER_SIZE);
-	save = buf_stat;
-	save = ft_strdup("");
-	buf_stat = ft_strjoin(save, buf_read);
-	printf("\n\nbuf_stat\n\n");
-	// while ((ret = read(fd, buf_stat, BUFFER_SIZE)) != NULL)
-	// {
-	// 	buf_stat[ret] = '\0';
-	// 	printf("%s", buf_stat);
-	// 	free(buf_stat);
-	// }
+	while (*s)
+	{
+		if (*s == (char)c)
+			pos = (char *)s;
+		s++;
+	}
+	return (pos);
 }

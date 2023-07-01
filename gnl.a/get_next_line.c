@@ -6,46 +6,64 @@
 /*   By: seokjyan <seokjyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 10:03:09 by seokjyan          #+#    #+#             */
-/*   Updated: 2023/06/30 17:45:33 by seokjyan         ###   ########.fr       */
+/*   Updated: 2023/07/02 05:06:21 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*gnl_nl_check(int fd, char *buf_read, char *buf_stat, int ret_read)
+char	*gnl_nl_get(char **buf_stat)
 {
-	char	*save;
+	int		i;
+	char	*line;
 
+	i = 0;
+	while (*(*buf_stat + i) != '\n' && *(*buf_stat + i) != '\0')
+		i++;
+	line = (char *)malloc(sizeof(char) * i + 1);
+	if (!line)
+	{
+		free (*buf_stat);
+		return (NULL);
+	}
+	while (*(*buf_stat + i) != '\n' && *(*buf_stat + i) != '\0')
+	{
+		*(line++) = *(*buf_stat)++;
+	}
+	line -= i;
+	(*buf_stat)++;
+	// printf("\n\nline = %s\nbuf_stat = %s\n\n", line, *buf_stat);
+	// printf("\n\n  get_buf_stat1 = %c\n\n", *(*buf_stat + 0));
+	// printf("\n\n  get_buf_stat2 = %c\n\n", *(*buf_stat + 1));
+	// printf("\n\n  get_buf_stat3 = %c\n\n", *(*buf_stat + 2));
+	// printf("\n\n  get_buf_stat4 = %c\n\n", *(*buf_stat + 3));
+	return (line);
+}
+
+void	gnl_nl_load(int fd, char *buf_read, char **buf_stat, int ret_read)
+{
 	while (ret_read != 0)
 	{
 		ret_read = read(fd, buf_read, BUFFER_SIZE);
-		if (ret_read == -1)
-		{
-			free(buf_stat);
-			return (NULL);
-		}
 		buf_read[ret_read] = '\0';
-		save = buf_stat;
-		if (!save)
-			save = ft_strdup("");
-		buf_stat = ft_strjoin(save, buf_read);
-		if (!buf_stat)
+		if (!*buf_stat)
+			*buf_stat = ft_strdup("");
+		if (!*buf_stat)
 		{
-			free(save);
-			return (NULL);
+			free(buf_read);
+			return ;
 		}
-		free(save);
-		if (ft_strrchr(buf_stat, '\n') != NULL)
+		*buf_stat = ft_strjoin(*buf_stat, buf_read);
+		if (ft_strrchr(*buf_stat, '\n') != NULL)
 			break ;
 	}
-	return (buf_stat);
 }
 
 char	*get_next_line(int fd)
 {
 	static char	*buf_stat;
 	char		*buf_read;
-	char		*ret_line;
+	char		*cut_line;
 	int			ret_read;
 
 	if (fd < 0)
@@ -54,27 +72,30 @@ char	*get_next_line(int fd)
 	if (!buf_read)
 		return (NULL);
 	ret_read = 1;
-	buf_stat = gnl_nl_check(fd, buf_read, buf_stat, ret_read);
-	return (ret_line);
+	gnl_nl_load(fd, buf_read, &buf_stat, ret_read);
+	cut_line = gnl_nl_get(&buf_stat);
+	// printf("\n\ncut_line = %s\nbuf_stat = %s\n\n", cut_line, buf_stat);
+	return (cut_line);
 }
 
-#include <stdio.h>
-#include <fcntl.h>
 
-int	main(void)
+
+int main(void)
 {
-	int		fd;
-	char	*line;
+  int fd;
+  char *line;
 
-	fd = 0;
-	fd = open("./input.txt", O_RDONLY);
-	while ((line = get_next_line(fd)) != NULL)
-	{
-		printf("%s", line);
-		free(line);
-	}
-	if (line == NULL)
+  fd = 0;
+  fd = open("./input.txt", O_RDONLY);
+  while ((line = get_next_line(fd)) != NULL)
+  {
+  	printf("%s", line);
+	  free(line);
+  }
+  if (line == NULL)
 		printf("%s\n", line);
-	close(fd);
-	return (0);
+
+  close(fd);
+
+  return (0);
 }
