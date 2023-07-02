@@ -6,7 +6,7 @@
 /*   By: seokjyan <seokjyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 10:03:03 by seokjyan          #+#    #+#             */
-/*   Updated: 2023/07/02 09:28:10 by seokjyan         ###   ########.fr       */
+/*   Updated: 2023/07/02 05:00:02 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 #include <stdio.h>
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 6
+#  define BUFFER_SIZE 15
 # endif
 
 char	*get_next_line(int fd);

@@ -6,7 +6,7 @@
 /*   By: seokjyan <seokjyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 10:03:09 by seokjyan          #+#    #+#             */
-/*   Updated: 2023/07/02 05:06:21 by seokjyan         ###   ########.fr       */
+/*   Updated: 2023/07/02 09:37:32 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ char	*gnl_nl_get(char **buf_stat)
 		*(line++) = *(*buf_stat)++;
 	}
 	line -= i;
-	(*buf_stat)++;
+	if (*(*buf_stat + i) != '\n')
+		(*buf_stat)++;
 	// printf("\n\nline = %s\nbuf_stat = %s\n\n", line, *buf_stat);
 	// printf("\n\n  get_buf_stat1 = %c\n\n", *(*buf_stat + 0));
 	// printf("\n\n  get_buf_stat2 = %c\n\n", *(*buf_stat + 1));
@@ -44,7 +45,12 @@ void	gnl_nl_load(int fd, char *buf_read, char **buf_stat, int ret_read)
 {
 	while (ret_read != 0)
 	{
+		static int i = 1;
 		ret_read = read(fd, buf_read, BUFFER_SIZE);
+		if (*buf_read == '\0')
+			printf("null\n");
+		printf("read buf %d, %d : %s\n", i, ret_read, buf_read);
+		i++;
 		buf_read[ret_read] = '\0';
 		if (!*buf_stat)
 			*buf_stat = ft_strdup("");
@@ -78,22 +84,25 @@ char	*get_next_line(int fd)
 	return (cut_line);
 }
 
-
-
 int main(void)
 {
   int fd;
-  char *line;
+//   char *line;
 
   fd = 0;
   fd = open("./input.txt", O_RDONLY);
-  while ((line = get_next_line(fd)) != NULL)
-  {
-  	printf("%s", line);
-	  free(line);
-  }
-  if (line == NULL)
-		printf("%s\n", line);
+  get_next_line(fd);
+  get_next_line(fd);
+  get_next_line(fd);
+  get_next_line(fd);
+  get_next_line(fd);
+//   while ((line = get_next_line(fd)) != NULL)
+//   {
+//   	printf("%s", line);
+// 	  free(line);
+//   }
+//   if (line == NULL)
+// 		printf("%s\n", line);
 
   close(fd);
 
