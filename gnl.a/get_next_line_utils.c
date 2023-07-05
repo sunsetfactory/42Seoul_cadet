@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_util.c                               :+:      :+:    :+:   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seokjyan <seokjyan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: seokjyan <seokjyan@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 10:03:07 by seokjyan          #+#    #+#             */
-/*   Updated: 2023/07/02 00:55:51 by seokjyan         ###   ########.fr       */
+/*   Updated: 2023/07/05 23:55:08 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,8 @@ char	*ft_strrchr(const char *s, int c)
 {
 	char	*pos;
 
+	if (s == NULL)
+		return (NULL);
 	pos = 0;
 	if ((char)c == '\0')
 	{
@@ -93,5 +95,7 @@ char	*ft_strrchr(const char *s, int c)
 			pos = (char *)s;
 		s++;
 	}
+	if (*pos == '\0')
+		pos = NULL;
 	return (pos);
 }

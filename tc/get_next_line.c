@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seokjyan <seokjyan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: seokjyan <seokjyan@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 10:03:09 by seokjyan          #+#    #+#             */
-/*   Updated: 2023/07/02 09:45:24 by seokjyan         ###   ########.fr       */
+/*   Updated: 2023/07/05 21:27:49 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,10 @@ char	*buf_cut(char *buf_stat)
 }
 
 // void	buf_memory_allocation(int fd, char **buf_read, char **buf_stat)
-char *	buf_memory_allocation(int fd, char **buf_stat)
+char	*buf_memory_allocation(int fd, char **buf_stat)
 {
-	int			ret_read;
-	char		*buf_read;
+	int		ret_read;
+	char	*buf_read;
 
 	ret_read = 1;
 	buf_read = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
@@ -47,7 +47,7 @@ char *	buf_memory_allocation(int fd, char **buf_stat)
 			free(buf_read);
 			return (NULL);
 		}
-		buf_read[ret_read] = '\0'; // 123
+		buf_read[ret_read] = '\0';
 		if (!*buf_stat)
 			*buf_stat = ft_strdup("");
 		*buf_stat = ft_strjoin(*buf_stat, buf_read);

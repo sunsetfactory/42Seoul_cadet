@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seokjyan <seokjyan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: seokjyan <seokjyan@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/30 10:03:03 by seokjyan          #+#    #+#             */
-/*   Updated: 2023/07/02 09:28:10 by seokjyan         ###   ########.fr       */
+/*   Updated: 2023/07/05 23:40:07 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,13 @@
 #include <stdio.h>
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 6
+#  define BUFFER_SIZE 1
 # endif
 
 char	*get_next_line(int fd);
-void	gnl_nl_load(int fd, char *buf_read, char **buf_stat, int ret_read);
-char	*gnl_nl_get(char **buf_stat);
+char	*buf_memory_allocation(int fd, char *buf_stat);
+char	*line_get(char *buf_stat, int *i);
+char	*stat_cut(char *buf_stat, int i);
 
 size_t	ft_strlen(const char *s);
 char	*ft_strdup(const char *s1);

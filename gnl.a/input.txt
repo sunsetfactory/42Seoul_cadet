@@ -1,23 +1,5 @@
 12345
-12345
+1234
 123
-if *buf == '\0'
-
-st buf 10
-123456\n123
-cut
-123
-
-static buf
-char *return_str
-
-if (*buf != '\0')
-	return_str = strcpy(buf);
-
-ret = read(buf)
-
-if (buf \n)
- return_str = buf 개행까지
- 개행엇ㅂ으면 조인
- 있으면 리턴
- return restr
+12
+1
