@@ -89,23 +89,23 @@ char	*buf_memory_allocation(int fd, char *buf_stat)
 char	*get_next_line(int fd)
 {
 	char		*cut_line;
-	static char	*buf_stat;
+	static char	*buf_stat[OPEN_MAX];
 	int			i;
 
 	if (BUFFER_SIZE <= 0)
 		return (NULL);
-	if (ft_strchr(buf_stat, '\n') == NULL)
-		buf_stat = buf_memory_allocation(fd, buf_stat);
-	if (buf_stat == NULL)
+	if (ft_strchr(buf_stat[fd], '\n') == NULL)
+		buf_stat[fd] = buf_memory_allocation(fd, buf_stat[fd]);
+	if (buf_stat[fd] == NULL)
 		return (NULL);
-	cut_line = line_get(buf_stat, &i);
+	cut_line = line_get(buf_stat[fd], &i);
 	if (cut_line == NULL)
 	{
-		free(buf_stat);
-		buf_stat = 0;
+		free(buf_stat[fd]);
+		buf_stat[fd] = 0;
 	}
 	else
-		buf_stat = stat_cut(buf_stat, i);
+		buf_stat[fd] = stat_cut(buf_stat[fd], i);
 	return (cut_line);
 }
 

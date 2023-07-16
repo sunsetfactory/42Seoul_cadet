@@ -5,7 +5,7 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: seokjyan <seokjyan@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/30 10:03:03 by seokjyan          #+#    #+#             */
+/*   Created: 2023/06/15 10:03:03 by seokjyan          #+#    #+#             */
 /*   Updated: 2023/07/06 06:06:01 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -17,7 +17,11 @@
 # include <unistd.h>
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 12
+#  define BUFFER_SIZE 1024
+# endif
+
+# ifndef OPEN_MAX
+#  define OPEN_MAX 10240
 # endif
 
 char	*get_next_line(int fd);
