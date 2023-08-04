@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seokjyan <seokjyan@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 10:03:09 by seokjyan          #+#    #+#             */
-/*   Updated: 2023/07/06 06:52:43 by seokjyan         ###   ########.fr       */
+/*   Updated: 2023/07/17 23:57:19 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*stat_cut(char *buf_stat, int i)
 {
@@ -92,7 +92,7 @@ char	*get_next_line(int fd)
 	static char	*buf_stat[OPEN_MAX];
 	int			i;
 
-	if (BUFFER_SIZE <= 0)
+	if (BUFFER_SIZE <= 0 && BUFFER_SIZE > 9223372036854775807)
 		return (NULL);
 	if (ft_strchr(buf_stat[fd], '\n') == NULL)
 		buf_stat[fd] = buf_memory_allocation(fd, buf_stat[fd]);
@@ -108,4 +108,3 @@ char	*get_next_line(int fd)
 		buf_stat[fd] = stat_cut(buf_stat[fd], i);
 	return (cut_line);
 }
-

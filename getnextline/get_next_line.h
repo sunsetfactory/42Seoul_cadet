@@ -6,7 +6,7 @@
 /*   By: seokjyan <seokjyan@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 10:03:03 by seokjyan          #+#    #+#             */
-/*   Updated: 2023/07/18 17:12:14 by seokjyan         ###   ########.fr       */
+/*   Updated: 2023/07/19 01:16:24 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,28 +15,30 @@
 
 # include <stdlib.h>
 # include <unistd.h>
-# include <limits.h>
 
 typedef struct s_storage
 {
 	char	*content;
-	ssize_t	size;
+	int		err;
 }	t_storage;
-
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 1024
 # endif
 
+# ifndef OEPN_MAX
+#  define OEPN_MAX 10240
+# endif
+
 char	*get_next_line(int fd);
-char	*buf_memory_allocation(int fd, char *buf_stat);
-char	*line_get(char *buf_stat, int *i);
-char	*stat_cut(char *buf_stat, int i);
+char	*buf_memory_allocation(int fd, t_storage *buf_stat);
+char	*line_get(t_storage *buf_stat, int *i);
+char	*stat_cut(t_storage *buf_stat, int i);
 
 size_t	ft_strlen(const char *s);
 char	*ft_strdup(const char *s1);
 void	*ft_memcpy(void *dst, const void *src, size_t n);
 char	*ft_strjoin(char const	*s1, char const	*s2);
-char	*ft_strchr(const char *s, int c, int *size);
+char	*ft_strchr(const char *s, int c);
 
 #endif

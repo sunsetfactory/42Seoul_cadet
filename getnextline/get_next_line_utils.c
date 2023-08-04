@@ -6,7 +6,7 @@
 /*   By: seokjyan <seokjyan@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/15 10:03:07 by seokjyan          #+#    #+#             */
-/*   Updated: 2023/07/18 17:13:18 by seokjyan         ###   ########.fr       */
+/*   Updated: 2023/07/18 18:05:31 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,20 +76,13 @@ char	*ft_strjoin(char const	*s1, char const	*s2)
 	return (res);
 }
 
-char	*ft_strchr(const char *s, int c, int *size)
+char	*ft_strchr(const char *s, int c)
 {
-	int	i;
-
-	i = 0;
 	if (s == NULL)
 		return (NULL);
 	while (*s && *s != (char)c)
-	{
 		s++;
-		i++;
-	}
 	if (*s == '\0' && (char)c != '\0')
 		return (NULL);
-	*size += i;
 	return ((char *)s);
 }
