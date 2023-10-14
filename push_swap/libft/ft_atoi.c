@@ -1,0 +1,54 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: seokjyan <seokjyan@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/03/20 10:40:30 by seokjyan          #+#    #+#             */
+/*   Updated: 2023/04/05 17:39:35 by seokjyan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "libft.h"
+
+static int	ft_isspace(char *str)
+{
+	return ((*str >= 9 && *str <= 13) || *str == 32);
+}
+
+static int	help_atoi(char *str, long long *c)
+{
+	char	*tmp;
+
+	tmp = str;
+	while (ft_isspace(tmp))
+	{
+		tmp++;
+	}
+	if (*tmp == '+' || *tmp == '-')
+	{
+		if (*tmp == '-')
+			*c = -*c;
+		tmp++;
+	}
+	return (tmp - str);
+}
+
+long long	ft_atoi(const char *str)
+{
+	char		*cp_str;
+	long long	res;
+	long long	c;
+
+	res = 0;
+	c = 1;
+	cp_str = (char *)str;
+	cp_str += help_atoi(cp_str, &c);
+	while ((*cp_str >= '0' && *cp_str <= '9'))
+	{
+		res = res * 10 + (*cp_str - '0');
+		cp_str++;
+	}
+	return (c * res);
+}
