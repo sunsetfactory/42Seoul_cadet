@@ -25,7 +25,6 @@ char	*ft_strjoin(char const	*s1, char const	*s2)
 		return (NULL);
 	ft_memcpy(res, s1, s1_len);
 	ft_memcpy(res + s1_len, s2, s2_len);
-
 	res[s1_len + s2_len] = 0;
 	return (res);
 }

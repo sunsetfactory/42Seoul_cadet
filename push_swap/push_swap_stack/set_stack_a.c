@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_stack_a.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seokjyan <seokjyan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: seokjyan <seokjyan@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 14:33:47 by seokjyan          #+#    #+#             */
-/*   Updated: 2023/10/11 14:40:52 by seokjyan         ###   ########.fr       */
+/*   Updated: 2023/10/14 17:57:44 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ t_stack	*set_reserve_node(t_stack *new)
 	}
 	return (new);
 }
+
 t_stack	*create_node(void)
 {
 	t_stack	*x;

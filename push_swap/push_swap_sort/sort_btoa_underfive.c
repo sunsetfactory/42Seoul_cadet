@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sort_btoa_underfive.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seokjyan <seokjyan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: seokjyan <seokjyan@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 16:48:16 by seokjyan          #+#    #+#             */
-/*   Updated: 2023/10/13 16:54:45 by seokjyan         ###   ########.fr       */
+/*   Updated: 2023/10/14 17:59:14 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ t_info	sort_btoa_underfive_rrb(t_info info, int len)
 
 	i = len;
 	stack_len = get_stacklen(info.b);
-	// mid = get_mid_from_end(info.b, len, info);
 	mid = get_mid_from_end(info.b, len);
 	while (stack_len == len && i--)
 	{

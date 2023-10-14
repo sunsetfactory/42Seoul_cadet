@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   push_swap.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: seokjyan <seokjyan@student.42seoul.kr>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/14 17:55:36 by seokjyan          #+#    #+#             */
+/*   Updated: 2023/10/14 17:56:49 by seokjyan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
@@ -26,9 +38,9 @@ typedef struct s_info
 
 // error
 // err_check.c
-int	err_check(int argc, char **argv);
+int		err_check(int argc, char **argv);
 // err_print.c
-int	print_error(void);
+int		print_error(void);
 
 // free
 // free.c
@@ -86,8 +98,7 @@ t_info	sort_btoa_two(t_info info);
 // src
 // main.c
 // push_swap.c
-int	push_swap(int argc, char **argv);
-
+int		push_swap(int argc, char **argv);
 
 // stack
 // set_stack_a.c
@@ -103,14 +114,14 @@ t_stack	*find_tail(t_stack *x);
 t_info	init_info(void);
 // utils_sort_quick.c
 void	pill_arr(int *arr, t_stack *x, int len);
-int	find_overmid(t_stack *stk, int len, int mid);
-int	find_undermid(t_stack *stk, int len, int mid);
-int	is_sorted(t_stack *x);
+int		find_overmid(t_stack *stk, int len, int mid);
+int		find_undermid(t_stack *stk, int len, int mid);
+int		is_sorted(t_stack *x);
 // utils_sort_xtox.c
-int	get_mid_from_end(t_stack *b, int len);
-int	get_mid(t_stack *x, int len, t_info info);
-int	get_min(t_stack *x, int len);
-int	get_max(t_stack *x, int len);
-int	get_stacklen(t_stack *x);
+int		get_mid_from_end(t_stack *b, int len);
+int		get_mid(t_stack *x, int len, t_info info);
+int		get_min(t_stack *x, int len);
+int		get_max(t_stack *x, int len);
+int		get_stacklen(t_stack *x);
 
 #endif

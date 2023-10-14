@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   err_check.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seokjyan <seokjyan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: seokjyan <seokjyan@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 14:07:28 by seokjyan          #+#    #+#             */
-/*   Updated: 2023/10/11 14:29:35 by seokjyan         ###   ########.fr       */
+/*   Updated: 2023/10/14 17:58:10 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,6 @@ int	err_is_duplicate(int argc, char **argv)
 	free(arr);
 	return (0);
 }
-
 
 int	err_check(int argc, char **argv)
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_sort_xtox.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seokjyan <seokjyan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: seokjyan <seokjyan@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/13 18:07:20 by seokjyan          #+#    #+#             */
-/*   Updated: 2023/10/13 18:23:46 by seokjyan         ###   ########.fr       */
+/*   Updated: 2023/10/14 17:59:33 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ int	get_mid(t_stack *x, int len, t_info info)
 	return (mid);
 }
 
-// int	get_mid_from_end(t_stack *b, int len, t_info info)
 int	get_mid_from_end(t_stack *b, int len)
 {
 	int		*arr;
@@ -96,7 +95,6 @@ int	get_mid_from_end(t_stack *b, int len)
 		arr = (int *)malloc(sizeof(int) * len);
 		if (!arr)
 		{
-			// all_free(info);
 			print_error();
 			exit (1);
 		}

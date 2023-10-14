@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   sort_atob_input_basic.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seokjyan <seokjyan@student.42.fr>          +#+  +:+       +#+        */
+/*   By: seokjyan <seokjyan@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 17:33:35 by seokjyan          #+#    #+#             */
-/*   Updated: 2023/10/11 17:41:35 by seokjyan         ###   ########.fr       */
+/*   Updated: 2023/10/14 17:58:21 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../push_swap.h"
 
-t_info sort_atob_input_three(t_info info)
+t_info	sort_atob_input_three(t_info info)
 {
 	int	mid;
 
