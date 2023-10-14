@@ -1,21 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_front.c                                  :+:      :+:    :+:   */
+/*   ft_striteri.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daelee <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: seokjyan <seokjyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/08 11:11:28 by daelee            #+#    #+#             */
-/*   Updated: 2020/04/09 10:24:29 by daelee           ###   ########.fr       */
+/*   Created: 2023/03/31 14:00:07 by seokjyan          #+#    #+#             */
+/*   Updated: 2023/03/31 14:00:33 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstadd_front(t_list **lst, t_list *new)
+void	ft_striteri(char *s, void (*f)(unsigned int, char*))
 {
-	if (lst == NULL || new == NULL)
-		return ;
-	new->next = *lst;
-	*lst = new;
+	int	len;
+	int	i;
+
+	len = ft_strlen(s);
+	i = 0;
+	while (i < len)
+	{
+		f(i, (s + i));
+		i++;
+	}
 }

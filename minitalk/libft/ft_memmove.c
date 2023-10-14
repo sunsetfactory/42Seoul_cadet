@@ -3,35 +3,48 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memmove.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daelee <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: seokjyan <seokjyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/28 12:19:43 by daelee            #+#    #+#             */
-/*   Updated: 2020/04/09 11:39:16 by daelee           ###   ########.fr       */
+/*   Created: 2023/03/20 10:40:50 by seokjyan          #+#    #+#             */
+/*   Updated: 2023/04/02 18:10:56 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void					*ft_memmove(void *dest, const void *src, size_t n)
+static void	*ft_movehelp(unsigned char *dst, unsigned char *src, size_t n)
 {
-	unsigned char		*new_dest;
-	unsigned char		*new_src;
+	size_t	i;
 
-	if (dest == src || n == 0)
-		return (dest);
-	if (dest < src)
+	i = 0;
+	while (i < n)
 	{
-		new_dest = (unsigned char *)dest;
-		new_src = (unsigned char *)src;
-		while (n--)
-			*new_dest++ = *new_src++;
+		*(dst + i) = *(src + i);
+		i++;
 	}
+	return (dst);
+}
+
+void	*ft_memmove(void *dst, const void *src, size_t len)
+{
+	unsigned char	*tmp_dst;
+	unsigned char	*tmp_src;
+	size_t			i;
+
+	if (!dst && !src)
+		return (0);
+	tmp_dst = (unsigned char *)dst;
+	tmp_src = (unsigned char *)src;
+	if (tmp_dst < tmp_src)
+		ft_movehelp(tmp_dst, tmp_src, len);
 	else
 	{
-		new_dest = (unsigned char *)dest + (n - 1);
-		new_src = (unsigned char *)src + (n - 1);
-		while (n--)
-			*new_dest-- = *new_src--;
+		i = 0;
+		while (i < len)
+		{
+			*(tmp_dst + len - i - 1) = *(tmp_src + len - i - 1);
+			i++;
+		}
 	}
-	return (dest);
+	return ((void *)dst);
 }

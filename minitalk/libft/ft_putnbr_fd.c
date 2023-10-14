@@ -3,35 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daelee <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: seokjyan <seokjyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/06 16:25:11 by daelee            #+#    #+#             */
-/*   Updated: 2020/04/09 10:59:24 by daelee           ###   ########.fr       */
+/*   Created: 2023/03/31 13:58:30 by seokjyan          #+#    #+#             */
+/*   Updated: 2023/03/31 13:58:37 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	display_nbr(int n, int fd)
-{
-	if (n >= 10)
-		display_nbr(n / 10, fd);
-	write(fd, &"0123456789"[n % 10], 1);
-}
-
 void	ft_putnbr_fd(int n, int fd)
 {
-	if (fd < 0)
-		return ;
 	if (n == -2147483648)
 	{
-		write(fd, "-2147483648", 11);
-		return ;
+		ft_putchar_fd('-', fd);
+		ft_putchar_fd('2', fd);
+		n = 147483648;
 	}
 	if (n < 0)
 	{
-		write(fd, "-", 1);
+		ft_putchar_fd('-', fd);
 		n *= -1;
 	}
-	display_nbr(n, fd);
+	if (n >= 10)
+	{
+		ft_putnbr_fd(n / 10, fd);
+		ft_putnbr_fd(n % 10, fd);
+	}
+	else
+	{
+		ft_putchar_fd('0' + n, fd);
+	}
 }

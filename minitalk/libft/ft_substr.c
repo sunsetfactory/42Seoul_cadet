@@ -3,29 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   ft_substr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: seokjyan <seokjyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/02 13:07:04 by daelee            #+#    #+#             */
-/*   Updated: 2021/01/03 10:33:24 by daelee           ###   ########.fr       */
+/*   Created: 2023/03/21 16:23:41 by seokjyan          #+#    #+#             */
+/*   Updated: 2023/04/06 22:06:34 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char		*ft_substr(char const *s, unsigned int start, size_t len)
+char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	char	*substr;
-	size_t	new_len;
+	unsigned int	i;
+	char			*sub;
+	size_t			s_len;
+	size_t			size;
 
-	if (s == NULL)
-		return (NULL);
-	if ((unsigned int)ft_strlen(s) < start)
-		return (ft_strdup(""));
-	new_len = ft_strlen(s + start);
-	if (new_len < len)
-		len = new_len;
-	if (!(substr = (char *)malloc(sizeof(char) * (len + 1))))
-		return (NULL);
-	ft_strlcpy(substr, s + start, len + 1);
-	return (substr);
+	s_len = ft_strlen(s);
+	size = len;
+	if (s_len < start)
+		size = 0;
+	else if (s_len - start < len)
+		size = s_len - start;
+	sub = (char *)malloc(size + 1);
+	if (!sub)
+		return (0);
+	i = 0;
+	while (s_len >= start && i < len && *(s + i + start))
+	{
+		*(sub + i) = *(s + i + start);
+		i++;
+	}
+	*(sub + i) = 0;
+	return (sub);
 }

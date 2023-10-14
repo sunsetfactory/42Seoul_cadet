@@ -3,47 +3,52 @@
 /*                                                        :::      ::::::::   */
 /*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daelee <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: seokjyan <seokjyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/01 14:08:11 by daelee            #+#    #+#             */
-/*   Updated: 2020/04/09 18:10:16 by daelee           ###   ########.fr       */
+/*   Created: 2023/03/20 10:40:30 by seokjyan          #+#    #+#             */
+/*   Updated: 2023/04/05 17:39:35 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int			ft_isspace(char c)
+static int	ft_isspace(char *str)
 {
-	if (c == ' ' || c == '\n' || c == '\t' ||
-			c == '\v' || c == '\f' || c == '\r')
-		return (1);
-	else
-		return (0);
+	return ((*str >= 9 && *str <= 13) || *str == 32);
 }
 
-int			ft_atoi(const char *str)
+static int	help_atoi(char *str, int *c)
 {
-	long	nbr;
-	long	sign;
-	size_t	i;
+	char	*tmp;
 
-	nbr = 0;
-	sign = 1;
-	i = 0;
-	while ((str[i] != '\0') && ft_isspace(str[i]) == 1)
-		i++;
-	if (str[i] == '-')
-		sign = -1;
-	if ((str[i] == '-') || (str[i] == '+'))
-		i++;
-	while ((str[i] != '\0') && ('0' <= str[i]) && (str[i] <= '9'))
+	tmp = str;
+	while (ft_isspace(tmp))
 	{
-		nbr = (nbr * 10) + (str[i] - '0');
-		if (nbr > 2147483647 && sign == 1)
-			return (-1);
-		if (nbr > 2147483648 && sign == -1)
-			return (0);
-		i++;
+		tmp++;
 	}
-	return (sign * nbr);
+	if (*tmp == '+' || *tmp == '-')
+	{
+		if (*tmp == '-')
+			*c = -*c;
+		tmp++;
+	}
+	return (tmp - str);
+}
+
+int	ft_atoi(const char *str)
+{
+	char	*cp_str;
+	int		res;
+	int		c;
+
+	res = 0;
+	c = 1;
+	cp_str = (char *)str;
+	cp_str += help_atoi(cp_str, &c);
+	while ((*cp_str >= '0' && *cp_str <= '9'))
+	{
+		res = res * 10 + (*cp_str - '0');
+		cp_str++;
+	}
+	return (c * res);
 }

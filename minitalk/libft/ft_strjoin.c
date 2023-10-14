@@ -3,30 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daelee <daelee@student.42seoul.kr>         +#+  +:+       +#+        */
+/*   By: seokjyan <seokjyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/02 21:05:35 by daelee            #+#    #+#             */
-/*   Updated: 2021/01/02 23:34:56 by daelee           ###   ########.fr       */
+/*   Created: 2023/03/21 16:51:38 by seokjyan          #+#    #+#             */
+/*   Updated: 2023/03/22 12:40:21 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include"libft.h"
 
-char		*ft_strjoin(char *s1, char *s2)
+char	*ft_strjoin(char const	*s1, char const	*s2)
 {
-	char	*newstr;
-	int		s1_len;
-	int		s2_len;
+	size_t	s1_len;
+	size_t	s2_len;
+	char	*res;
 
-	if (!(s1) && !(s2))
+	if (!s1 || !s2)
 		return (NULL);
-	else if (!(s1) || !(s2))
-		return (!(s1) ? ft_strdup(s2) : ft_strdup(s1));
 	s1_len = ft_strlen(s1);
 	s2_len = ft_strlen(s2);
-	if (!(newstr = (char *)malloc(sizeof(char) * (s1_len + s2_len + 1))))
+	res = (char *)malloc(sizeof(char) * (s1_len + s2_len + 1));
+	if (!res)
 		return (NULL);
-	ft_strlcpy(newstr, s1, s1_len + 1);
-	ft_strlcat(newstr + (s1_len), s2, s2_len + 1);
-	return (newstr);
+	ft_memcpy(res, s1, s1_len);
+	ft_memcpy(res + s1_len, s2, s2_len);
+	res[s1_len + s2_len] = 0;
+	return (res);
 }

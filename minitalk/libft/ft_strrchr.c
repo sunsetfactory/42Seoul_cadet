@@ -1,33 +1,33 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_strrchr.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: daelee <marvin@42.fr>                      +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/28 22:33:22 by daelee            #+#    #+#             */
-/*   Updated: 2020/04/09 11:23:08 by daelee           ###   ########.fr       */
-/*                                                                            */
+/**/
+/*:::  ::::::::   */
+/*   ft_strrchr.c   :+:  :+::+:   */
+/*+:+ +:+ +:+ */
+/*   By: seokjyan <seokjyan@student.42.fr>  +#+  +:+   +#+*/
+/*+#+#+#+#+#+   +#+   */
+/*   Created: 2023/03/20 10:41:05 by seokjyan  #+##+# */
+/*   Updated: 2023/03/20 13:55:54 by seokjyan ###   ########.fr   */
+/**/
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char			*ft_strrchr(const char *s, int c)
+char	*ft_strrchr(const char *s, int c)
 {
-	char		*last;
-	char		find;
-	size_t		i;
+	char	*pos;
 
-	last = (char *)s;
-	find = (char)c;
-	i = ft_strlen(s);
-	while (i > 0)
+	pos = 0;
+	if ((char)c == '\0')
 	{
-		if (last[i] == find)
-			return (last + i);
-		i--;
+		while (*s)
+			s++;
+		pos = (char *)s;
 	}
-	if (last[i] == find)
-		return (last);
-	return (0);
+	while (*s)
+	{
+		if (*s == (char)c)
+			pos = (char *)s;
+		s++;
+	}
+	return (pos);
 }

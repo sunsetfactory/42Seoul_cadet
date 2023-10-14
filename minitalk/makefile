@@ -3,47 +3,71 @@
 #                                                         :::      ::::::::    #
 #    makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: seokjyan <seokjyan@student.42.fr>          +#+  +:+       +#+         #
+#    By: seokjyan <seokjyan@student.42seoul.kr>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/15 02:00:06 by seokjyan          #+#    #+#              #
-#    Updated: 2023/10/15 02:02:08 by seokjyan         ###   ########.fr        #
+#    Updated: 2023/10/15 04:52:03 by seokjyan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SERVER = server
-
-CLIENT = client
-
-CC = gcc -Wall -Werror -Wextra
+CC = cc
+CFLAG = -Wall -Wextra -Werror
 
 RM = rm -rf
 
-LIBFT = libft.a
+NAME=server
+NAME2=client
 
-LIB_DIR = ./libft/
+NAME_BONUS = server_bonus
+NAME_BONUS2 = client_bonus
 
+LIBFT_DIR=./libft/
+LIBFT=libft.a
 
-all : $(LIBFT) $(SERVER) $(CLIENT)
+SRCS = server.c
+SRCS2 = client.c
+SRCS_BONUS = server_bonus.c
+SRCS_BONUS2 = client_bonus.c
+
+OBJS = $(SRCS:%.c=%.o)
+OBJS2 = $(SRCS2:%.c=%.o)
+OBJS_BONUS = $(SRCS_BONUS:%_bonus.c=%.o)
+OBJS_BONUS2 = $(SRCS_BONUS2:%_bonus.c=%.o)
+
+all: $(LIBFT) $(NAME) $(NAME2)
+
+$(NAME): $(OBJS)
+	$(CC) $(CFLAG) $(OBJS) $(LIBFT) -o $(NAME)
+
+$(NAME2): $(OBJS2)
+	$(CC) $(CFLAG) $(OBJS2) $(LIBFT) -o $(NAME2)
+
+bonus: $(NAME_BONUS) $(NAME_BONUS2)
+
+$(NAME_BONUS): $(OBJS_BONUS)
+	$(CC) $(CFLAG) $(OBJS_BONUS) $(LIBFT) -o $(NAME_BONUS)
+
+$(NAME_BONUS2): $(OBJS_BONUS2)
+	$(CC) $(CFLAG) $(OBJS_BONUS2) $(LIBFT) -o $(NAME_BONUS2)
 
 $(LIBFT) :
-	$(MAKE) -C $(LIB_DIR)
+	make -C $(LIBFT_DIR)
+	make clean -C $(LIBFT_DIR)
+	mv $(LIBFT_DIR)$(LIBFT) .
 
-$(SERVER) : 
-	$(CC) server.c -o $@ -L$(LIB_DIR) -lft
+clean:
+	$(RM) $(OBJS)
+	$(RM) $(OBJS2)
+	$(RM) $(OBJS_BONUS)
+	$(RM) $(OBJS_BONUS2)
 
-$(CLIENT) : 
-	$(CC) client.c -o $@ -L$(LIB_DIR) -lft
+fclean: clean
+	$(RM) $(LIBFT)
+	$(RM) $(NAME)
+	$(RM) $(NAME2)
+	$(RM) $(NAME_BONUS)
+	$(RM) $(NAME_BONUS2)
 
-clean :
-	$(MAKE) clean -C $(LIB_DIR)
-	$(RM) *.o
+re: fclean all
 
-fclean : clean
-	$(MAKE) fclean -C $(LIB_DIR)
-	$(RM) $(SERVER) $(CLIENT)
-	
-re : 
-	make fclean 
-	make all
-
-.PHONY : all clean fclean re
+.PHONY: all clean fclean re

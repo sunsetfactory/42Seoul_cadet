@@ -3,34 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstmap.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daelee <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: seokjyan <seokjyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/09 00:14:56 by daelee            #+#    #+#             */
-/*   Updated: 2020/04/09 10:29:40 by daelee           ###   ########.fr       */
+/*   Created: 2023/03/31 13:54:20 by seokjyan          #+#    #+#             */
+/*   Updated: 2023/04/06 19:16:38 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list		*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
+t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 {
-	t_list	*result;
-	t_list	*temp;
+	t_list	*map;
+	t_list	*tmp;
+	void	*maybe;
 
-	if (lst == NULL || f == NULL)
-		return (NULL);
-	result = NULL;
+	if (!lst)
+		return (0);
+	map = 0;
 	while (lst)
 	{
-		temp = ft_lstnew((*f)(lst->content));
-		if (!temp)
+		maybe = f(lst->content);
+		tmp = ft_lstnew(maybe);
+		if (!tmp)
 		{
-			ft_lstclear(&result, del);
-			return (NULL);
+			free(maybe);
+			ft_lstclear(&map, del);
+			return (0);
 		}
-		ft_lstadd_back(&result, temp);
-		temp = temp->next;
+		ft_lstadd_back(&map, tmp);
 		lst = lst->next;
 	}
-	return (result);
+	tmp->next = 0;
+	return (map);
 }

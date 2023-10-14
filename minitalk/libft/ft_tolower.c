@@ -3,23 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_tolower.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: daelee <marvin@42.fr>                      +#+  +:+       +#+        */
+/*   By: seokjyan <seokjyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/03/01 19:25:40 by daelee            #+#    #+#             */
-/*   Updated: 2020/04/09 11:42:01 by daelee           ###   ########.fr       */
+/*   Created: 2023/03/20 10:41:07 by seokjyan          #+#    #+#             */
+/*   Updated: 2023/03/22 21:11:34 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int		ft_isupper(int c)
+int	ft_tolower(int c)
 {
-	return ((65 <= c) && (90 >= c));
-}
-
-int		ft_tolower(int c)
-{
-	if (ft_isupper(c))
-		return (c + 32);
+	if (c >= 'A' && c <= 'Z')
+		c += 32;
 	return (c);
 }
