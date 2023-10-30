@@ -6,7 +6,7 @@
 /*   By: seokjyan <seokjyan@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 21:11:33 by seokjyan          #+#    #+#             */
-/*   Updated: 2023/10/26 22:27:16 by seokjyan         ###   ########.fr       */
+/*   Updated: 2023/10/30 16:32:58 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,33 @@ void	*new_window_mlx(t_info info, int x, int y, char *c)
 // xpm_file_to_image = make image data (return : identifiers or NULL)
 void	*make_image(t_info info, char *c, int *x, int *y)
 {
-	void	*c;
+	void	*res;
 
-	c = mlx_xpm_file_to_image(info.mlx, c, x, y);
-	if (!c)
+	res = mlx_xpm_file_to_image(info.mlx, c, x, y);
+	if (!res)
 		exit(1);
-	return (c);
+	return (res);
+}
+// mlx_put_image_to_window = 
+
+int	init(t_info *info)
+{
+	info->map.ball = mlx_xpm_file_to_image(info->mlx, BALL_XPM, \
+											&info->img_x, &info->img_y);
+	info->map.tile = mlx_xpm_file_to_image(info->mlx, TILE_XPM, \
+											&info->img_x, &info->img_y);
+	info->map.wall = mlx_xpm_file_to_image(info->mlx, GOJIJI_XPM, \
+											&info->img_x, &info->img_y);
+	info->map.jiu = mlx_xpm_file_to_image(info->mlx, JIU_XPM, \
+											&info->img_x, &info->img_y);
+	return (1);
+}
+
+int	make_map(t_info *info)
+{
+	mlx_put_image_to_window(info->mlx, info->win, info->map.ball, 0, 0);
+	mlx_put_image_to_window(info->mlx, info->win, info->map.tile, 64, 0);
+	mlx_put_image_to_window(info->mlx, info->win, info->map.wall, 128, 0);
+	mlx_put_image_to_window(info->mlx, info->win, info->map.jiu, 0, 64);
+	return (1);
 }
