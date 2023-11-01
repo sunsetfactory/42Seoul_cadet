@@ -6,7 +6,7 @@
 /*   By: seokjyan <seokjyan@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 21:11:33 by seokjyan          #+#    #+#             */
-/*   Updated: 2023/10/30 16:32:58 by seokjyan         ###   ########.fr       */
+/*   Updated: 2023/11/01 16:04:42 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,14 +56,20 @@ int	init(t_info *info)
 											&info->img_x, &info->img_y);
 	info->map.jiu = mlx_xpm_file_to_image(info->mlx, JIU_XPM, \
 											&info->img_x, &info->img_y);
+	if (!info->map.ball || !info->map.tile || !info->map.wall || !info->map.jiu)
+		return (-1);
 	return (1);
 }
 
 int	make_map(t_info *info)
 {
-	mlx_put_image_to_window(info->mlx, info->win, info->map.ball, 0, 0);
-	mlx_put_image_to_window(info->mlx, info->win, info->map.tile, 64, 0);
-	mlx_put_image_to_window(info->mlx, info->win, info->map.wall, 128, 0);
-	mlx_put_image_to_window(info->mlx, info->win, info->map.jiu, 0, 64);
+	if (!mlx_put_image_to_window(info->mlx, info->win, info->map.ball, 0, 0))
+		return (-1);
+	if (!mlx_put_image_to_window(info->mlx, info->win, info->map.tile, 64, 0))
+		return (-1);
+	if (!mlx_put_image_to_window(info->mlx, info->win, info->map.wall, 128, 0))
+		return (-1);
+	if (!mlx_put_image_to_window(info->mlx, info->win, info->map.jiu, 0, 64))
+		return (-1);
 	return (1);
 }

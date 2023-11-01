@@ -6,7 +6,7 @@
 /*   By: seokjyan <seokjyan@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 00:57:41 by seokjyan          #+#    #+#             */
-/*   Updated: 2023/10/30 16:34:21 by seokjyan         ###   ########.fr       */
+/*   Updated: 2023/11/01 16:05:18 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,10 @@ int	main(void)
 {
 	t_info		info;
 
-	// info.mlx = mlx_init();
-	// info.win = mlx_new_window(info.mlx, 500, 500, "so_long");
-	// info.map.ball = mlx_xpm_file_to_image(info.mlx, BALL_XPM, &info.img_x, &info.img_y);
-	// mlx_put_image_to_window(info.mlx, info.win, info.map.ball, 64, 64);
-	// mlx_loop(info.mlx);
 	info.mlx = init_mlx();
 	info.win = new_window_mlx(info, 1000, 1000, "DrawMap");
-	printf("init comple %d\n", init(&info));
+	if (init(&info) == -1)
+		return (0);
 	printf("map comple %d\n", make_map(&info));
 	info.c = make_image(info, PIKA_XPM, &info.img_x, &info.img_y);
 	info.play_x = 0;
