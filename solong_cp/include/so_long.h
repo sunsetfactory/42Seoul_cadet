@@ -11,11 +11,11 @@
 
 # define FILE_NAME_EXTENSION ".ber"
 # define TILE_SIZE 64
-# define IMG_PATH "/Users/jinglee/42/jinglee/asset/"
-# define IMG_PATH_WALL "/Users/jinglee/42/jinglee/asset/wall/"
-# define IMG_PATH_PLAYER "/Users/jinglee/42/jinglee/asset/player/"
-# define IMG_PATH_EXIT "/Users/jinglee/42/jinglee/asset/exit/"
-# define IMG_PATH_ENEMY "/Users/jinglee/42/jinglee/asset/enemy/"
+# define IMG_PATH "../asset/"
+# define IMG_PATH_WALL "../asset/wall/"
+# define IMG_PATH_PLAYER "../asset/player/"
+# define IMG_PATH_EXIT "../asset/exit/"
+# define IMG_PATH_ENEMY "../asset/enemy/"
 
 // version
 # define MANDATORY	0
