@@ -6,7 +6,7 @@
 /*   By: seokjyan <seokjyan@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 17:59:26 by seokjyan          #+#    #+#             */
-/*   Updated: 2023/11/01 18:06:00 by seokjyan         ###   ########.fr       */
+/*   Updated: 2023/11/03 17:25:32 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,20 @@
 # include "../lib_42/gnl/get_next_line.h"
 # include "../minilibx_opengl/mlx.h"
 
+# define FILE_NAME_EXTENSION ".ber"
+# define TILE_SIZE 64
+# define IMG_PATH "../asset/"
+
+// state (game, player, exit)
+# define PLAYING	1
+# define END		0
+
+# define STANDING	1
+# define WALKING	2
+
+# define OPEN		0
+# define CLOSE		1
+# define OPENING	2
 
 typedef struct s_map
 {
@@ -42,20 +56,10 @@ typedef struct s_img
 	void	*tile;
 	void	*step_bg;
 	void	*wall_box;
-	void	*wall_n;
-	void	*wall_nw;
-	void	*wall_ne;
-	void	*wall_s;
-	void	*wall_sw;
-	void	*wall_se;
-	void	*wall_w;
-	void	*wall_e;
-	void	*sprite_r[6];
-	void	*sprite_l[6];
-	void	*enemy_r[4];
-	void	*enemy_l[4];
+	void	*sprite_r;
+	void	*sprite_l;
 	void	*collec;
-	void	*exit[6];
+	void	*exit;
 
 }	t_img;
 
@@ -82,23 +86,61 @@ typedef struct s_player
 	int		pixel_y;
 	int		col1;
 	int		col2;
-	int		row1;	
+	int		row1;
 	int		row2;
 	int		move_cnt;
 	void	**chosen_img;
 }	t_player;
 
+typedef struct s_num
+{
+	int		player;
+	int		collec;
+	int		exit;
+}	t_num;
+
 typedef struct s_game
 {
 	void		*mlx;
 	void		*win;
+	int			state;
 	t_player	player;
 	t_collec	**collec;
 	t_exit		exit;
+	t_num		num;
 	t_map		map;
 	t_img		img;
 	int			step;
 	int			version;
 }	t_game;
+
+// check_compone.c
+void	check_compo(t_game *game);
+
+// check_file.c
+void	check_filename(t_game *game, char *filename);
+
+// check_map.c
+void	check_map(t_game *game, char *map_name);
+
+// free.c
+void	free_map_data(t_game *game);
+void	free_collec_list(t_game *game);
+
+//init_game_etc.c
+void	init_game_etc(t_game *game);
+
+// init_game.c
+void	init_game_num(t_game *game);
+void	init_game_malloc_ptr(t_game *game);
+
+// make_collec.c
+void	make_collec_list(t_game *game);
+
+// make_map.c
+void	make_map(t_game *game, char *map_name);
+
+// utils.c
+int		ft_open_file(t_game *game, char *map_name);
 
 #endif

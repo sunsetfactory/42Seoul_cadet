@@ -6,42 +6,18 @@
 /*   By: seokjyan <seokjyan@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 16:40:55 by seokjyan          #+#    #+#             */
-/*   Updated: 2023/11/01 18:07:22 by seokjyan         ###   ########.fr       */
+/*   Updated: 2023/11/03 17:24:47 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
 
-void	free_map_data(t_game *game)
+void	draw_all(t_game *game)
 {
-	int	i;
-
-	i = 0;
-	if (game->map.data)
-	{
-		while (i < game->map.row)
-		{
-			free(game->map.data[i]);
-			i++;
-		}
-		free(game->map.data);
-	}
-}
-
-void	free_collec_list(t_game *game)
-{
-	int	i;
-
-	i = 0;
-	if (game->collec)
-	{
-		while (game->collec[i])
-		{
-			free(game->collec[i]);
-			i++;
-		}
-		free(game->collec);
-	}
+	draw_wall(game);
+	draw_tile(game);
+	draw_compo(game);
+	draw_player(game);
 }
 
 void	error_exit(t_game *game, char *msg)
@@ -56,14 +32,6 @@ void	error_exit(t_game *game, char *msg)
 	exit(1);
 }
 
-void	init_game_malloc_ptr(t_game *game)
-{
-	game->collec = NULL;
-	game->map.data = NULL;
-	game->mlx = NULL;
-	game->win = NULL;
-}
-
 int	main(int argc, char **argv)
 {
 	t_game	game;
@@ -71,5 +39,10 @@ int	main(int argc, char **argv)
 	init_game_malloc_ptr(&game);
 	if (argc != 2)
 		error_exit(&game, "Usage : ./so_long map/<map_name.ber>\n");
+	check_filename(&game, argv[1]);
+	check_map(&game, argv[1]);
+	check_compo(&game);
+	init_game_etc(&game);
+	draw_all(&game);
 	return (0);
 }
