@@ -2,6 +2,7 @@
 	"files.associations": {
 		"libft.h": "c",
 		"so_long.h": "c",
-		"ratio": "c"
+		"ratio": "c",
+		"fcntl.h": "c"
 	}
 }

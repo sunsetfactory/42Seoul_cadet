@@ -6,7 +6,7 @@
 /*   By: seokjyan <seokjyan@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 17:59:26 by seokjyan          #+#    #+#             */
-/*   Updated: 2023/11/03 18:47:06 by seokjyan         ###   ########.fr       */
+/*   Updated: 2023/11/03 19:20:01 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,20 @@
 # define OPEN		0
 # define CLOSE		1
 # define OPENING	2
+
+
+// key
+# define X_EVENT_KEY_PRESS	2
+# define KEY_ESC 	53
+# define KEY_W 		13 
+# define KEY_A 		0
+# define KEY_S 		1
+# define KEY_D 		2
+# define KEY_UP		126
+# define KEY_LEFT	123
+# define KEY_DOWN	125
+# define KEY_RIGHT	124
+
 
 typedef struct s_map
 {
