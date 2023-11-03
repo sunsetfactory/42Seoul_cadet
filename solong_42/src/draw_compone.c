@@ -1,0 +1,101 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   draw_compone.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: seokjyan <seokjyan@student.42seoul.kr>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/11/03 17:36:24 by seokjyan          #+#    #+#             */
+/*   Updated: 2023/11/03 18:07:18 by seokjyan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../include/so_long.h"
+
+void	draw_player(t_game *game)
+{
+	int		x;
+	int		y;
+	int		m_cnt;
+	void	**img;
+
+	x = game->player.pixel_x;
+	y = game->player.pixel_y;
+	m_cnt = game->player.move_cnt;
+	img = game->player.chosen_img;
+	if (m_cnt >= 0 && m_cnt <= 2)
+		put_img(game, img[0], x, y);
+	else if (m_cnt >= 3 && m_cnt <= 5)
+		put_img(game, img[1], x, y);
+	else if (m_cnt >= 6 && m_cnt <= 8)
+		put_img(game, img[2], x, y);
+	else if (m_cnt >= 9 && m_cnt <= 11)
+		put_img(game, img[3], x, y);
+	else if (m_cnt >= 13 && m_cnt <= 15)
+		put_img(game, img[4], x, y);
+}
+
+static void	draw_exit(t_game *game)
+{
+	int	x;
+	int	y;
+	int	m_cnt;
+
+	m_cnt = game->exit.move_cnt;
+	x = game->exit.col * TILE_SIZE;
+	y = game->exit.row * TILE_SIZE;
+	put_img(game, game->img.exit, x, y);
+	if (game->exit.state == OPEN)
+		put_img(game, game->img.exit, x, y);
+	else if (game->exit.state == CLOSE)
+		put_img(game, game->img.exit, x, y);
+	else if (game->exit.state == OPENING) // 수정 필요
+		draw_exit_opening(game, m_cnt, x, y);
+}
+
+static void	draw_collec(t_game *game)
+{
+	int	i;
+	int	x;
+	int	y;
+
+	i = -1;
+	if (game->collec)
+	{
+		while (game->collec[++i])
+		{
+			if (game->collec[i]->get == 0)
+			{
+				x = game->collec[i]->col * TILE_SIZE;
+				y = game->collec[i]->row * TILE_SIZE;
+				put_img(game, game->img.collec, x, y);
+			}
+		}
+	}
+}
+
+void	draw_compo(t_game *game)
+{
+	draw_collec(game);
+	draw_exit(&game);
+}
+
+void	draw_tile(t_game *game)
+{
+	int	r;
+	int	c;
+
+	r = 0;
+	c = 0;
+	while (r < game->map.row)
+	{
+		c = 0;
+		while (c < game->map.col)
+		{
+			if (game->map.data[r][c] != '1')
+				put_img(game, game->img.tile, c * TILE_SIZE, r * TILE_SIZE);
+			c++;
+		}
+		r++;
+	}
+}

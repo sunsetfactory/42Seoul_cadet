@@ -6,7 +6,7 @@
 /*   By: seokjyan <seokjyan@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 16:40:55 by seokjyan          #+#    #+#             */
-/*   Updated: 2023/11/03 17:24:47 by seokjyan         ###   ########.fr       */
+/*   Updated: 2023/11/03 17:35:05 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	draw_all(t_game *game)
 {
-	draw_wall(game);
+	draw_wall(game); // 수정 필요
 	draw_tile(game);
 	draw_compo(game);
 	draw_player(game);

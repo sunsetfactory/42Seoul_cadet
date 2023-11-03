@@ -6,7 +6,7 @@
 /*   By: seokjyan <seokjyan@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 17:59:26 by seokjyan          #+#    #+#             */
-/*   Updated: 2023/11/03 17:25:32 by seokjyan         ###   ########.fr       */
+/*   Updated: 2023/11/03 18:05:35 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ typedef struct s_player
 	int		row1;
 	int		row2;
 	int		move_cnt;
-	void	**chosen_img;
+	void	*chosen_img;
 }	t_player;
 
 typedef struct s_num
@@ -123,6 +123,17 @@ void	check_filename(t_game *game, char *filename);
 // check_map.c
 void	check_map(t_game *game, char *map_name);
 
+// draw_map.c
+void	draw_wall(t_game *game);
+
+// draw_compone.c
+void	draw_player(t_game *game);
+void	draw_compo(t_game *game);
+void	draw_tile(t_game *game);
+
+// draw_wall.c
+void	draw_wall(t_game *game);
+
 // free.c
 void	free_map_data(t_game *game);
 void	free_collec_list(t_game *game);
@@ -139,6 +150,9 @@ void	make_collec_list(t_game *game);
 
 // make_map.c
 void	make_map(t_game *game, char *map_name);
+
+// put_image.c
+void	put_img(t_game *game, void *img, int x, int y);
 
 // utils.c
 int		ft_open_file(t_game *game, char *map_name);
