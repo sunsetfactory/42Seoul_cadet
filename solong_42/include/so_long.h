@@ -6,7 +6,7 @@
 /*   By: seokjyan <seokjyan@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 17:59:26 by seokjyan          #+#    #+#             */
-/*   Updated: 2023/11/03 18:05:35 by seokjyan         ###   ########.fr       */
+/*   Updated: 2023/11/03 18:47:06 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 
 # define FILE_NAME_EXTENSION ".ber"
 # define TILE_SIZE 64
-# define IMG_PATH "../asset/"
+# define IMG_PATH "./asset/"
 
 // state (game, player, exit)
 # define PLAYING	1
