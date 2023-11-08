@@ -6,7 +6,7 @@
 /*   By: seokjyan <seokjyan@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 16:40:55 by seokjyan          #+#    #+#             */
-/*   Updated: 2023/11/03 17:35:05 by seokjyan         ###   ########.fr       */
+/*   Updated: 2023/11/08 16:43:43 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,16 +20,39 @@ void	draw_all(t_game *game)
 	draw_player(game);
 }
 
-void	error_exit(t_game *game, char *msg)
+int	loop_draw(t_game *game)
 {
-	free_map_data(game);
-	free_collec_list(game);
-	if (game->win)
-		mlx_destroy_window(game->mlx, game->win);
-	ft_putstr_fd(RED "-------------------------\n ", 2);
-	ft_putstr_fd(msg, 2);
-	ft_putstr_fd("-------------------------\n" RESET, 2);
-	exit(1);
+	if (game->player.state == STANDING && game->state == END)
+		normal_exit(game);
+	if (game->player.col1 < game->player.col2)
+		move_player(game, RIGHT);
+	else if (game->player.col1 > game->player.col2)
+		move_player(game, LEFT);
+	else if (game->player.row1 < game->player.row2)
+		move_player(game, DOWN);
+	else if (game->player.row1 > game->player.row2)
+		move_player(game, UP);
+	draw_all(game);
+	return (0);
+}
+
+int	key_press(int keycode, t_game *game)
+{
+	if (keycode == KEY_ESC)
+		normal_exit(game);
+	else if (game->player.state == STANDING)
+	{
+		game->player.state = WALKING;
+		if (keycode == KEY_RIGHT || keycode == KEY_D)
+			game->player.col2++;
+		else if (keycode == KEY_LEFT || keycode == KEY_A)
+			game->player.col2--;
+		else if (keycode == KEY_UP || keycode == KEY_W)
+			game->player.row2--;
+		else if (keycode == KEY_DOWN || keycode == KEY_S)
+			game->player.row2++;
+	}
+	return (0);
 }
 
 int	main(int argc, char **argv)
@@ -44,5 +67,10 @@ int	main(int argc, char **argv)
 	check_compo(&game);
 	init_game_etc(&game);
 	draw_all(&game);
+	mlx_hook(game.win, X_EVENT_KEY_PRESS, 0, &key_press, &game);
+	mlx_loop_hook(game.mlx, &loop_draw, &game);
+	printf(SKY "--------------------\n     "
+		"start game\n--------------------\n" RESET);
+	mlx_loop(game.mlx);
 	return (0);
 }

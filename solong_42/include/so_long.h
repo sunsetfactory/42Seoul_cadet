@@ -6,7 +6,7 @@
 /*   By: seokjyan <seokjyan@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 17:59:26 by seokjyan          #+#    #+#             */
-/*   Updated: 2023/11/03 19:20:01 by seokjyan         ###   ########.fr       */
+/*   Updated: 2023/11/08 15:13:58 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,11 @@
 # define KEY_DOWN	125
 # define KEY_RIGHT	124
 
+// direction
+# define RIGHT	1
+# define LEFT 	2
+# define UP		3
+# define DOWN	4
 
 typedef struct s_map
 {
@@ -148,6 +153,10 @@ void	draw_tile(t_game *game);
 // draw_wall.c
 void	draw_wall(t_game *game);
 
+// exit.c
+void	error_exit(t_game *game, char *msg);
+void	normal_exit(t_game *game);
+
 // free.c
 void	free_map_data(t_game *game);
 void	free_collec_list(t_game *game);
@@ -165,10 +174,14 @@ void	make_collec_list(t_game *game);
 // make_map.c
 void	make_map(t_game *game, char *map_name);
 
+// moving.c
+void	move_player(t_game *game, int dir);
+
 // put_image.c
 void	put_img(t_game *game, void *img, int x, int y);
 
 // utils.c
+void	*get_img(t_game *game, char *file);
 int		ft_open_file(t_game *game, char *map_name);
 
 #endif

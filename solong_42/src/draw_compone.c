@@ -6,11 +6,22 @@
 /*   By: seokjyan <seokjyan@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 17:36:24 by seokjyan          #+#    #+#             */
-/*   Updated: 2023/11/03 18:07:18 by seokjyan         ###   ########.fr       */
+/*   Updated: 2023/11/08 16:40:35 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
+
+static void	draw_exit_opening(t_game *game, int x, int y)
+{
+	put_img(game, &game->img.exit[4], x, y);
+	game->exit.move_cnt++;
+	if (game->exit.move_cnt >= 31)
+	{
+		game->exit.move_cnt = 0;
+		game->exit.state = OPEN;
+	}
+}
 
 void	draw_player(t_game *game)
 {
@@ -50,7 +61,7 @@ static void	draw_exit(t_game *game)
 	else if (game->exit.state == CLOSE)
 		put_img(game, game->img.exit, x, y);
 	else if (game->exit.state == OPENING) // 수정 필요
-		draw_exit_opening(game, m_cnt, x, y);
+		draw_exit_opening(game, x, y);
 }
 
 static void	draw_collec(t_game *game)
@@ -77,7 +88,7 @@ static void	draw_collec(t_game *game)
 void	draw_compo(t_game *game)
 {
 	draw_collec(game);
-	draw_exit(&game);
+	draw_exit(game);
 }
 
 void	draw_tile(t_game *game)

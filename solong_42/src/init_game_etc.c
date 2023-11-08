@@ -6,7 +6,7 @@
 /*   By: seokjyan <seokjyan@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 16:56:13 by seokjyan          #+#    #+#             */
-/*   Updated: 2023/11/03 17:25:12 by seokjyan         ###   ########.fr       */
+/*   Updated: 2023/11/08 15:13:12 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ static void	init_game_mlx(t_game *game)
 
 void	init_game_etc(t_game *game)
 {
-	init_game_mlx(&game);
-	init_game_img(&game);
-	init_game_state(&game);
-	init_game_cnt(&game);
+	init_game_mlx(game);
+	init_game_img(game);
+	init_game_state(game);
+	init_game_cnt(game);
 }
