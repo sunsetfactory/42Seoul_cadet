@@ -47,6 +47,9 @@ $(NAME) :
 clean :
 	make -C $(LIBFT_DIR) clean
 	make -C $(GNL_DIR) clean
+	rm -rf $(LFT_A)
+	rm -rf $(GNL_A)
+	rm -rf $(MLX_A)
 
 fclean : clean
 	rm -rf $(NAME)

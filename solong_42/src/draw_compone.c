@@ -6,7 +6,7 @@
 /*   By: seokjyan <seokjyan@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 17:36:24 by seokjyan          #+#    #+#             */
-/*   Updated: 2023/11/08 16:40:35 by seokjyan         ###   ########.fr       */
+/*   Updated: 2023/11/09 17:24:32 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,16 +34,7 @@ void	draw_player(t_game *game)
 	y = game->player.pixel_y;
 	m_cnt = game->player.move_cnt;
 	img = game->player.chosen_img;
-	if (m_cnt >= 0 && m_cnt <= 2)
-		put_img(game, img[0], x, y);
-	else if (m_cnt >= 3 && m_cnt <= 5)
-		put_img(game, img[1], x, y);
-	else if (m_cnt >= 6 && m_cnt <= 8)
-		put_img(game, img[2], x, y);
-	else if (m_cnt >= 9 && m_cnt <= 11)
-		put_img(game, img[3], x, y);
-	else if (m_cnt >= 13 && m_cnt <= 15)
-		put_img(game, img[4], x, y);
+	put_img(game, img, x, y);
 }
 
 static void	draw_exit(t_game *game)
@@ -60,8 +51,7 @@ static void	draw_exit(t_game *game)
 		put_img(game, game->img.exit, x, y);
 	else if (game->exit.state == CLOSE)
 		put_img(game, game->img.exit, x, y);
-	else if (game->exit.state == OPENING) // 수정 필요
-		draw_exit_opening(game, x, y);
+	draw_exit_opening(game, x, y);
 }
 
 static void	draw_collec(t_game *game)

@@ -6,7 +6,7 @@
 /*   By: seokjyan <seokjyan@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 17:59:26 by seokjyan          #+#    #+#             */
-/*   Updated: 2023/11/08 15:13:58 by seokjyan         ###   ########.fr       */
+/*   Updated: 2023/11/09 17:25:29 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,6 @@
 
 # define OPEN		0
 # define CLOSE		1
-# define OPENING	2
-
 
 // key
 # define X_EVENT_KEY_PRESS	2
