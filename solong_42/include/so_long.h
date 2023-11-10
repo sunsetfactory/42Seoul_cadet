@@ -6,7 +6,7 @@
 /*   By: seokjyan <seokjyan@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 17:59:26 by seokjyan          #+#    #+#             */
-/*   Updated: 2023/11/10 18:53:14 by seokjyan         ###   ########.fr       */
+/*   Updated: 2023/11/10 19:20:50 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@
 // key
 # define X_EVENT_KEY_PRESS	2
 # define KEY_ESC 	53
+# define KEY_RED 	17
 # define KEY_W 		13 
 # define KEY_A 		0
 # define KEY_S 		1

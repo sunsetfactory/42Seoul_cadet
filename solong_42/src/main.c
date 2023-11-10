@@ -6,7 +6,7 @@
 /*   By: seokjyan <seokjyan@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 16:40:55 by seokjyan          #+#    #+#             */
-/*   Updated: 2023/11/10 18:56:52 by seokjyan         ###   ########.fr       */
+/*   Updated: 2023/11/10 19:25:25 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,12 @@ int	key_press(int keycode, t_game *game)
 	return (0);
 }
 
+int	red_exit(t_game *game)
+{
+	normal_exit(game);
+	return (0);
+}
+
 int	main(int argc, char **argv)
 {
 	t_game	game;
@@ -68,6 +74,7 @@ int	main(int argc, char **argv)
 	init_game_etc(&game);
 	draw_all(&game);
 	mlx_hook(game.win, X_EVENT_KEY_PRESS, 0, &key_press, &game);
+	mlx_hook(game.win, KEY_RED, 0, &red_exit, &game);
 	mlx_loop_hook(game.mlx, &loop_draw, &game);
 	ft_putstr_fd(SKY "--------------------\n     ", STDOUT);
 	ft_putstr_fd("start game\n--------------------\n" RESET, STDOUT);
