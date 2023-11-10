@@ -6,37 +6,30 @@
 /*   By: seokjyan <seokjyan@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 17:30:18 by seokjyan          #+#    #+#             */
-/*   Updated: 2023/11/08 17:49:10 by seokjyan         ###   ########.fr       */
+/*   Updated: 2023/11/10 14:35:13 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
 
-static void	put_wall_img(t_game *game, int row, int col)
+void	draw_tile(t_game *game)
 {
-	int	x;
-	int	y;
+	int	r;
+	int	c;
 
-	x = col * TILE_SIZE;
-	y = row * TILE_SIZE;
-	if (row == 0 && col == 0)
-		put_img(game, game->img.wall_box, x, y);
-	else if (row == 0 && col == game->map.col - 1)
-		put_img(game, game->img.wall_box, x, y);
-	else if (row == game->map.row - 1 && col == 0)
-		put_img(game, game->img.wall_box, x, y);
-	else if (row == game->map.row - 1 && col == game->map.col - 1)
-		put_img(game, game->img.wall_box, x, y);
-	else if (row == 0)
-		put_img(game, game->img.wall_box, x, y);
-	else if (row == game->map.row - 1)
-		put_img(game, game->img.wall_box, x, y);
-	else if (col == 0)
-		put_img(game, game->img.wall_box, x, y);
-	else if (col == game->map.col - 1)
-		put_img(game, game->img.wall_box, x, y);
-	else
-		put_img(game, game->img.wall_box, x, y);
+	r = 0;
+	c = 0;
+	while (r < game->map.row)
+	{
+		c = 0;
+		while (c < game->map.col)
+		{
+			if (game->map.data[r][c] != '1')
+				put_img(game, game->img.tile, c * TILE_SIZE, r * TILE_SIZE);
+			c++;
+		}
+		r++;
+	}
 }
 
 void	draw_wall(t_game *game)
@@ -45,14 +38,14 @@ void	draw_wall(t_game *game)
 	int	col;
 
 	row = 0;
-	col = 0;
 	while (row < game->map.row)
 	{
 		col = 0;
 		while (col < game->map.col)
 		{
 			if (game->map.data[row][col] == '1')
-				put_wall_img(game, row, col);
+				put_img(game, game->img.wall_box, \
+				col * TILE_SIZE, row * TILE_SIZE);
 			col++;
 		}
 		row++;

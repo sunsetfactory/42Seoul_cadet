@@ -6,12 +6,11 @@
 /*   By: seokjyan <seokjyan@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 14:05:58 by seokjyan          #+#    #+#             */
-/*   Updated: 2023/11/03 16:47:07 by seokjyan         ###   ########.fr       */
+/*   Updated: 2023/11/10 17:03:15 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/so_long.h"
-
 
 static void	input_val(t_game *game, int row, int col, int i)
 {
@@ -36,7 +35,6 @@ static void	input_val(t_game *game, int row, int col, int i)
 		game->collec[i]->row = row;
 	}
 }
-
 
 static void	set_compo_val(t_game *game)
 {
@@ -90,4 +88,5 @@ void	check_compo(t_game *game)
 	count_compo(game);
 	make_collec_list(game);
 	set_compo_val(game);
+	check_explore_space(game);
 }

@@ -14,9 +14,10 @@ SRCS_DIR	= ./src/
 
 SRCS_FILE	=	check_compone.c \
 				check_file.c \
+				check_map_utils.c \
 				check_map.c \
-				draw_compone.c \
-				draw_wall.c \
+				draw_map.c \
+				draw_obj.c \
 				exit.c \
 				free.c \
 				init_game_etc.c \
@@ -25,6 +26,7 @@ SRCS_FILE	=	check_compone.c \
 				make_collec.c \
 				make_map.c \
 				moving.c \
+				moving_utils.c \
 				put_image.c	\
 				utils.c \
 

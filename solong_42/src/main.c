@@ -6,7 +6,7 @@
 /*   By: seokjyan <seokjyan@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 16:40:55 by seokjyan          #+#    #+#             */
-/*   Updated: 2023/11/09 17:23:04 by seokjyan         ###   ########.fr       */
+/*   Updated: 2023/11/10 18:56:52 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	draw_all(t_game *game)
 {
-	draw_wall(game); // 수정 필요
+	draw_wall(game);
 	draw_tile(game);
 	draw_compo(game);
 	draw_player(game);
@@ -69,8 +69,8 @@ int	main(int argc, char **argv)
 	draw_all(&game);
 	mlx_hook(game.win, X_EVENT_KEY_PRESS, 0, &key_press, &game);
 	mlx_loop_hook(game.mlx, &loop_draw, &game);
-	// printf(SKY "--------------------\n     "
-	// 	"start game\n--------------------\n" RESET);
+	ft_putstr_fd(SKY "--------------------\n     ", STDOUT);
+	ft_putstr_fd("start game\n--------------------\n" RESET, STDOUT);
 	mlx_loop(game.mlx);
 	return (0);
 }

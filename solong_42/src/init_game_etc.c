@@ -6,7 +6,7 @@
 /*   By: seokjyan <seokjyan@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 16:56:13 by seokjyan          #+#    #+#             */
-/*   Updated: 2023/11/09 17:20:49 by seokjyan         ###   ########.fr       */
+/*   Updated: 2023/11/10 14:50:00 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 static void	init_game_cnt(t_game *game)
 {
 	game->player.move_cnt = 0;
-	game->exit.move_cnt = 0;
 	game->step = 0;
 }
 

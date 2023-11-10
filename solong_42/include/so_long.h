@@ -6,7 +6,7 @@
 /*   By: seokjyan <seokjyan@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 17:59:26 by seokjyan          #+#    #+#             */
-/*   Updated: 2023/11/09 17:25:29 by seokjyan         ###   ########.fr       */
+/*   Updated: 2023/11/10 18:53:14 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@
 # define BLUE "\x1b[34m"
 # define SKY "\x1b[36m"
 # define RESET "\x1b[0m"
+
+# define STDOUT 1
 
 # include <stdio.h>
 # include <unistd.h> // usleep();
@@ -92,7 +94,6 @@ typedef struct s_exit
 	int		state;
 	int		col;
 	int		row;
-	int		move_cnt;
 }	t_exit;
 
 typedef struct s_player
@@ -137,19 +138,19 @@ void	check_compo(t_game *game);
 // check_file.c
 void	check_filename(t_game *game, char *filename);
 
+// check_map_utils.c
+void	check_explore_space(t_game *game);
+
 // check_map.c
 void	check_map(t_game *game, char *map_name);
 
 // draw_map.c
 void	draw_wall(t_game *game);
-
-// draw_compone.c
-void	draw_player(t_game *game);
-void	draw_compo(t_game *game);
 void	draw_tile(t_game *game);
 
-// draw_wall.c
-void	draw_wall(t_game *game);
+// draw_obj.c
+void	draw_player(t_game *game);
+void	draw_compo(t_game *game);
 
 // exit.c
 void	error_exit(t_game *game, char *msg);
@@ -170,7 +171,13 @@ void	init_game_malloc_ptr(t_game *game);
 void	make_collec_list(t_game *game);
 
 // make_map.c
+void	malloc_map(t_game *game);
 void	make_map(t_game *game, char *map_name);
+
+// moving_utils.c
+void	collec_check(t_game *game);
+int		exit_check(t_game *game);
+int		wall_check(t_game *game);
 
 // moving.c
 void	move_player(t_game *game, int dir);
