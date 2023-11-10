@@ -6,7 +6,7 @@
 /*   By: seokjyan <seokjyan@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/08 14:00:53 by seokjyan          #+#    #+#             */
-/*   Updated: 2023/11/10 19:06:16 by seokjyan         ###   ########.fr       */
+/*   Updated: 2023/11/10 19:08:27 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void	move_vertical(t_game *game, int dir, int y)
 		ft_putstr_fd("\n", STDOUT);
 		game->player.state = STANDING;
 		game->player.row1 = game->player.row2;
-		game->pnorlayer.move_cnt = 0;
+		game->player.move_cnt = 0;
 	}
 	else
 	{
