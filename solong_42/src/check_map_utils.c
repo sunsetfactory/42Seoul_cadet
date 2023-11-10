@@ -6,7 +6,7 @@
 /*   By: seokjyan <seokjyan@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 15:36:52 by seokjyan          #+#    #+#             */
-/*   Updated: 2023/11/10 18:55:14 by seokjyan         ###   ########.fr       */
+/*   Updated: 2023/11/10 19:06:50 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,19 +21,15 @@ static void	call_dfs(t_game *copy, int *count, char find_char)
 
 	x = copy->player.col1;
 	y = copy->player.row1;
-
 	copy->player.row1 = y - 1;
 	dfs(copy, count, find_char);
 	copy->player.row1 = y;
-
 	copy->player.col1 = x + 1;
 	dfs(copy, count, find_char);
 	copy->player.col1 = x;
-
 	copy->player.row1 = y + 1;
 	dfs(copy, count, find_char);
 	copy->player.row1 = y;
-
 	copy->player.col1 = x - 1;
 	dfs(copy, count, find_char);
 	copy->player.col1 = x;
