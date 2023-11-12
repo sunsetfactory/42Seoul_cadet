@@ -6,7 +6,7 @@
 /*   By: seokjyan <seokjyan@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 15:36:52 by seokjyan          #+#    #+#             */
-/*   Updated: 2023/11/10 19:06:50 by seokjyan         ###   ########.fr       */
+/*   Updated: 2023/11/12 13:24:58 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,4 +95,6 @@ void	check_explore_space(t_game *game)
 		error_exit(game, "Can't explore all collec\n");
 	if (e_count != 1)
 		error_exit(game, "Can't explore the exit\n");
+	free_map_data(&copy_c);
+	free_map_data(&copy_e);
 }
