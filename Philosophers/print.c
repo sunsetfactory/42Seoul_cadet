@@ -32,7 +32,7 @@ void	end_msg(int what, t_philo *philo)
 
 void	msg_print(int what, t_philo *philo)
 {
-	pthread_mutex_lock(philo->table->msg_mtx);
+	pthread_mutex_lock(&philo->table->msg_mtx);
 	if(philo->table->state != RUN)
 		return ;
 	printf("%-8d", get_present_time() - philo->last_eat_time);
