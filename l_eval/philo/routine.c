@@ -33,43 +33,31 @@ void	eating(t_philo *philo)
 	msg_print(EAT, philo);
 	philo->last_eat_time = get_present_time();
 	philo->death_time = get_present_time() + philo->table->time_die;
-	pthread_mutex_unlock(&philo->eat_mtx);
 	ft_usleep(philo->table->time_eat);
+	pthread_mutex_unlock(&philo->eat_mtx);
 }
 
 int	sleep_and_think(t_philo *philo)
 {
 	msg_print(SLEEP, philo);
+	pthread_mutex_lock(&philo->eat_mtx);
 	ft_usleep(philo->table->time_sleep);
+	pthread_mutex_unlock(&philo->eat_mtx);
 	msg_print(THINK, philo);
 	return (0);
-}
-
-void	alive_msg(t_philo *philo)
-{
-	pthread_mutex_lock(&philo->table->msg_mtx);
-		printf("im alive\n");
-	pthread_mutex_unlock(&philo->table->msg_mtx);
 }
 
 void	*routine(void *data)
 {
 	t_philo		*philo;
-	pthread_t	trd;
 
 	philo = (t_philo *)data;
-	pthread_mutex_lock(&philo->eat_mtx);
 	philo->last_eat_time = get_present_time();
+	pthread_mutex_lock(&philo->eat_mtx);
 	philo->death_time = get_present_time() + philo->table->time_die;
 	pthread_mutex_unlock(&philo->eat_mtx);
-	if (pthread_create(&trd, NULL, &checker_death, data))
-	{
-		err_msg(ERR_MAIN4);
-		return (NULL);
-	}
-	pthread_detach(trd);
 	while (1)
-	{ 
+	{
 		take_fork(philo);
 		eating(philo);
 		put_fork(philo);

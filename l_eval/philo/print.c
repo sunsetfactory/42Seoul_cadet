@@ -44,7 +44,6 @@ void	end_msg(int what, t_philo *philo)
 	philo->table->state = STOP;
 }
 
-
 void	msg_print(int what, t_philo *philo)
 {
 	pthread_mutex_lock(&philo->table->msg_mtx);

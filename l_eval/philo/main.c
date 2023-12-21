@@ -77,6 +77,8 @@ int	main(int argc, char**argv)
 	if (table.num_must_eat > 0)
 		if (pthread_create(&trd, NULL, &checker_cnt, &table))
 			return (deallocate_all(&table) && err_msg(ERR_MAIN3));
+	if (pthread_create(&trd, NULL, &checker_death, &table))
+		return (deallocate_all(&table) && err_msg(ERR_MAIN3));
 	if (make_philo(&table, table.philo_arr) == ERR)
 		return (deallocate_all(&table) && err_msg(ERR_MAIN4));
 	pthread_mutex_lock(&table.main_mtx);

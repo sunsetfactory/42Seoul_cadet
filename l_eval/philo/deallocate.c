@@ -38,8 +38,11 @@ void	free_eat_m(t_table *table)
 	}
 }
 
-int	deallocate_all(t_table *table)
+int	deallocate_all(t_table *data)
 {
+	t_table *table;
+
+	table = data;
 	free_fork_m(table);
 	free_eat_m(table);
 	pthread_mutex_destroy(&table->main_mtx);
