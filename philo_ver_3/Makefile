@@ -16,9 +16,7 @@ NAME= philo
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	gcc ${CFLAGS} -o ${NAME} ${OBJS} ${LIBS} -g -fsanitize=thread
-
-clean:
+	gcc ${CFLAGS} -o ${NAME} ${OBJS} ${LIBS}
 	$(RM) $(OBJS) $(BONUS_OBJS)
 
 fclean: clean

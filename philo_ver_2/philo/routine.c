@@ -32,6 +32,13 @@ void	eating(t_philo *philo)
 	philo->cnt_eat++;
 	msg_print(EAT, philo);
 	philo->last_eat_time = get_present_time();
+	while (philo->table->state != STOP)
+	{
+		if (get_present_time() - philo->last_eat_time > philo->table->start_time)
+			break ;
+		usleep(50);
+	}
+	
 	philo->death_time = get_present_time() + philo->table->time_die;
 	pthread_mutex_unlock(&philo->eat_mtx);
 	ft_usleep(philo->table->time_eat);

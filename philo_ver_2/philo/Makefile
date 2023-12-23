@@ -9,7 +9,7 @@ NAME	= philo
 all : $(NAME)
 
 $(NAME) :
-	$(CC) ${CFLAGS} $(SRCS) -o $(NAME) ${LIBS} -g3 -fsanitize=thread
+	$(CC) ${CFLAGS} $(SRCS) -o $(NAME) ${LIBS}
 
 clean :
 	rm $(NAME)

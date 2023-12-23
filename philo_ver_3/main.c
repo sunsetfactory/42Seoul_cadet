@@ -42,10 +42,16 @@ int	start_thread(t_rule *rule)
 	return (0);
 }
 
+void	a(void)
+{
+	system("leaks philo");
+}
+
 int	main(int argc, char **argv)
 {
 	t_rule	rule;
 
+	atexit(a);
 	if (argc < 5 || argc > 6)
 		return (printf("Error : wrong input\n"));
 	if (init_rule(&rule, argv))
