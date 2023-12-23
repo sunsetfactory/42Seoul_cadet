@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_sleep_then_think.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-khni <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: seokjyan <seokjyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 04:19:27 by ael-khni          #+#    #+#             */
-/*   Updated: 2022/03/07 04:19:42 by ael-khni         ###   ########.fr       */
+/*   Updated: 2023/12/23 18:39:16 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,6 @@
 void	sleep_then_think(t_philo *philo)
 {
 	ft_print_msg(philo, "is sleeping");
-	usleep(philo->info->time_to_sleep * 1000);
+	usleep(philo->table->time_sleep * 1000);
 	ft_print_msg(philo, "is thinking");
 }

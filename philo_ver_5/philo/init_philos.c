@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_init_philos.c                                   :+:      :+:    :+:   */
+/*   init_philos.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seokjyan <seokjyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/07 04:21:51 by ael-khni          #+#    #+#             */
-/*   Updated: 2023/12/23 19:20:19 by seokjyan         ###   ########.fr       */
+/*   Created: 2023/12/23 19:37:33 by seokjyan          #+#    #+#             */
+/*   Updated: 2023/12/23 21:35:48 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,10 @@ void	*ft_check_hunger(void *arg)
 	while (!table->finish)
 	{
 		if (table->all_ate == table->num_philo)
+		{
+			ft_print_msg(table->philo, "all_ate");
 			table->finish = true;
+		}
 	}
 	return (NULL);
 }

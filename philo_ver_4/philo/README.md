@@ -3,7 +3,7 @@
 1. **No** global variables :)
 2. Arguments:
     - **number of philosophers** = number of forks
-    - **time to die :** the philosopher must eat before time_to_die ms after starting or his last meal
+    - **time to die :** the philosopher must eat before time_die ms after starting or his last meal
     - **time to eat:** in ms, the time takes for a philo to eat.
     - **time to sleep:**  in ms it s resting time.
     - **number of times each philo must eat:**   optional, if all philosophers eat at least number_of_...  times the program stops if it’s not specified the program ends when a philo dies RIP.

@@ -3,17 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   ft_grab_fork.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-khni <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: seokjyan <seokjyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 04:17:50 by ael-khni          #+#    #+#             */
-/*   Updated: 2022/03/07 04:18:00 by ael-khni         ###   ########.fr       */
+/*   Updated: 2023/12/23 19:11:39 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	grab_fork(t_philo *philo, int f)
+void	grab_fork(t_philo *philo, int f, int c)
 {
-	pthread_mutex_lock(&philo->info->forks[f]);
-	ft_print_msg(philo, "has taken a fork");
+	pthread_mutex_lock(&philo->table->forks[f]);
+	if (c == RIGHT)
+		ft_print_msg(philo, "has taken a fork_R");
+	if (c == LEFT)
+		ft_print_msg(philo, "has taken a fork_L");
 }

@@ -6,7 +6,7 @@
 #    By: seokjyan <seokjyan@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/20 16:06:58 by ael-khni          #+#    #+#              #
-#    Updated: 2023/12/23 18:12:34 by seokjyan         ###   ########.fr        #
+#    Updated: 2023/12/23 20:16:42 by seokjyan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,7 +47,7 @@ all: $(NAME)
 
 $(NAME):  $(OBJ) $(HEADER)
 	@printf "$(CURSIVE)$(GRAY) 	- Compiling $(NAME)... $(RESET)\n"
-	@ $(CC) $(OBJ) $(INCLUDES) $(PTHREAD) $(OPTS) -o $(NAME) -g -fsanitize=thread
+	@ $(CC) $(OBJ) $(INCLUDES) $(PTHREAD) $(OPTS) -g -fsanitize=thread -o $(NAME)
 	@printf "$(GREEN)    - Executable ready.\n$(RESET)"
 
 %.o: %.c $(HEADER)

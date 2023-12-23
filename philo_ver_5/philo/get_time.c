@@ -1,23 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_init_mutex.c                                    :+:      :+:    :+:   */
+/*   get_time.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seokjyan <seokjyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/07 04:21:36 by ael-khni          #+#    #+#             */
-/*   Updated: 2023/12/23 18:39:16 by seokjyan         ###   ########.fr       */
+/*   Created: 2023/12/23 19:33:29 by seokjyan          #+#    #+#             */
+/*   Updated: 2023/12/23 19:33:33 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	ft_init_mutex(t_table *table)
+long long	ft_get_time(void)
 {
-	int	i;
+	t_time	current_time;
 
-	i = 0;
-	pthread_mutex_init(&table->finish_lock, NULL);
-	while (i < table->num_philo)
-		pthread_mutex_init(&table->forks[i++], NULL);
+	gettimeofday(&current_time, NULL);
+	return (current_time.tv_sec * 1000 + current_time.tv_usec / 1000);
+}
+
+long long	ft_current_time(t_philo *philo)
+{
+	long long	time;
+
+	time = ft_get_time() - philo->table->creation_time;
+	return (time);
 }

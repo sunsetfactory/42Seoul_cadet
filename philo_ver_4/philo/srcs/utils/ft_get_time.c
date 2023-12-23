@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_get_time.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ael-khni <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: seokjyan <seokjyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/07 04:16:00 by ael-khni          #+#    #+#             */
-/*   Updated: 2022/03/07 04:16:22 by ael-khni         ###   ########.fr       */
+/*   Updated: 2023/12/23 18:39:16 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,6 @@ long long	ft_current_time(t_philo *philo)
 {
 	long long	time;
 
-	time = ft_get_time() - philo->info->creation_time;
+	time = ft_get_time() - philo->table->creation_time;
 	return (time);
 }

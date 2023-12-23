@@ -1,16 +1,48 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_philo_actions.c                                 :+:      :+:    :+:   */
+/*   routine.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seokjyan <seokjyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/07 04:18:25 by ael-khni          #+#    #+#             */
-/*   Updated: 2023/12/23 19:12:38 by seokjyan         ###   ########.fr       */
+/*   Created: 2023/12/23 19:47:23 by seokjyan          #+#    #+#             */
+/*   Updated: 2023/12/23 19:55:08 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+void	sleep_then_think(t_philo *philo)
+{
+	ft_print_msg(philo, "is sleeping");
+	usleep(philo->table->time_sleep * 1000);
+	ft_print_msg(philo, "is thinking");
+}
+
+void	down_fork(t_philo *philo, int f1, int f2)
+{
+	pthread_mutex_unlock(&philo->table->forks[f1]);
+	pthread_mutex_unlock(&philo->table->forks[f2]);
+}
+
+void	eating(t_philo *philo)
+{
+	ft_print_msg(philo, "is eating");
+	usleep(philo->table->time_eat * 1000);
+	philo->last_meal = ft_get_time();
+	philo->ate++;
+	if (philo->ate == philo->table->num_must_eat)
+		philo->table->all_ate++;
+}
+
+void	grab_fork(t_philo *philo, int f, int c)
+{
+	pthread_mutex_lock(&philo->table->forks[f]);
+	if (c == RIGHT)
+		ft_print_msg(philo, "has taken a fork_R");
+	if (c == LEFT)
+		ft_print_msg(philo, "has taken a fork_L");
+}
 
 void	*philosophers(void *arg)
 {
@@ -30,7 +62,7 @@ void	*philosophers(void *arg)
 			break ;
 		}
 		grab_fork(philo, left_fork, LEFT);
-		ft_eating(philo);
+		eating(philo);
 		down_fork(philo, right_fork, left_fork);
 		sleep_then_think(philo);
 	}

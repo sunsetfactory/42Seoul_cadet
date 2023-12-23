@@ -1,16 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_init_all.c                                      :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seokjyan <seokjyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/07 04:20:44 by ael-khni          #+#    #+#             */
-/*   Updated: 2023/12/23 19:18:06 by seokjyan         ###   ########.fr       */
+/*   Created: 2023/12/23 18:34:14 by seokjyan          #+#    #+#             */
+/*   Updated: 2023/12/23 19:30:56 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+void	ft_init_mutex(t_table *table)
+{
+	int	i;
+
+	i = 0;
+	pthread_mutex_init(&table->finish_lock, NULL);
+	while (i < table->num_philo)
+		pthread_mutex_init(&table->forks[i++], NULL);
+}
 
 int	ft_check_table(t_table table, int ac)
 {
@@ -47,8 +57,7 @@ int	ft_init_all(t_table *table, int ac, char **av)
 	if (ft_check_table(*table, ac))
 		return (ERR);
 	table->philo = ft_calloc(table->num_philo, sizeof(t_philo));
-	table->forks = ft_calloc(table->num_philo,
-			sizeof(pthread_mutex_t));
+	table->forks = ft_calloc(table->num_philo, sizeof(pthread_mutex_t));
 	if (!table->philo || !table->forks)
 		return (ERR);
 	table->finish = false;
