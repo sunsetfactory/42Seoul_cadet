@@ -14,6 +14,7 @@
 
 void	act_msg(int what, t_philo *philo)
 {
+	pthread_mutex_lock(&philo->table->msg_mtx);
 	printf(G"%-3d"RS, philo->index);
 	if (what == L_FORK)
 		printf(" has taken a fork_l ["B"%d"RS"]\n", philo->lfork_idx);
@@ -28,10 +29,12 @@ void	act_msg(int what, t_philo *philo)
 		printf(" is sleeping\n");
 	else if (what == THINK)
 		printf(" is thinking\n");
+	pthread_mutex_unlock(&philo->table->msg_mtx);
 }
 
 void	end_msg(int what, t_philo *philo)
 {
+	pthread_mutex_lock(&philo->table->msg_mtx);
 	if (what == END_COUNT)
 		printf(R "All philosophers ate their quota" RS "\n");
 	else if (what == END_STARV)
@@ -39,28 +42,29 @@ void	end_msg(int what, t_philo *philo)
 		printf(G "%-3d"RS R " died" RS, philo->index);
 		printf(" (starv %dms)\n", get_present_time() - philo->last_eat_time);
 	}
-	pthread_mutex_lock(&philo->table->state_mtx);
+	// pthread_mutex_lock(&philo->state_mtx);
 	philo->table->state = STOP;
-	pthread_mutex_unlock(&philo->table->state_mtx);
+	// pthread_mutex_unlock(&philo->state_mtx);
+	pthread_mutex_unlock(&philo->table->msg_mtx);
 }
 
 void	msg_print(int what, t_philo *philo)
 {
-	pthread_mutex_lock(&philo->table->msg_mtx);
-	pthread_mutex_lock(&philo->table->state_mtx);
+	pthread_mutex_lock(&philo->table->death2);
+	pthread_mutex_lock(&philo->state_mtx);
 	if (philo->table->state != RUN)
 	{
-		pthread_mutex_unlock(&philo->table->state_mtx);
-		pthread_mutex_unlock(&philo->table->msg_mtx);
+		pthread_mutex_unlock(&philo->table->death2);
+		pthread_mutex_unlock(&philo->state_mtx);
 		return ;
 	}
-	pthread_mutex_unlock(&philo->table->state_mtx);
 	printf("%-8d", get_present_time() - philo->table->start_time);
 	if (what == END_COUNT || what == END_STARV)
 		end_msg(what, philo);
 	else
 		act_msg(what, philo);
-	pthread_mutex_unlock(&philo->table->msg_mtx);
+	pthread_mutex_unlock(&philo->state_mtx);
+	pthread_mutex_unlock(&philo->table->death2);
 }
 
 int	err_msg(int what)

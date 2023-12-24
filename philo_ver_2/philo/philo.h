@@ -67,6 +67,7 @@ typedef struct s_philo
 	int				all_ate;
 	struct s_table	*table;
 	pthread_mutex_t	eat_mtx;
+	pthread_mutex_t	state_mtx;
 }	t_philo;
 
 typedef struct s_table
@@ -82,7 +83,8 @@ typedef struct s_table
 	pthread_mutex_t	msg_mtx;
 	pthread_mutex_t	main_mtx;
 	int				state;
-	pthread_mutex_t	state_mtx;
+	pthread_mutex_t	death;
+	pthread_mutex_t	death2;
 }	t_table;
 
 // utils.c

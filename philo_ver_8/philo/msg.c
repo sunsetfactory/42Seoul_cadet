@@ -1,27 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   msg.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seokjyan <seokjyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/23 18:25:29 by seokjyan          #+#    #+#             */
-/*   Updated: 2023/12/24 08:58:45 by seokjyan         ###   ########.fr       */
+/*   Created: 2023/12/23 18:29:44 by seokjyan          #+#    #+#             */
+/*   Updated: 2023/12/24 12:10:22 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	main(int ac, char **av)
+void	ft_print_msg(t_philo *philo, char *msg)
 {
-	t_table	*table;
+	pthread_mutex_lock(&philo->table->finish_lock);
+	if (!philo->table->finish)
+		printf("%lli\t%i\t%s\n", ft_current_time(philo), philo->id + 1, msg);
+	pthread_mutex_unlock(&philo->table->finish_lock);
+}
 
-	if (ac != 5 && ac != 6)
-		return (ft_puterr("Usage: ./philo <num_philo> <time_die> "
-				"<time_eat> <time_sleep> "
-				"[num_must_eat]\n"));
-	table = ft_calloc(1, sizeof(*table));
-	if (ft_init_all(table, ac, av) == SCS)
-		ft_join_free(table);
-	return (SCS);
+int	ft_puterr(char *err)
+{
+	write(STDERR_FILENO, err, ft_strlen(err));
+	return (ERR);
 }

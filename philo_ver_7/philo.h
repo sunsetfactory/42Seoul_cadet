@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: seokjyan <seokjyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/20 16:54:00 by seokjyan          #+#    #+#             */
-/*   Updated: 2023/12/24 10:33:57 by seokjyan         ###   ########.fr       */
+/*   Created: 2022/01/20 16:05:14 by ael-khni          #+#    #+#             */
+/*   Updated: 2023/12/24 20:50:51 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,12 @@ typedef struct s_philo
 {
 	int				id;
 	int				ate;
-	int				should_die;
+	int				flag_err;
+	pthread_mutex_t	flag_err_lock;
 	long long		last_meal;
+	pthread_mutex_t	last_meal_lock;
 	t_table			*table;
 	pthread_t		thread;
-	pthread_mutex_t	should_die_lock;
-	pthread_mutex_t	last_meal_lock;
 }	t_philo;
 
 typedef struct s_table
@@ -54,11 +54,13 @@ typedef struct s_table
 	int				num_philo;
 	int				num_must_eat;
 	int				finish;
+	pthread_mutex_t	finish_lock;
 	int				all_ate;
+	pthread_mutex_t	all_ate_lock;
 	long long		creation_time;
 	t_philo			*philo;
 	pthread_mutex_t	*forks;
-	pthread_mutex_t	finish_lock;
+	pthread_t		*monitor;
 }	t_table;
 
 /* UTILS FUNCTIONS */
@@ -84,5 +86,8 @@ void		*philosophers(void *arg);
 void		ft_print_msg(t_philo *philo, char *msg);
 void		ft_eating(t_philo *philo);
 void		sleep_then_think(t_philo *philo);
+void		ft_usleep(long long time);
+void		*ft_check_death(void *arg);
+void		*ft_check_hunger(void *arg);
 
 #endif

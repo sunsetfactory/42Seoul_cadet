@@ -1,33 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   join_free.c                                        :+:      :+:    :+:   */
+/*   init_philos.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seokjyan <seokjyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/23 19:59:44 by seokjyan          #+#    #+#             */
-/*   Updated: 2023/12/24 10:31:56 by seokjyan         ###   ########.fr       */
+/*   Created: 2023/12/23 19:37:33 by seokjyan          #+#    #+#             */
+/*   Updated: 2023/12/24 20:47:20 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	ft_join_free(t_table *table)
+void	ft_create_philos(t_table *table)
 {
-	int	i;
+	int			i;
 
 	i = 0;
-	while (i < table->num_philo)
-		pthread_join(table->philo[i++].thread, NULL);
-	free(table->philo);
-	i = 0;
+	table->creation_time = ft_get_time();
 	while (i < table->num_philo)
 	{
-		pthread_mutex_destroy(&table->forks[i]);
-		pthread_mutex_destroy(&table->philo[i].last_meal_lock);
+		table->philo[i].id = i;
+		table->philo[i].table = table;
+		table->philo[i].last_meal = table->creation_time;
+		table->philo[i].flag_err = false;
+		table->philo[i].ate = 0;
+		pthread_create(&table->philo[i].thread, NULL, philosophers,
+			&table->philo[i]);
 		++i;
+		ft_usleep(100);
 	}
-	pthread_mutex_destroy(&table->finish_lock);
-	free(table->forks);
-	free(table);
+	pthread_create(&table->monitor[i], NULL, ft_check_death, table);
+	pthread_detach(table->monitor[i]);
 }

@@ -6,7 +6,7 @@
 /*   By: seokjyan <seokjyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/23 19:59:44 by seokjyan          #+#    #+#             */
-/*   Updated: 2023/12/24 10:31:56 by seokjyan         ###   ########.fr       */
+/*   Updated: 2023/12/24 13:56:58 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@ void	ft_join_free(t_table *table)
 		++i;
 	}
 	pthread_mutex_destroy(&table->finish_lock);
+	pthread_mutex_destroy(&table->all_ate_lock);
 	free(table->forks);
+	free(table->monitor);
 	free(table);
 }

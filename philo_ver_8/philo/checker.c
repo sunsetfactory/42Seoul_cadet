@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_philos.c                                      :+:      :+:    :+:   */
+/*   checker.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seokjyan <seokjyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/23 19:37:33 by seokjyan          #+#    #+#             */
-/*   Updated: 2023/12/24 10:45:07 by seokjyan         ###   ########.fr       */
+/*   Created: 2023/12/24 11:05:48 by seokjyan          #+#    #+#             */
+/*   Updated: 2023/12/24 13:20:32 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,18 @@ void	*ft_check_death(void *arg)
 	while (!philo->table->finish)
 	{
 		pthread_mutex_unlock(&philo->table->finish_lock);
+		pthread_mutex_lock(&philo->last_meal_lock);
 		if ((philo->last_meal + philo->table->time_die) < ft_get_time())
 		{
+			pthread_mutex_unlock(&philo->last_meal_lock);
 			ft_print_msg(philo, "died");
-			pthread_mutex_lock(&philo->should_die_lock);
-			philo->should_die = true;
+			pthread_mutex_lock(&philo->table->finish_lock);
+			philo->flag_err = true;
 			philo->table->finish = true;
-			pthread_mutex_unlock(&philo->should_die_lock);
+			pthread_mutex_unlock(&philo->table->finish_lock);
+			pthread_mutex_lock(&philo->last_meal_lock);
 		}
+		pthread_mutex_unlock(&philo->last_meal_lock);
 		usleep(500);
 		pthread_mutex_lock(&philo->table->finish_lock);
 	}
@@ -41,42 +45,23 @@ void	*ft_check_hunger(void *arg)
 	t_table	*table;
 
 	table = arg;
+	pthread_mutex_lock(&table->finish_lock);
 	while (!table->finish)
 	{
+		pthread_mutex_unlock(&table->finish_lock);
+		pthread_mutex_lock(&table->all_ate_lock);
 		if (table->all_ate == table->num_philo)
 		{
+			pthread_mutex_unlock(&table->all_ate_lock);
 			ft_print_msg(table->philo, "all_ate");
+			pthread_mutex_lock(&table->finish_lock);
 			table->finish = true;
+			pthread_mutex_unlock(&table->finish_lock);
+			pthread_mutex_lock(&table->all_ate_lock);
 		}
+		pthread_mutex_unlock(&table->all_ate_lock);
+		pthread_mutex_lock(&table->finish_lock);
 	}
+	pthread_mutex_unlock(&table->finish_lock);
 	return (NULL);
-}
-
-void	ft_create_philos(t_table *table)
-{
-	pthread_t	monitor;
-	int			i;
-
-	i = 0;
-	table->creation_time = ft_get_time();
-	while (i < table->num_philo)
-	{
-		table->philo[i].id = i;
-		table->philo[i].table = table;
-		table->philo[i].last_meal = table->creation_time;
-		table->philo[i].should_die = false;
-		table->philo[i].ate = 0;
-		pthread_mutex_init(&table->philo[i].last_meal_lock, NULL);
-		pthread_create(&table->philo[i].thread, NULL, philosophers,
-			&table->philo[i]);
-		pthread_create(&monitor, NULL, ft_check_death, &table->philo[i]);
-		pthread_detach(monitor);
-		i++;
-		usleep(100);
-	}
-	if (table->num_must_eat >= 0)
-	{
-		pthread_create(&monitor, NULL, ft_check_hunger, table);
-		pthread_detach(monitor);
-	}
 }

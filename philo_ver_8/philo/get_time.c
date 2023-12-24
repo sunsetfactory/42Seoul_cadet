@@ -1,27 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   get_time.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seokjyan <seokjyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/23 18:25:29 by seokjyan          #+#    #+#             */
-/*   Updated: 2023/12/24 08:58:45 by seokjyan         ###   ########.fr       */
+/*   Created: 2023/12/23 19:33:29 by seokjyan          #+#    #+#             */
+/*   Updated: 2023/12/23 19:33:33 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	main(int ac, char **av)
+long long	ft_get_time(void)
 {
-	t_table	*table;
+	t_time	current_time;
 
-	if (ac != 5 && ac != 6)
-		return (ft_puterr("Usage: ./philo <num_philo> <time_die> "
-				"<time_eat> <time_sleep> "
-				"[num_must_eat]\n"));
-	table = ft_calloc(1, sizeof(*table));
-	if (ft_init_all(table, ac, av) == SCS)
-		ft_join_free(table);
-	return (SCS);
+	gettimeofday(&current_time, NULL);
+	return (current_time.tv_sec * 1000 + current_time.tv_usec / 1000);
+}
+
+long long	ft_current_time(t_philo *philo)
+{
+	long long	time;
+
+	time = ft_get_time() - philo->table->creation_time;
+	return (time);
 }

@@ -34,6 +34,8 @@ int	init_philo_arr(t_table *table)
 		philo->cnt_eat = 0;
 		if (pthread_mutex_init(&table->philo_arr[i].eat_mtx, NULL))
 			return (ERR);
+		if (pthread_mutex_init(&table->philo_arr[i].state_mtx, NULL))
+			return (ERR);
 		i++;
 	}
 	return (0);
@@ -68,7 +70,11 @@ int	init_table(t_table *table)
 		return (ERR);
 	if (pthread_mutex_init(&table->main_mtx, NULL))
 		return (ERR);
-	if (pthread_mutex_init(&table->state_mtx, NULL))
+	// if (pthread_mutex_init(&table->state_mtx, NULL))
+	// 	return (ERR);
+	if (pthread_mutex_init(&table->death, NULL))
+		return (ERR);
+	if (pthread_mutex_init(&table->death2, NULL))
 		return (ERR);
 	pthread_mutex_lock(&table->main_mtx);
 	return (0);

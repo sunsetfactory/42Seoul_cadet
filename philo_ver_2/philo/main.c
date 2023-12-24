@@ -46,7 +46,7 @@ int	arg_check(t_table *table, int argc, char **argv)
 	if (table->num_philo < 1 || table->num_philo >= 200)
 		return (err_msg(ERR_ARG2));
 	table->time_die = ft_atoi(argv[2]);
-	if (table->time_eat < 60)
+	if (table->time_die < 60)
 		return (err_msg(ERR_ARG3));
 	table->time_eat = ft_atoi(argv[3]);
 	if (table->time_eat < 60)
@@ -87,6 +87,7 @@ int	main(int argc, char**argv)
 			return (deallocate_all(&table) && err_msg(ERR_MAIN3));
 	if (make_philo(&table, table.philo_arr) == ERR)
 		return (deallocate_all(&table) && err_msg(ERR_MAIN4));
+	checker_death(&table);
 	pthread_mutex_lock(&table.main_mtx);
 	pthread_mutex_unlock(&table.main_mtx);
 	deallocate_all(&table);

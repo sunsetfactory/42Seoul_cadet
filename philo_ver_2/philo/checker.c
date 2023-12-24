@@ -12,27 +12,39 @@
 
 #include "philo.h"
 
+// arg parsing init
+// mtx init
+// ate _all cnt check
+// make philo
+	// rutine
+
 void	*checker_death(void *data)
 {
-	t_philo	*philo;
+	t_table	*table;
+	int		i;
 
-	philo = (t_philo *)data;
+	table = (t_table *)data;
+	i = 0;
 	while (1)
 	{
-		pthread_mutex_lock(&philo->eat_mtx);
-		pthread_mutex_lock(&philo->table->state_mtx);
-		if (philo->table->state == RUN)
+		// pthread_mutex_lock(&philo->eat_mtx);
+		pthread_mutex_lock(&table->death);
+		// pthread_mutex_lock(&philo->state_mtx);
+		if (table->state == RUN)
 		{
-			pthread_mutex_unlock(&philo->table->state_mtx);
-			if (get_present_time() > philo->death_time)
+			if (get_present_time() > table->philo_arr[i].death_time)
 			{
-				msg_print(END_STARV, philo);
-				pthread_mutex_unlock(&philo->table->main_mtx);
+				msg_print(END_STARV, &table->philo_arr[i]);
+				pthread_mutex_unlock(&table->death);
+				// pthread_mutex_unlock(&philo->state_mtx);
+				// pthread_mutex_unlock(&philo->eat_mtx);
+				pthread_mutex_unlock(&table->main_mtx);
 				return (NULL);
 			}
 		}
-		pthread_mutex_unlock(&philo->table->state_mtx);
-		pthread_mutex_unlock(&philo->eat_mtx);
+		// pthread_mutex_unlock(&philo->state_mtx);
+		pthread_mutex_unlock(&table->death);
+		// pthread_mutex_unlock(&philo->eat_mtx);
 		usleep(1000);
 	}
 }
@@ -48,13 +60,15 @@ void	*checker_cnt(void *data)
 	cnt = 0;
 	while (1)
 	{
+		pthread_mutex_lock(&table->philo_arr[i].eat_mtx);
 		if (table->philo_arr[i].cnt_eat >= table->num_must_eat && \
 		table->philo_arr[i].all_ate == 0)
 		{
-			pthread_mutex_lock(&table->philo_arr[i].eat_mtx);
+		// 	pthread_mutex_lock(&table->philo_arr[i].eat_mtx);
 			table->philo_arr[i].all_ate = 1;
 			++cnt;
 		}
+		pthread_mutex_unlock(&table->philo_arr[i].eat_mtx);
 		if (cnt >= table->num_philo)
 			break ;
 		if (++i >= table->num_philo)

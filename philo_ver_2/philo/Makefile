@@ -1,5 +1,5 @@
 CC		= gcc
-CFLAGS	= -Wall -Wextra -Werror -I.
+CFLAGS	= -Wall -Wextra -Werror -I. -g -fsanitize=thread
 LIBS	= -lpthread
 
 SRCS	= main.c init.c util.c print.c routine.c checker.c deallocate.c 
@@ -9,7 +9,7 @@ NAME	= philo
 all : $(NAME)
 
 $(NAME) :
-	$(CC) ${CFLAGS} $(SRCS) -o $(NAME) ${LIBS}
+	$(CC) ${CFLAGS} $(SRCS) -o $(NAME) ${LIBS} 
 
 clean :
 	rm $(NAME)
