@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: minkylee <minkylee@student.42.fr>          +#+  +:+       +#+         #
+#    By: seokjyan <seokjyan@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/10/12 15:47:38 by minkylee          #+#    #+#              #
-#    Updated: 2023/11/15 13:09:19 by minkylee         ###   ########.fr        #
+#    Created: 2023/11/25 21:48:22 by seokjyan          #+#    #+#              #
+#    Updated: 2023/12/25 22:40:41 by seokjyan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
