@@ -1,4 +1,4 @@
-NAME=ex00
+NAME=ex05
 
 RED="\033[0;31m Warining: "
 GREEN="\033[3;32m"
@@ -11,7 +11,7 @@ CXX=c++
 
 CXXFLAGS=-Wall -Wextra -Werror
 CXXFLAGS+=-std=c++98
-# CXXFLAGS+=-g -fsanitize=address
+CXXFLAGS+=-g -fsanitize=address
 CXXFLAGS+=-MMD -MP -MF $(DEP_DIR)/$*.d
 
 RM=rm -rf

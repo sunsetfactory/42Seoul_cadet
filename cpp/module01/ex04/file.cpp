@@ -1,93 +1,60 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   file.cpp                                           :+:      :+:    :+:   */
+/*   File.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seokjyan <seokjyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/15 11:56:10 by seokjyan          #+#    #+#             */
-/*   Updated: 2024/03/15 12:05:46 by seokjyan         ###   ########.fr       */
+/*   Created: 2024/03/15 15:27:54 by seokjyan          #+#    #+#             */
+/*   Updated: 2024/03/15 16:59:51 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "file.hpp"
+#include "File.hpp"
 
-File::File()
+File::File(std::string filename)
 {
-    std::string outfile;
-    std::string s1;
-    std::string s2;
+    setifs(filename);
+    setOutfile(filename);
+    setofs(outfile);
 }
+File::~File() {}
 
-File::~File()
+void File::setifs(std::string filename)
 {
-    ifs.close();
-    ofs.close();
-}
-
-std::ifstream& File::getIfs()
-{
-    return ifs;
-}
-
-std::ofstream& File::getOfs()
-{
-    return ofs;
-}
-
-std::string File::getContents()
-{
-    return (contents);
-}
-
-std::string File::getOutfile()
-{
-    return (outfile);
-}
-
-void    File::setS1(std::string s1)
-{
-    this->s1 = s1;
-}
-
-void    File::setS2(std::string s2)
-{
-    this->s2 = s2;
-}
-
-void    File::setS1Len(int s1_len)
-{
-    this->s1_len = s1_len;
-}
-
-void    File::setS2Len(int s2_len)
-{
-    this->s2_len = s2_len;
-}
-
-void	File::replace(std::ifstream &ifs, std::ofstream &ofs, std::string s1, std::string s2)
-{
-    while (true)
+    ifs.open(filename.c_str());
+    if (ifs.fail())
     {
-        std::getline(ifs, contents);
-        
-        size_t pos = 0;
-        while (true)
-        {
-            pos = contents.find(s1, pos);
-            if (pos == std::string::npos)
-            {
-                break ;
-            }
-            contents.erase(pos, s1_len);
-            contents.insert(pos, s2);
-            // contents.replace(pos, s1_len, s2);
-            pos += s2_len;
-        }
-        ofs << contents;
-        if (ifs.eof())
-            break ;
+        std::cout << "sorry, can't open " << filename << std::endl;
+        exit(1);
     }
-    ifs.close();
-    ofs.close();
+}
+
+void File::setofs(std::string filename)
+{
+    ofs.open(filename.c_str());
+    if (ofs.fail())
+    {
+        std::cout << "sorry, can't open " << filename << std::endl;
+        exit(1);
+    }
+}
+
+void File::setOutfile(std::string filename)
+{
+    outfile = filename;
+    outfile.append(".replace");
+}
+
+void File::replace(std::string s1, std::string s2)
+{
+    std::string line;
+    size_t pos;
+
+    while (std::getline(ifs, line))
+    {
+        while ((pos = line.find(s1)) != std::string::npos)
+            line.replace(pos, s1.length(), s2);
+        ofs << line << std::endl;
+    }
 }

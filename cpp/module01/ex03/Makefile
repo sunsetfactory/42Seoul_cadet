@@ -1,4 +1,4 @@
-NAME=replace
+NAME=ex03
 
 RED="\033[0;31m Warining: "
 GREEN="\033[3;32m"

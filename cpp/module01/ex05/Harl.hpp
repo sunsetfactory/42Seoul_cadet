@@ -1,21 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   Harl.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seokjyan <seokjyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/15 11:12:22 by seokjyan          #+#    #+#             */
-/*   Updated: 2024/03/15 17:00:54 by seokjyan         ###   ########.fr       */
+/*   Created: 2024/03/15 19:06:01 by seokjyan          #+#    #+#             */
+/*   Updated: 2024/03/15 20:09:48 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Args.hpp"
-#include "File.hpp"
+#ifndef HARL_HPP
+#define HARL_HPP
+#include <iostream>
 
-int main(int ac, char *av[])
+class Harl
 {
-    Args args(ac, av);
-    File file(args.getFilename());
-    file.replace(args.getS1(), args.getS2());
-}
+    private:
+        void debug(void);
+        void info(void);
+        void warning(void);
+        void error(void);
+    public:
+        Harl();
+        ~Harl();
+        void complain( std::string level );
+};
+
+#endif

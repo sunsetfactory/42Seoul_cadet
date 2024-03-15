@@ -1,37 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   File.hpp                                           :+:      :+:    :+:   */
+/*   Args.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: seokjyan <seokjyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/15 15:27:51 by seokjyan          #+#    #+#             */
-/*   Updated: 2024/03/15 16:59:58 by seokjyan         ###   ########.fr       */
+/*   Created: 2024/03/15 15:27:56 by seokjyan          #+#    #+#             */
+/*   Updated: 2024/03/15 16:43:12 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FILE_HPP
-# define FILE_HPP
+#ifndef ARGS_HPP
+# define ARGS_HPP
 
 # include <iostream>
 # include <cstring>
-# include <fstream>
 # include <cstdlib>
 
-class File
+
+class Args
 {
     private:
-        std::ifstream ifs;
-        std::ofstream ofs;
-        std::string outfile;
-        std::string contents;
+        std::string filename;
+        std::string s1;
+        std::string s2;
     public:
-        File(std::string filename);
-        ~File();
-        void setifs(std::string filename);
-        void setofs(std::string filename);
-        void setOutfile(std::string filename);
-        void replace(std::string s1, std::string s2);
+        Args(int ac, char *av[]);
+        ~Args();
+        std::string getFilename();
+        std::string getS1();
+        std::string getS2();
+        bool ValidateArgs(char *av[]);
 };
 
 #endif
