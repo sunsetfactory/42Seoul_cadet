@@ -5,7 +5,7 @@ PUSH_INTERVAL=300
 auto_git_push() {
     git add .
     git commit -m "Automated commit at $(date)"
-    git push origin master
+    git push
 }
 
 while true; do
