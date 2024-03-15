@@ -6,7 +6,7 @@
 /*   By: seokjyan <seokjyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 11:54:28 by seokjyan          #+#    #+#             */
-/*   Updated: 2024/03/15 12:05:20 by seokjyan         ###   ########.fr       */
+/*   Updated: 2024/03/15 13:18:27 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ class File
         std::ifstream ifs;
         std::ofstream ofs;
         std::string contents;
-        std::string outfile;
-        std::string s1;
-        std::string s2;
+        std::string& outfile;
+        std::string& s1;
+        std::string& s2;
         int s1_len;
         int s2_len;
     
