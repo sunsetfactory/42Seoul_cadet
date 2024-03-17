@@ -6,7 +6,7 @@
 /*   By: seokjyan <seokjyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 22:32:19 by seokjyan          #+#    #+#             */
-/*   Updated: 2024/03/17 19:38:06 by seokjyan         ###   ########.fr       */
+/*   Updated: 2024/03/17 19:44:39 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,4 +135,12 @@ const Fixed Fixed::operator++(int)
     const Fixed tmp(*this);
     operator++();
     return tmp;
+}
+
+Fixed Fixed::max(const Fixed& a, const Fixed& b)
+{
+    if (a.fixedPointValue > b.fixedPointValue)
+        return a;
+        
+    return b;
 }
