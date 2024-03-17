@@ -6,7 +6,7 @@
 /*   By: seokjyan <seokjyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 22:32:19 by seokjyan          #+#    #+#             */
-/*   Updated: 2024/03/17 19:35:49 by seokjyan         ###   ########.fr       */
+/*   Updated: 2024/03/17 19:38:06 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,15 +124,15 @@ Fixed &Fixed::operator=(const Fixed &fixed)
     return *this;
 }
 
-Fixed &Fixed::operator++()
+Fixed &Fixed::operator++(void)
 {
     fixedPointValue++;
     return *this;
 }
 
-Fixed Fixed::operator++(int)
+const Fixed Fixed::operator++(int)
 {
-    Fixed tmp(*this);
+    const Fixed tmp(*this);
     operator++();
     return tmp;
 }

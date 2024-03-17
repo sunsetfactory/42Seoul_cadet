@@ -6,7 +6,7 @@
 /*   By: seokjyan <seokjyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 22:32:24 by seokjyan          #+#    #+#             */
-/*   Updated: 2024/03/17 18:04:49 by seokjyan         ###   ########.fr       */
+/*   Updated: 2024/03/17 19:38:33 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,8 @@ class Fixed
         bool operator!=(const Fixed &fixed) const;
         
         Fixed &operator=(const Fixed &fixed);
-        Fixed &operator++();
-        Fixed operator++(int);
-        Fixed ();
+        Fixed &operator++(void);
+        const Fixed Fixed::operator++(int);
         Fixed operator+(const Fixed &fixed) const;
         Fixed operator-(const Fixed &fixed) const;
         Fixed operator*(const Fixed &fixed) const;
