@@ -6,7 +6,7 @@
 /*   By: seokjyan <seokjyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 22:32:19 by seokjyan          #+#    #+#             */
-/*   Updated: 2024/03/17 17:26:27 by seokjyan         ###   ########.fr       */
+/*   Updated: 2024/03/17 17:50:42 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ Fixed::Fixed(const float value)
     fixedPointValue = (int)roundf(value * (1 << fractionalBits));
 }
 
-
 Fixed::Fixed(const Fixed &fixed)
 {
     std::cout << "Copy constructor called" << std::endl;
@@ -38,13 +37,6 @@ Fixed::Fixed(const Fixed &fixed)
 Fixed::~Fixed()
 {
     std::cout << "Destructor called" << std::endl;
-}
-
-Fixed &Fixed::operator=(const Fixed &fixed)
-{
-    std::cout << "Assignation operator called" << std::endl;
-    fixedPointValue = fixed.getRawBits();
-    return *this;
 }
 
 int Fixed::getRawBits(void) const
@@ -73,4 +65,61 @@ std::ostream &operator<<(std::ostream &out, const Fixed &fixed)
 {
     out << fixed.toFloat();
     return out;
+}
+
+bool Fixed::operator>(const Fixed &fixed) const
+{
+    return fixedPointValue > fixed.getRawBits();
+}
+
+bool Fixed::operator<(const Fixed &fixed) const
+{
+    return fixedPointValue < fixed.getRawBits();
+}
+
+bool Fixed::operator>=(const Fixed &fixed) const
+{
+    return fixedPointValue >= fixed.getRawBits();
+}
+
+bool Fixed::operator<=(const Fixed &fixed) const
+{
+    return fixedPointValue <= fixed.getRawBits();
+}
+
+bool Fixed::operator==(const Fixed &fixed) const
+{
+    return fixedPointValue == fixed.getRawBits();
+}
+
+bool Fixed::operator!=(const Fixed &fixed) const
+{
+    return fixedPointValue != fixed.getRawBits();
+}
+
+Fixed Fixed::operator+(const Fixed &fixed) const
+{
+    return Fixed(toFloat() + fixed.toFloat());
+}
+
+Fixed Fixed::operator-(const Fixed &fixed) const
+{
+    return Fixed(toFloat() - fixed.toFloat());
+}
+
+Fixed Fixed::operator*(const Fixed &fixed) const
+{
+    return Fixed(toFloat() * fixed.toFloat());
+}
+
+Fixed Fixed::operator/(const Fixed &fixed) const
+{
+    return Fixed(toFloat() / fixed.toFloat());
+}
+
+Fixed &Fixed::operator=(const Fixed &fixed)
+{
+    std::cout << "Assignation operator called" << std::endl;
+    fixedPointValue = fixed.getRawBits();
+    return *this;
 }
