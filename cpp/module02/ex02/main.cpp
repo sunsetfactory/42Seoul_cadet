@@ -6,7 +6,7 @@
 /*   By: seokjyan <seokjyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 22:32:21 by seokjyan          #+#    #+#             */
-/*   Updated: 2024/03/17 21:44:29 by seokjyan         ###   ########.fr       */
+/*   Updated: 2024/03/17 21:53:26 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,19 @@ int main( void ) {
   Fixed d(2);
   Fixed e(3);
 
-  if (c < d)
-    cout << d << endl;
-  
+  if (c < e)
+    cout << "e" << endl;
+  else
+    cout << "c" << endl;
+
+  if (c == d)
+    cout << "equal" << endl;
+  else
+    cout << "diff" << endl;
+
+  if (c != e)
+    cout << "diff" << endl;
+  else
+    cout << "equal" << endl;
   return 0;
 }
