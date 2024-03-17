@@ -6,7 +6,7 @@
 /*   By: seokjyan <seokjyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 22:32:19 by seokjyan          #+#    #+#             */
-/*   Updated: 2024/03/17 17:05:36 by seokjyan         ###   ########.fr       */
+/*   Updated: 2024/03/17 17:12:04 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ Fixed &Fixed::operator=(const Fixed &fixed)
     fixedPointValue = fixed.getRawBits();
     return *this;
 }
+
+
 
 int Fixed::getRawBits(void) const
 {
