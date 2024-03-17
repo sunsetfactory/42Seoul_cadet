@@ -6,12 +6,13 @@
 /*   By: seokjyan <seokjyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 22:32:21 by seokjyan          #+#    #+#             */
-/*   Updated: 2024/03/17 21:44:13 by seokjyan         ###   ########.fr       */
+/*   Updated: 2024/03/17 21:44:29 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Fixed.hpp"
 #define cout std::cout
+#define endl std::endl
 
 int main( void ) {
   Fixed a;
