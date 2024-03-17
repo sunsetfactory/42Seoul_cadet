@@ -6,7 +6,7 @@
 /*   By: seokjyan <seokjyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 22:32:21 by seokjyan          #+#    #+#             */
-/*   Updated: 2024/03/17 19:55:37 by seokjyan         ###   ########.fr       */
+/*   Updated: 2024/03/17 21:34:01 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,5 +22,9 @@ int main( void ) {
   std::cout << a + b << std::endl;
   std::cout << a - b << std::endl;
   std::cout << a * b << std::endl;
+  std::cout << a / b << std::endl;
+  std::cout.width(10);
+  std::cout << "before: " << a++ << ", " << a << std::endl << "before: " << ++a << ", " << a << std::endl;
+
   return 0;
 }
