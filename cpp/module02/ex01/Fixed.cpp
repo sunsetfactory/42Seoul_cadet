@@ -6,7 +6,7 @@
 /*   By: seokjyan <seokjyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 22:32:19 by seokjyan          #+#    #+#             */
-/*   Updated: 2024/03/17 17:12:04 by seokjyan         ###   ########.fr       */
+/*   Updated: 2024/03/17 17:12:17 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,11 @@ Fixed &Fixed::operator=(const Fixed &fixed)
     return *this;
 }
 
-
+std::ostream &operator<<(std::ostream &out, const Fixed &fixed)
+{
+    out << fixed.toFloat();
+    return out;
+}
 
 int Fixed::getRawBits(void) const
 {
