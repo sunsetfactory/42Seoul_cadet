@@ -6,7 +6,7 @@
 /*   By: seokjyan <seokjyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 22:32:21 by seokjyan          #+#    #+#             */
-/*   Updated: 2024/03/17 19:39:41 by seokjyan         ###   ########.fr       */
+/*   Updated: 2024/03/17 19:50:53 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,9 @@ int main( void ) {
   std::cout << a << std::endl;
   std::cout << a++ << std::endl;
   std::cout << a << std::endl;
-
   std::cout << b << std::endl;
-
   std::cout << Fixed::max( a, b ) << std::endl;
+  std::cout << a + b << std::endl;
 
   return 0;
 }
