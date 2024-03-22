@@ -6,7 +6,7 @@
 /*   By: seokjyan <seokjyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 22:32:19 by seokjyan          #+#    #+#             */
-/*   Updated: 2024/03/17 17:26:27 by seokjyan         ###   ########.fr       */
+/*   Updated: 2024/03/21 17:54:45 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ Fixed::Fixed(const float value)
 }
 
 
-Fixed::Fixed(const Fixed &fixed)
+Fixed::Fixed(const Fixed& fixed)
 {
     std::cout << "Copy constructor called" << std::endl;
     *this = fixed;

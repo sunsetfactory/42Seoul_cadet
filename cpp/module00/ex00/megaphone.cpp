@@ -12,6 +12,9 @@
 
 #include <iostream>
 
+#define cout std::cout
+#define endl std::endl
+
 int main(int argc, char **argv)
 {
     int i;
@@ -19,23 +22,22 @@ int main(int argc, char **argv)
 
     if (argc > 1)
     {
-    i = 1;
-    while (i < argc)
-    {
-        j = 0;
-        while (argv[i][j])
+        i = 1;
+        while (i < argc)
         {
-        // cout << (char)toupper(argv[i][j]);
-        cout << static_cast<char>(toupper(argv[i][j]));
-        j++;
+            j = 0;
+            while (argv[i][j])
+            {
+                cout << static_cast<char>(toupper(argv[i][j]));
+                j++;
+            }
+            i++;
         }
-        i++;
-    }
-    cout << endl;
+        cout << endl;
     }
     else
     {
-    cout << "* LOUD AND UNBEARABLE FEEDBACK NOISE *" << endl;
+        cout << "* LOUD AND UNBEARABLE FEEDBACK NOISE *" << endl;
     }
     return (0);
 }

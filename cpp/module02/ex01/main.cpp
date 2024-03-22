@@ -6,7 +6,7 @@
 /*   By: seokjyan <seokjyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 22:32:21 by seokjyan          #+#    #+#             */
-/*   Updated: 2024/03/17 17:09:45 by seokjyan         ###   ########.fr       */
+/*   Updated: 2024/03/21 18:07:03 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int main( void ) {
   Fixed const b( 10 );
   Fixed const c( 42.42f );
   Fixed const d( b );
-
+  std::cout << "asig=============" << std::endl;
   a = Fixed( 1234.4321f );
 
   std::cout << "a is " << a << std::endl;
