@@ -3,20 +3,21 @@
 
 #include <iostream>
 
-class Animal {
-    private:
-        static int count;
-    protected:
-        std::string name;
-        int age;
-    public:
-        Animal();
-        Animal(std::string name, int age);
-        virtual ~Animal();
-        Animal(const Animal &src);
-        Animal &operator=(const Animal &src);
-        virtual void makeSound() const = 0;
-        void printInfo() const;
+class Animal
+{
+  protected:
+    std::string type;
+    std::string name;
+
+  public:
+    Animal();
+    Animal(std::string name);
+    virtual ~Animal();
+    Animal(const Animal &animal);
+    Animal &operator=(const Animal &animal);
+    virtual void makeSound() const = 0;
+    std::string getType() const;
+    std::string getName() const;
 };
 
 #endif
