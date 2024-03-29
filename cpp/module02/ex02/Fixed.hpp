@@ -6,7 +6,7 @@
 /*   By: seokjyan <seokjyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 22:32:24 by seokjyan          #+#    #+#             */
-/*   Updated: 2024/03/17 19:44:08 by seokjyan         ###   ########.fr       */
+/*   Updated: 2024/03/29 14:33:51 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ class Fixed
         Fixed operator-(const Fixed &fixed) const;
         Fixed operator*(const Fixed &fixed) const;
         Fixed operator/(const Fixed &fixed) const;
-        
+
         static Fixed max(const Fixed& a, const Fixed& b);
 };
 

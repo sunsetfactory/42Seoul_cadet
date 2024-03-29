@@ -5,7 +5,7 @@ ScavTrap::ScavTrap(string name) : ClapTrap(name)
     _Hit_point = 100;
     _Energy_point = 50;
     _Attack_damage = 20;
-    cout << "Production of the ScavTrap " GREEN << name << RESET " model is complete" << endl;
+    cout << get_Name() << " product was produced with scavtrap" << endl;
 }
 
 ScavTrap::ScavTrap(const ScavTrap &scavtrap) : ClapTrap(scavtrap)
@@ -36,7 +36,7 @@ void ScavTrap::guardGate(void)
 
 void ScavTrap::attack(const string &target)
 {
-    cout << "ScavTrap " << get_Name() << " attacks " << target << " causing " << _Attack_damage << " points of damage!"
+    cout << "ScavTrap " << get_Name() << " attacks " RED << target << RESET " causing " << _Attack_damage << " points of damage!"
          << endl;
 }
 

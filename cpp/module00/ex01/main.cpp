@@ -13,7 +13,7 @@
 #include "PhoneBook.hpp"
 #include <limits>
 
-int main()
+int main(void)
 {
     PhoneBook div;
     st command;

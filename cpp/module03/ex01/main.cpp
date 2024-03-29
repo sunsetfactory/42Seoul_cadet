@@ -15,6 +15,7 @@ int main()
     cl_tp.attack("seokjyan");
     cl_tp.takeDamage(10);
     cl_tp.beRepaired(5);
+    // cl_tp.guardGate(); // Error
     cout << endl << endl;
 
     return 0;

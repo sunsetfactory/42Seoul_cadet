@@ -6,7 +6,7 @@
 /*   By: seokjyan <seokjyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 22:32:19 by seokjyan          #+#    #+#             */
-/*   Updated: 2024/03/17 19:51:24 by seokjyan         ###   ########.fr       */
+/*   Updated: 2024/03/29 14:20:43 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ Fixed::Fixed(const Fixed &fixed)
     //std::cout << "Copy constructor called" << std::endl;
     *this = fixed;
 }
+
 Fixed::~Fixed()
 {
     //std::cout << "Destructor called" << std::endl;
@@ -141,6 +142,5 @@ Fixed Fixed::max(const Fixed& a, const Fixed& b)
 {
     if (a.fixedPointValue > b.fixedPointValue)
         return a;
-        
     return b;
 }

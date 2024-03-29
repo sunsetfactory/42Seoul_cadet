@@ -7,7 +7,7 @@ ClapTrap::ClapTrap() : _Hit_point(10), _Energy_point(10), _Attack_damage(0)
 
 ClapTrap::ClapTrap(string Name) : _Name(Name), _Hit_point(10), _Energy_point(10), _Attack_damage(0)
 {
-    cout << "Production of the claptrap " << get_Name() << " model is complete" << endl;
+    cout << get_Name() << " product was produced with claptrap" << endl;
 }
 
 ClapTrap::ClapTrap(const ClapTrap &claptrap)
@@ -39,7 +39,7 @@ unsigned int ClapTrap::get_Damage(void) const
 
 void ClapTrap::attack(const string &target)
 {
-    cout << "claptrap " << get_Name() << " attacks " << target << " causing " << _Attack_damage << " points of damage!"
+    cout << "claptrap " << get_Name() << " attacks " RED << target << RESET " causing " << _Attack_damage << " points of damage!"
          << endl;
 }
 

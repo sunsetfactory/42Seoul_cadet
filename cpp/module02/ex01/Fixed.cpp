@@ -6,7 +6,7 @@
 /*   By: seokjyan <seokjyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 22:32:19 by seokjyan          #+#    #+#             */
-/*   Updated: 2024/03/21 17:54:45 by seokjyan         ###   ########.fr       */
+/*   Updated: 2024/03/28 18:49:06 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 Fixed::Fixed() : fixedPointValue(0)
 {
-    std::cout << "Default constructor called" << std::endl; 
+    std::cout << "Default constructor called" << std::endl;
 }
 
 Fixed::Fixed(const int value)
@@ -26,11 +26,10 @@ Fixed::Fixed(const int value)
 Fixed::Fixed(const float value)
 {
     std::cout << "Float constructor called" << std::endl;
-    fixedPointValue = (int)roundf(value * (1 << fractionalBits));
+    fixedPointValue = roundf(value * (1 << fractionalBits));
 }
 
-
-Fixed::Fixed(const Fixed& fixed)
+Fixed::Fixed(const Fixed &fixed)
 {
     std::cout << "Copy constructor called" << std::endl;
     *this = fixed;
@@ -59,12 +58,12 @@ void Fixed::setRawBits(int const raw)
     fixedPointValue = raw;
 }
 
-float Fixed::toFloat( void ) const
+float Fixed::toFloat(void) const
 {
     return (float)fixedPointValue / (1 << fractionalBits);
 }
 
-int Fixed::toInt( void ) const
+int Fixed::toInt(void) const
 {
     return fixedPointValue >> fractionalBits;
 }
