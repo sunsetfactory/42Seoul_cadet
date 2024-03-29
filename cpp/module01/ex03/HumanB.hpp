@@ -6,7 +6,7 @@
 /*   By: seokjyan <seokjyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 12:59:55 by seokjyan          #+#    #+#             */
-/*   Updated: 2024/03/14 16:53:16 by seokjyan         ###   ########.fr       */
+/*   Updated: 2024/03/29 17:02:45 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,10 @@ class HumanB
 {
     private:
         std::string _name;
-        Weapon *_weapon;
+        // Weapon *_weapon = new Weapon("default");
+        Weapon *_weapon = NULL;
     public:
+        HumanB();
         HumanB(std::string name);
         ~HumanB();
         void attack();

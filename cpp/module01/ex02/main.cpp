@@ -6,7 +6,7 @@
 /*   By: seokjyan <seokjyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 11:45:19 by seokjyan          #+#    #+#             */
-/*   Updated: 2024/03/29 14:40:14 by seokjyan         ###   ########.fr       */
+/*   Updated: 2024/03/29 16:43:18 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,13 @@ int main()
 
     std::cout << "Address in memory of the string: " << &strORI << std::endl;
     std::cout << "Address in memory of the stringPTR: " << &stringPTR << std::endl;
-    std::cout << "Address in memory of the stringREF: " << &stringREF << std::endl;
+    std::cout << "Address in memory of the stringREF: " << &stringREF << std::endl << std::endl;
 
     std::cout << "StringORI: " << strORI << std::endl;
     std::cout << "StringPTR: " << stringPTR << std::endl;
-    std::cout << "StringREF: " << stringREF << std::endl;
-    return (0);
+    std::cout << "StringREF: " << stringREF << std::endl << std::endl;
+
+    std::cout << "StringPTR: " << *stringPTR << std::endl;
+
+    return 0;
 }

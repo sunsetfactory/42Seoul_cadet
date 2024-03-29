@@ -11,7 +11,7 @@ CXX=c++
 
 CXXFLAGS=-Wall -Wextra -Werror
 CXXFLAGS+=-std=c++98
-CXXFLAGS+=-g -fsanitize=address
+CXXFLAGS+=-fsanitize=address
 CXXFLAGS+=-MMD -MP -MF $(DEP_DIR)/$*.d
 
 RM=rm -rf
