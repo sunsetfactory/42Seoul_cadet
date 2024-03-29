@@ -4,7 +4,7 @@ Dog::Dog() : Animal("Dog")
 {
 }
 
-Dog::Dog(const Dog &dog)
+Dog::Dog(const Dog &dog) : Animal("Dog")
 {
     *this = dog;
 }
