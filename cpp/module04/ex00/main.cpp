@@ -7,6 +7,9 @@ int main()
 
     i->makeSound();
     j->makeSound();
+
+    delete i;
     delete j;
+    
     return 0;
 }
