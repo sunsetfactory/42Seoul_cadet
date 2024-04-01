@@ -8,17 +8,17 @@ Animal::Animal() : type("Animal")
 Animal::Animal(const Animal &animal)
 {
     *this = animal;
-    std::cout << "Animal copy constructor called" << std::endl;
+    std::cout << "두마리였나...?" << std::endl;
 }
 
 Animal::Animal(std::string name) : type(name)
 {
-    std::cout << "Animal constructor called" << std::endl;
+    std::cout << "저멀리 동물이 보인다...!" << std::endl;
 }
 
 Animal::~Animal()
 {
-    std::cout << "Animal destructor called" << std::endl;
+    std::cout << "동물 분양 완료!" << std::endl;
 }
 
 Animal &Animal::operator=(const Animal &animal)
@@ -35,4 +35,9 @@ std::string Animal::getType() const
 void Animal::makeSound() const
 {
     std::cout << "??? : Pi.. pika? Pikaaaaaaaaachuuuuuuuuuuuu!!" << std::endl;
+}
+
+Brain *Animal::getBrain() const
+{
+    return this->brain;
 }
