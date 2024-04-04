@@ -1,31 +1,30 @@
 #include "WrongAnimal.hpp"
 
-WrongAnimal::WrongAnimal() : type("WrongAnimal")
+WrongAnimal::WrongAnimal(const WrongAnimal &WrongAnimal)
 {
-    std::cout << "WrongAnimal constructor called" << std::endl;
-}
-
-WrongAnimal::WrongAnimal(const WrongAnimal &wrongAnimal)
-{
-    *this = wrongAnimal;
-    std::cout << "WrongAnimal copy constructor called" << std::endl;
+    *this = WrongAnimal;
+    std::cout << "두마리였나...?" << std::endl;
 }
 
 WrongAnimal::WrongAnimal(std::string name) : type(name)
 {
-    std::cout << "WrongAnimal constructor called" << std::endl;
+    std::cout << "저멀리 동물이 아닌 것이 보인다...!" << std::endl;
 }
 
 WrongAnimal::~WrongAnimal()
 {
-    std::cout << "WrongAnimal destructor called" << std::endl;
+    std::cout << "동물 분양 완료!" << std::endl;
 }
 
-WrongAnimal &WrongAnimal::operator=(const WrongAnimal &wrongAnimal)
+WrongAnimal &WrongAnimal::operator=(const WrongAnimal &WrongAnimal)
 {
-    this->type = wrongAnimal.type;
-    std::cout << "WrongAnimal assignation operator called" << std::endl;
+    this->type = WrongAnimal.getType();
     return *this;
+}
+
+WrongAnimal::WrongAnimal() : type("WrongAnimal")
+{
+    std::cout << "저멀리 동물이 아닌 것이 보인다...!" << std::endl;
 }
 
 std::string WrongAnimal::getType() const
@@ -35,5 +34,5 @@ std::string WrongAnimal::getType() const
 
 void WrongAnimal::makeSound() const
 {
-    std::cout << "??? : Pi.. pika? Pikaaaaaaaaachuuuuuuuuuuuu!!" << std::endl;
+    std::cout << "??? : ㅍ..피카?!!\n이상한 동물입니다. 이 메시지는 뭔가 잘못된 것입니다" << std::endl;
 }

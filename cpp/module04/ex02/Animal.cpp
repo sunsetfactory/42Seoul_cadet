@@ -31,8 +31,3 @@ std::string Animal::getType() const
 {
     return this->type;
 }
-
-void Animal::makeSound() const
-{
-    std::cout << "??? : ㅍ..피카?!!\n동물은 아무 말도 하지 않습니다. 이 메시지는 뭔가 잘못된 것입니다" << std::endl;
-}

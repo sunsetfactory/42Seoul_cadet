@@ -1,29 +1,29 @@
-#include "Cat.hpp"
+#include "WrongCat.hpp"
 
-Cat::Cat() : Animal("Cat")
+WrongCat::WrongCat() : WrongAnimal("WrongCat")
 {
     std::cout << "냥줍하다... 사랑하다!" << std::endl;
 }
 
-Cat::Cat(const Cat &cat) : Animal("Cat")
+WrongCat::WrongCat(const WrongCat &WrongCat) : WrongAnimal("WrongCat")
 {
-    *this = cat;
+    *this = WrongCat;
     std::cout << "냥냥줍하다... 사랑사랑하다!!" << std::endl;
 }
 
-Cat &Cat::operator=(const Cat &cat)
+WrongCat &WrongCat::operator=(const WrongCat &WrongCat)
 {
-    this->type = cat.type;
+    this->type = WrongCat.type;
     std::cout << "냥이 묭실 다녀오는중... 미용사 블러딩중..." << std::endl;
     return *this;
 }
 
-Cat::~Cat()
+WrongCat::~WrongCat()
 {
     std::cout << "냥이 분양중..." << std::endl;
 }
 
-void Cat::makeSound() const
+void WrongCat::makeSound() const
 {
     std::cout << "냐옹 냐옹 냐옹 냐옹 냐옹" << std::endl;
 }

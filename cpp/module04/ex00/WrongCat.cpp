@@ -2,27 +2,28 @@
 
 WrongCat::WrongCat() : WrongAnimal("WrongCat")
 {
-    std::cout << "WrongCat constructor called" << std::endl;
+    std::cout << "냥줍하다... 고양이 맞아..?" << std::endl;
 }
 
-WrongCat::WrongCat(const WrongCat &wrongCat) : WrongAnimal(wrongCat)
+WrongCat::WrongCat(const WrongCat &WrongCat) : WrongAnimal("WrongCat")
 {
-    std::cout << "WrongCat copy constructor called" << std::endl;
+    *this = WrongCat;
+    std::cout << "냥냥줍하다... 고고양이 맞아?" << std::endl;
 }
 
-WrongCat &WrongCat::operator=(const WrongCat &wrongCat)
+WrongCat &WrongCat::operator=(const WrongCat &WrongCat)
 {
-    WrongAnimal::operator=(wrongCat);
-    std::cout << "WrongCat assignation operator called" << std::endl;
+    this->type = WrongCat.type;
+    std::cout << "냥이 묭실 다녀오는중... 미용사의 표정이 이상하다..." << std::endl;
     return *this;
 }
 
 WrongCat::~WrongCat()
 {
-    std::cout << "WrongCat destructor called" << std::endl;
+    std::cout << "냥이라 생각되는 무언가 분양중..." << std::endl;
 }
 
 void WrongCat::makeSound() const
 {
-    std::cout << "Meow meow" << std::endl;
+    std::cout << "먀몽 먀몽 먀몽 먀몽 먀몽" << std::endl;
 }

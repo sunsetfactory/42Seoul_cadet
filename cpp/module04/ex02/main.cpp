@@ -65,25 +65,6 @@ void test3()
     std::cout << std::endl;
 }
 
-void test2()
-{
-    std::cout << "==================== test2 ====================" << std::endl;
-
-    for (size_t i = 0; i < 10; i++)
-    {
-        if (i % 2)
-        {
-            meta_copy[i] = new Animal(*meta[i]);
-        }
-        else
-        {
-            meta_copy[i] = new Animal(*meta[i]);
-        }
-    }
-
-    std::cout << std::endl;
-}
-
 void test1()
 {
     std::cout << "==================== test1 ====================" << std::endl;
@@ -106,7 +87,6 @@ void test1()
 int main(void)
 {
     test1();
-    test2();
     test3();
 
     del();

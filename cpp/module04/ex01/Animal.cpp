@@ -2,7 +2,7 @@
 
 Animal::Animal() : type("Animal")
 {
-    std::cout << "Animal default constructor called" << std::endl;
+    std::cout << "저멀리 동물이 보인다...!" << std::endl;
 }
 
 Animal::Animal(const Animal &animal)
@@ -23,7 +23,7 @@ Animal::~Animal()
 
 Animal &Animal::operator=(const Animal &animal)
 {
-    this->type = animal.type;
+    this->type = animal.getType();
     return *this;
 }
 
@@ -34,10 +34,5 @@ std::string Animal::getType() const
 
 void Animal::makeSound() const
 {
-    std::cout << "??? : Pi.. pika? Pikaaaaaaaaachuuuuuuuuuuuu!!" << std::endl;
-}
-
-Brain *Animal::getBrain() const
-{
-    return this->brain;
+    std::cout << "??? : ㅍ..피카?!!\n동물은 아무 말도 하지 않습니다. 이 메시지는 뭔가 잘못된 것입니다" << std::endl;
 }

@@ -10,10 +10,10 @@ class WrongAnimal
 
   public:
     WrongAnimal();
-    WrongAnimal(std::string name);
     virtual ~WrongAnimal();
     WrongAnimal(const WrongAnimal &wrongAnimal);
     WrongAnimal &operator=(const WrongAnimal &wrongAnimal);
+    WrongAnimal(std::string name);
     virtual void makeSound() const;
     std::string getType() const;
 };

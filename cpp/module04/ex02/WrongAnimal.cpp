@@ -34,5 +34,5 @@ std::string WrongAnimal::getType() const
 
 void WrongAnimal::makeSound() const
 {
-    std::cout << "??? : ㅍ..피카?!!\n이상한 동물입니다. 이 메시지는 뭔가 잘못된 것입니다" << std::endl;
+    std::cout << "??? : ㅍ..피카?!!" << std::endl;
 }
