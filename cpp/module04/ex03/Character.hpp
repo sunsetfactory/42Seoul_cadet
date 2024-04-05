@@ -1,6 +1,7 @@
 #ifndef CHARACTER_HPP
 #define CHARACTER_HPP
 
+#include "AMateria.hpp"
 #include "ICharacter.hpp"
 
 class Character : public ICharacter
@@ -13,7 +14,7 @@ class Character : public ICharacter
     Character(std::string const &name);
     Character(Character const &src);
     ~Character();
-    Character &operator=(Character const &rhs);
+    Character &operator=(Character const &src);
 
     std::string const &getName() const;
     void equip(AMateria *m);
