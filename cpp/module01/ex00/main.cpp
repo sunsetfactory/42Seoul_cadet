@@ -6,7 +6,7 @@
 /*   By: seokjyan <seokjyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 10:25:04 by seokjyan          #+#    #+#             */
-/*   Updated: 2024/03/14 11:28:39 by seokjyan         ###   ########.fr       */
+/*   Updated: 2024/04/05 15:54:01 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,11 @@
 
 int main()
 {
-    Zombie *zombie = newZombie("Zombie");
+    Zombie *zombie;
+    zombie = newZombie("ZZombie");
     zombie->announce();
     randomChump("Chump");
     delete zombie;
-    
+
     return (0);
 }

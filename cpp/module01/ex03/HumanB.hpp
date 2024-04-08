@@ -6,7 +6,7 @@
 /*   By: seokjyan <seokjyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 12:59:55 by seokjyan          #+#    #+#             */
-/*   Updated: 2024/03/29 17:02:45 by seokjyan         ###   ########.fr       */
+/*   Updated: 2024/04/05 16:19:46 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,32 +14,19 @@
 #define HUMANB_HPP
 #include "Weapon.hpp"
 
-// class HumanB
-// {
-//     private:
-//         std::string _name;
-//         Weapon &_weapon;
-//     public:
-//         HumanB();
-//         HumanB(std::string name);
-
-//         ~HumanB();
-//         void attack();
-//         void setWeapon(Weapon &weapon);
-// };
-
 class HumanB
 {
-    private:
-        std::string _name;
-        // Weapon *_weapon = new Weapon("default");
-        Weapon *_weapon = NULL;
-    public:
-        HumanB();
-        HumanB(std::string name);
-        ~HumanB();
-        void attack();
-        void setWeapon(Weapon &weapon);
+  private:
+    std::string _name;
+    // Weapon *_weapon = new Weapon("default");
+    Weapon *_weapon = NULL;
+
+  public:
+    HumanB();
+    HumanB(std::string name);
+    ~HumanB();
+    void attack();
+    void setWeapon(Weapon &weapon);
 };
 
 #endif

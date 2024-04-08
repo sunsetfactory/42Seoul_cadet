@@ -6,7 +6,7 @@
 /*   By: seokjyan <seokjyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 13:00:44 by seokjyan          #+#    #+#             */
-/*   Updated: 2024/03/29 16:32:05 by seokjyan         ###   ########.fr       */
+/*   Updated: 2024/04/05 16:39:52 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,11 @@ HumanB::~HumanB()
 
 void HumanB::attack()
 {
+    if (_weapon == NULL)
+    {
+        std::cout << _name << " has no weapon" << std::endl;
+        return;
+    }
     std::cout << _name << " attacks with his " << _weapon->getType() << std::endl;
 }
 

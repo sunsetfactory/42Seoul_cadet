@@ -10,7 +10,7 @@ OBJ_DIR=objs
 CXX=c++
 
 CXXFLAGS=-Wall -Wextra -Werror
-# CXXFLAGS+=-std=c++98
+CXXFLAGS+=-std=c++98
 CXXFLAGS+=-MMD -MP -MF $(DEP_DIR)/$*.d
 
 RM=rm -rf
@@ -39,7 +39,7 @@ clean:
 	|| echo $(RED)"Clean failed!"$(ANCI_INIT);
 
 fclean:
-	@$(RM) $(OBJS) $(DEPD) $(OBJ_DIR) $(DEP_DIR)\
+	@$(RM) $(OBJS) $(DEPD) $(OBJ_DIR) $(DEP_DIR) $(NAME)\
 	&& echo $(GREEN)"fclean successful!"$(ANCI_INIT) \
 	|| echo $(RED)"fclean failed!"$(ANCI_INIT);
 

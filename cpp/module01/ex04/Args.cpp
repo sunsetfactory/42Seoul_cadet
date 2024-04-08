@@ -6,7 +6,7 @@
 /*   By: seokjyan <seokjyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 15:27:59 by seokjyan          #+#    #+#             */
-/*   Updated: 2024/03/15 16:54:21 by seokjyan         ###   ########.fr       */
+/*   Updated: 2024/04/05 16:39:46 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,22 @@ Args::Args(int ac, char *av[])
     }
 }
 
-Args::~Args() {}
+Args::~Args()
+{
+}
 
-std::string Args::getFilename(){ return (filename); }
-std::string Args::getS1(){ return (s1); }
-std::string Args::getS2(){ return (s2); }
+std::string Args::getFilename()
+{
+    return (filename);
+}
+std::string Args::getS1()
+{
+    return (s1);
+}
+std::string Args::getS2()
+{
+    return (s2);
+}
 
 bool Args::ValidateArgs(char *av[])
 {
@@ -44,10 +55,10 @@ bool Args::ValidateArgs(char *av[])
     filename = av[1];
     s1 = av[2];
     s2 = av[3];
-    if (filename.length() == 0 || s1.length() == 0 || s2.length() == 0){
+    if (filename.length() == 0 || s1.length() == 0 || s2.length() == 0)
+    {
         std::cout << "argv length is 0" << std::endl;
         return (false);
     }
     return (true);
 }
-

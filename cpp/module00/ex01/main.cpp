@@ -13,6 +13,8 @@
 #include "PhoneBook.hpp"
 #include <limits>
 
+#include <iostream>
+
 int main(void)
 {
     PhoneBook div;
@@ -21,6 +23,8 @@ int main(void)
 
     while (1)
     {
+        system("clear");
+        header();
         validateInput("Enter command: ", &command);
         if (command == "EXIT" || command == "exit")
             break;

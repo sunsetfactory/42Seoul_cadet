@@ -62,21 +62,24 @@ st contacts::get_Dsecret()
     return (Dsecret);
 }
 
-// void    validateInput(st msg, st *str, int type) {}
-void validateInput(st msg, st *str)
+bool validateInput(st msg, st *str, int type)
 {
-	
+
     while (1)
     {
         cout << msg;
         getline(cin, *str);
         if (cin.eof())
         {
-            cout << "\nEOF encountered, exiting...\n";
+            cout << "EOF encountered, exiting...\n";
             cin.clear();
             clearerr(stdin);
+            usleep(300000);
+            return false;
         }
-        if ((*str).empty() == 0)
-            break;
+        if (type == NO_NEED)
+            return true;
+        if (type == NEED && (*str).empty() == 0)
+            return true;
     }
 }

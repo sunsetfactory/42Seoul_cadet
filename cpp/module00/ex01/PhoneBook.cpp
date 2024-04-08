@@ -12,46 +12,69 @@
 
 #include "PhoneBook.hpp"
 
-PhoneBook::PhoneBook() {}
-PhoneBook::~PhoneBook() {}
+PhoneBook::PhoneBook()
+{
+}
+PhoneBook::~PhoneBook()
+{
+}
 
-contacts	PhoneBook::get_contact(int i) {
+contacts PhoneBook::get_contact(int i)
+{
     return (contact[i]);
 }
 
-void    PhoneBook::contact_setf(st fn, int i) {
+void PhoneBook::contact_setf(st fn, int i)
+{
     contact[i].set_First_name(fn);
 }
 
-void    PhoneBook::contact_setl(st ln, int i) {
+void PhoneBook::contact_setl(st ln, int i)
+{
     contact[i].set_Last_name(ln);
 }
-    
-void    PhoneBook::contact_setn(st nn, int i) {
+
+void PhoneBook::contact_setn(st nn, int i)
+{
     contact[i].set_Nick_name(nn);
 }
 
-void    PhoneBook::contact_setp(st pn, int i) {
+void PhoneBook::contact_setp(st pn, int i)
+{
     contact[i].set_Phone_number(pn);
 }
 
-void    PhoneBook::contact_setd(st ds, int i) {
+void PhoneBook::contact_setd(st ds, int i)
+{
     contact[i].set_Dsecret(ds);
 }
 
-int add_contact(PhoneBook *div, int i) {
-    st fn, ln, nn, pn, ds;
+void header()
+{
+    cout << "===================================================" << endl;
+    cout << "===================================================" << endl;
+    cout << "== ⠰⡏⠓⣧⠀⣿⠀⢸⡇⢀⣾⠙⠳⣆⠀⣿⡄⢸⡇⢸⡯⠋⠃⠀⠀⠀⢐⣟⠙⣶⠀⢠⡞⠙⢶⡀⢠⡞⠙⢷⡀⢸⡇⣰⠏⠀==" << endl;
+    cout << "== ⢘⡷⠴⠏⠀⣿⠒⢺⡏⢸⡧⠀⠨⣿⠀⣿⢹⣼⡇⢸⣟⠲⠂⠀⠀⠀⢐⣗⠓⢧⡀⢿⡄⠀⢸⡇⢺⡂⠀⢸⡇⢸⣿⣿⠀⠀==" << endl;
+    cout << "== ⠘⠇⠀⠀⠀⠿⠀⠸⠧⠀⠻⠦⠞⠃⠀⠿⠀⠻⠇⠘⠷⠦⠦⠀⠀⠀ ⠷⠶⠟⠁⠘⠷⠴⠛⠀⠈⠷⠴⠟⠀⠸⠇⠘⠷⠀==" << endl;
+    cout << "===================================================" << endl;
+    cout << "===================================================" << endl;
+}
 
-    // validateInput("Enter first name: ", &fn, FN);
-    // validateInput("Enter last name: ", &ln, LN);
-    // validateInput("Enter nick name: ", &nn, NN);
-    // validateInput("Enter phone number: ", &pn, PN);
-    // validateInput("Enter darkest secret: ", &ds, DS);
-    validateInput("Enter first name: ", &fn);
-    validateInput("Enter last name: ", &ln);
-    validateInput("Enter nick name: ", &nn);
-    validateInput("Enter phone number: ", &pn);
-    validateInput("Enter darkest secret: ", &ds);
+int add_contact(PhoneBook *div, int i)
+{
+    st fn, ln, nn, pn, ds;
+    system("clear");
+    header();
+    if (validateInput("Enter first name: ", &fn) == false)
+        return (i);
+    if (validateInput("Enter last name: ", &ln) == false)
+        return (i);
+    if (validateInput("Enter nick name: ", &nn) == false)
+        return (i);
+    if (validateInput("Enter phone number: ", &pn) == false)
+        return (i);
+    if (validateInput("Enter darkest secret: ", &ds) == false)
+        return (i);
     div->contact_setf(fn, i);
     div->contact_setl(ln, i);
     div->contact_setn(nn, i);
@@ -64,9 +87,11 @@ int add_contact(PhoneBook *div, int i) {
     return (i);
 }
 
-void search_contact(PhoneBook *div) {
+void search_contact(PhoneBook *div)
+{
     cout << "|     Index|First Name| Last Name|  Nickname|" << endl;
-    for (int i = 0; i < 8; i++) {
+    for (int i = 0; i < 8; i++)
+    {
         cout << "|";
         cout.width(10);
         cout << i + 1 << "|";
@@ -79,23 +104,42 @@ void search_contact(PhoneBook *div) {
     }
 
     std::string index;
-    // validateInput("Enter the index of the contact you want to see: ", &index, INDEX);
-    validateInput("Enter the index of the contact you want to see: ", &index);
+    if (validateInput("Enter the index number 1 ~ 8: ", &index) == false)
+        return;
     std::stringstream id(index);
     int idx;
     id >> idx;
-    if (idx == 0) {
-        cout << "Invalid index!" << endl;
-        return;
-    }
     idx -= 1;
-    if (idx >= 0 && idx < 8) {
-        cout << "First Name: " << div->get_contact(idx).get_First_name() << endl;
-        cout << "Last Name: " << div->get_contact(idx).get_Last_name() << endl;
-        cout << "Nick name: " << div->get_contact(idx).get_Nick_name() << endl;
-        cout << "Phone Number: " << div->get_contact(idx).get_Phone_number() << endl;
-        cout << "Darkest Secret: " << div->get_contact(idx).get_Dsecret() << endl;
-    } else {
+    if (idx >= 0 && idx < 8)
+    {
+        system("clear");
+        header();
+        cout << "First Name";
+        cout.width(10);
+        cout << " : " << div->get_contact(idx).get_First_name() << endl;
+        cout << "Last Name";
+        cout.width(11);
+        cout << " : " << div->get_contact(idx).get_Last_name() << endl;
+        cout << "Nick name";
+        cout.width(11);
+        cout << " : " << div->get_contact(idx).get_Nick_name() << endl;
+        cout << "Phone Number";
+        cout.width(8);
+        cout << " : " << div->get_contact(idx).get_Phone_number() << endl;
+        cout << "Darkest Secret";
+        cout.width(6);
+        cout << " : " << div->get_contact(idx).get_Dsecret() << endl;
+    }
+    else
+    {
         cout << "Invalid index!" << endl;
+    }
+    while (1)
+    {
+        st cmd;
+        if (validateInput("\n\033[1mPRESS ENTER TO CONTINUE...\033[0m", &cmd, NO_NEED) == false)
+            return;
+        if (cmd.empty())
+            break;
     }
 }

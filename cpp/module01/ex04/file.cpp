@@ -6,7 +6,7 @@
 /*   By: seokjyan <seokjyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 15:27:54 by seokjyan          #+#    #+#             */
-/*   Updated: 2024/03/15 16:59:51 by seokjyan         ###   ########.fr       */
+/*   Updated: 2024/04/05 17:48:21 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,9 @@ File::File(std::string filename)
     setOutfile(filename);
     setofs(outfile);
 }
-File::~File() {}
+File::~File()
+{
+}
 
 void File::setifs(std::string filename)
 {
