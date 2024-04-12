@@ -17,12 +17,13 @@
 int main(void)
 {
     Fixed a(10);
+    cout << endl;
     Fixed b(Fixed(5.05f) * Fixed(2));
-
+    cout << endl;
     cout << "a = " << a << endl;
-    cout << "b = " << b << endl;
+    cout << "b = " << b << endl << endl;
 
-    cout << "max : " << Fixed::max(a, b) << endl;
+    cout << "max : " << Fixed::max(a, b) << endl << endl;
 
     cout << a + b << endl;
     cout << a - b << endl;
