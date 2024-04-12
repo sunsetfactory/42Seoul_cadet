@@ -14,13 +14,17 @@
 
 int main(void)
 {
-    Point a(8, 4);
+    Point a(0, 4);
     Point b(0, 4);
-    Point c(6, 2);
+    Point c(0, 2);
     Point point(7, 2);
 
     std::cout << "point: " << point.getX() << ", " << point.getY() << std::endl;
-
+    if (isTriangle(a, b, c))
+    {
+        std::cout << "The points are not a triangle." << std::endl;
+        return 1;
+    }
     if (bsp(a, b, c, point))
         std::cout << "The point is inside the triangle." << std::endl;
     else

@@ -35,6 +35,14 @@ Fixed Point::getY() const
 {
     return this->y;
 }
+int isTriangle(Point const a, Point const b, Point const c)
+{
+    if (a.getX() == b.getX() && b.getX() == c.getX())
+        return 1;
+    if (a.getY() == b.getY() && b.getY() == c.getY())
+        return 1;
+    return 0;
+}
 
 bool bsp(Point const a, Point const b, Point const c, Point const point)
 {
