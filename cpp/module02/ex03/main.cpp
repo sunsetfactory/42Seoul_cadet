@@ -11,8 +11,6 @@
 /* ************************************************************************** */
 
 #include "Point.hpp"
-// #define cout std::cout
-// #define endl std::endl
 
 int main(void)
 {

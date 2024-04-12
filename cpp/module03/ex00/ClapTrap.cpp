@@ -1,6 +1,6 @@
 #include "ClapTrap.hpp"
 
-ClapTrap::ClapTrap() : _Hit_point(10), _Energy_point(10), _Attack_damage(0) 
+ClapTrap::ClapTrap() : _Hit_point(10), _Energy_point(10), _Attack_damage(0)
 {
     cout << "Create a claptrap dummy" << endl;
 }
@@ -16,9 +16,8 @@ ClapTrap::ClapTrap(const ClapTrap &claptrap)
     *this = claptrap;
 }
 
-ClapTrap& ClapTrap::operator=(const ClapTrap &claptrap)
+ClapTrap &ClapTrap::operator=(const ClapTrap &claptrap)
 {
-    claptrap.get_Damage();
     cout << "Assignation of the claptrap " GREEN << claptrap._Name << RESET " model is complete" << endl;
     _Name = claptrap._Name;
     _Hit_point = claptrap._Hit_point;
@@ -39,7 +38,8 @@ unsigned int ClapTrap::get_Damage(void) const
 
 void ClapTrap::attack(const string &target)
 {
-    cout << "claptrap " << _Name << " attacks " << target << " causing " << _Attack_damage << " points of damage!" << endl;
+    cout << "claptrap " << _Name << " attacks " << target << " causing " << _Attack_damage << " points of damage!"
+         << endl;
 }
 
 void ClapTrap::takeDamage(unsigned int amount)
