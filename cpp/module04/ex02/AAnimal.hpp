@@ -1,7 +1,7 @@
 #ifndef AANIMAL_HPP
 #define AANIMAL_HPP
 
-#include "brain.hpp"
+#include "Brain.hpp"
 #include <iostream>
 
 class AAnimal

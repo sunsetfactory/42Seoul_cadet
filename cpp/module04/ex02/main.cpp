@@ -2,8 +2,8 @@
 #include "Dog.hpp"
 #include "WrongCat.hpp"
 
-Animal *meta[10];
-Animal *meta_copy[10];
+AAnimal *meta[10];
+AAnimal *meta_copy[10];
 
 Dog *d = new Dog();
 Dog *d2 = new Dog();
