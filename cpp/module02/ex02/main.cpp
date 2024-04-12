@@ -14,45 +14,46 @@
 #define cout std::cout
 #define endl std::endl
 
-int main( void ) {
-  Fixed a(10);
-  Fixed const b( Fixed( 5.05f ) * Fixed( 2 ) );
+int main(void)
+{
+    Fixed a(10);
+    Fixed b(Fixed(5.05f) * Fixed(2));
 
-  cout << "a = " << a << endl;
-  cout << "b = " << b << endl;
+    cout << "a = " << a << endl;
+    cout << "b = " << b << endl;
 
-  cout << "max : " << Fixed::max( a, b ) << endl;
+    cout << "max : " << Fixed::max(a, b) << endl;
 
-  cout << a + b << endl;
-  cout << a - b << endl;
-  cout << a * b << endl;
-  cout << a / b << endl;
-  
-  // cout << "a++, a: ";
-  // cout.width(10);  cout << a++ << ", ";  cout.width(10);  cout << a << endl;
-  // cout << "++a, a: ";
-  // cout.width(10);  cout << ++a << ", ";  cout.width(10);  cout << a << endl;
+    cout << a + b << endl;
+    cout << a - b << endl;
+    cout << a * b << endl;
+    cout << a / b << endl;
 
-  // cout << "a = " << a << endl;
-  // cout << "b = " << b << endl;
+    // cout << "a++, a: ";
+    // cout.width(10);  cout << a++ << ", ";  cout.width(10);  cout << a << endl;
+    // cout << "++a, a: ";
+    // cout.width(10);  cout << ++a << ", ";  cout.width(10);  cout << a << endl;
 
-  // Fixed c(2);
-  // Fixed d(2);
-  // Fixed e(3);
+    // cout << "a = " << a << endl;
+    // cout << "b = " << b << endl;
 
-  // if (c < e)
-  //   cout << "e" << endl;
-  // else
-  //   cout << "c" << endl;
+    // Fixed c(2);
+    // Fixed d(2);
+    // Fixed e(3);
 
-  // if (c == d)
-  //   cout << "equal" << endl;
-  // else
-  //   cout << "diff" << endl;
+    // if (c < e)
+    //   cout << "e" << endl;
+    // else
+    //   cout << "c" << endl;
 
-  // if (c != e)
-  //   cout << "diff" << endl;
-  // else
-  //   cout << "equal" << endl;
-  return 0;
+    // if (c == d)
+    //   cout << "equal" << endl;
+    // else
+    //   cout << "diff" << endl;
+
+    // if (c != e)
+    //   cout << "diff" << endl;
+    // else
+    //   cout << "equal" << endl;
+    return 0;
 }
