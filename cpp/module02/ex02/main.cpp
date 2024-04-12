@@ -11,24 +11,37 @@
 /* ************************************************************************** */
 
 #include "Fixed.hpp"
-#define cout std::cout
-#define endl std::endl
+// #define cout std::cout
+// #define endl std::endl
 
 int main(void)
 {
-    Fixed a(10);
-    cout << endl;
-    Fixed b(Fixed(5.05f) * Fixed(2));
-    cout << endl;
-    cout << "a = " << a << endl;
-    cout << "b = " << b << endl << endl;
+    // Fixed a(10);
+    // cout << endl;
+    // Fixed b(Fixed(5.05f) * Fixed(2));
+    // cout << endl;
+    // cout << "a = " << a << endl;
+    // cout << "b = " << b << endl << endl;
 
-    cout << "max : " << Fixed::max(a, b) << endl << endl;
+    // cout << "max : " << Fixed::max(a, b) << endl << endl;
 
-    cout << a + b << endl;
-    cout << a - b << endl;
-    cout << a * b << endl;
-    cout << a / b << endl;
+    // cout << a + b << endl;
+    // cout << a - b << endl;
+    // cout << a * b << endl;
+    // cout << a / b << endl;
+
+    Fixed a;
+    Fixed const b(Fixed(5.05f) * Fixed(2));
+    std::cout << std::endl;
+
+    std::cout << a << std::endl;
+    std::cout << ++a << std::endl;
+    std::cout << a << std::endl << std::endl;
+    std::cout << a++ << std::endl;
+    std::cout << a << std::endl;
+    std::cout << b << std::endl << std::endl;
+    std::cout << Fixed::max(a, b) << std::endl;
+    return 0;
 
     // cout << "a++, a: ";
     // cout.width(10);  cout << a++ << ", ";  cout.width(10);  cout << a << endl;
