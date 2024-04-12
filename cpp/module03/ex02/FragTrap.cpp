@@ -1,6 +1,6 @@
 #include "FragTrap.hpp"
 
-FragTrap::FragTrap() : FragTrap()
+FragTrap::FragTrap() : ClapTrap()
 {
     _Hit_point = 100;
     _Energy_point = 100;
@@ -8,7 +8,7 @@ FragTrap::FragTrap() : FragTrap()
     cout << get_Name() << " product has been upgraded to Fragtrap" << endl;
 }
 
-FragTrap::FragTrap(string name) : FragTrap()
+FragTrap::FragTrap(string name) : ClapTrap()
 {
     cout << get_Name() << " produced " GREEN << name << RESET << endl;
     _Name = name;
@@ -17,7 +17,7 @@ FragTrap::FragTrap(string name) : FragTrap()
     _Attack_damage = 30;
 }
 
-FragTrap::FragTrap(const FragTrap &FragTrap) : FragTrap(FragTrap)
+FragTrap::FragTrap(const FragTrap &FragTrap) : ClapTrap(FragTrap)
 {
     cout << "Produced the same model as " << FragTrap.get_Name() << endl;
 }

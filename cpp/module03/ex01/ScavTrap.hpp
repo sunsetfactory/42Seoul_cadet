@@ -6,15 +6,13 @@
 
 class ScavTrap : public ClapTrap
 {
-    public:
-        ScavTrap(string name);
-        ScavTrap(const ScavTrap &scavtrap);
-        ScavTrap &operator=(const ScavTrap &scavtrap);
-        ~ScavTrap();
-        void attack(const string &target);
-        void takeDamage(unsigned int amount);
-        void beRepaired(unsigned int amount);
-        void guardGate(void);
+  public:
+    ScavTrap(string name);
+    ScavTrap(const ScavTrap &scavtrap);
+    ScavTrap &operator=(const ScavTrap &scavtrap);
+    ~ScavTrap();
+    void attack(const string &target);
+    void guardGate(void);
 };
 
 #endif

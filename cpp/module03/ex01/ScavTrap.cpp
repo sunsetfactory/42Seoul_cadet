@@ -1,6 +1,6 @@
 #include "ScavTrap.hpp"
 
-ScavTrap::ScavTrap(string name) : ScavTrap(name)
+ScavTrap::ScavTrap(string name) : ClapTrap(name)
 {
     _Hit_point = 100;
     _Energy_point = 50;
@@ -8,7 +8,7 @@ ScavTrap::ScavTrap(string name) : ScavTrap(name)
     cout << get_Name() << " product was produced with scavtrap" << endl;
 }
 
-ScavTrap::ScavTrap(const ScavTrap &scavtrap) : ScavTrap(scavtrap)
+ScavTrap::ScavTrap(const ScavTrap &scavtrap) : ClapTrap(scavtrap)
 {
     cout << "Copy of the ScavTrap " << scavtrap.get_Name() << " model is complete" << endl;
     *this = scavtrap;
