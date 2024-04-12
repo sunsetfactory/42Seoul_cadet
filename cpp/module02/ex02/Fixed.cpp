@@ -137,14 +137,14 @@ const Fixed Fixed::operator++(int)
     return tmp;
 }
 
-Fixed Fixed::max(const Fixed &a, const Fixed &b)
+Fixed &Fixed::max(const Fixed &a, const Fixed &b)
 {
     if (a.getRawBits() > b.getRawBits())
         return a;
     return b;
 }
 
-Fixed Fixed::min(const Fixed &a, const Fixed &b)
+Fixed &Fixed::min(const Fixed &a, const Fixed &b)
 {
     if (a.getRawBits() < b.getRawBits())
         return a;
