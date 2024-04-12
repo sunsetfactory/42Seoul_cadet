@@ -17,10 +17,7 @@ int main(void)
     Point a(8, 4);
     Point b(0, 4);
     Point c(6, 2);
-    // Point a(10, 10);
-    // Point b(6, 6);
-    // Point c(12, 4);
-    Point point(10.0f, 6.0f);
+    Point point(7, 2);
 
     std::cout << "point: " << point.getX() << ", " << point.getY() << std::endl;
 
