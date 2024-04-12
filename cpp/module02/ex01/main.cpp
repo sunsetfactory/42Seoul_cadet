@@ -10,41 +10,38 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Fixed.hpp"
-#include <bitset>
 #include <iostream>
 
+#include "Fixed.hpp"
 int main(void)
 {
-    // float num = 1.1f;
-
-    // std::cout << num << "의 2진수 표현: ";
-    // std::cout << std::bitset<sizeof(int) * 8>(num) << std::endl;
-    // std::bitset<sizeof(float) * 8> bits;
-    // unsigned int* num_as_uint = reinterpret_cast<unsigned int*>(&num);
-    // bits = *num_as_uint;
-    // std::cout << num << "의 2진수 표현: " << bits << std::endl;
-    // bits = bits << 8;
-    // std::cout << num << "의 2진수 표현: " << bits << std::endl;
-    // bits = bits >> 8;
-    // std::cout << num << "의 2진수 표현: " << bits << std::endl;
-  
     Fixed a;
-    // Fixed const b(10);
-    Fixed const c(42.42f);
-    // Fixed const d(b);
-    std::cout << "asig=============" << std::endl;
-    a = Fixed(-1234.4321f);
+    std::cout << std::endl;
 
-    // std::cout << "a is " << a << std::endl;
-    // std::cout << "b is " << b << std::endl;
-    // std::cout << "c is " << c << std::endl;
-    // std::cout << "d is " << d << std::endl;
+    Fixed const b(10);
+    std::cout << std::endl;
+
+    Fixed const c(42.42f);
+    std::cout << std::endl;
+
+    Fixed const d(b);
+    std::cout << std::endl;
+
+    a = Fixed(1234.4321f);
+    std::cout << std::endl;
+
+    std::cout << "a is " << a << std::endl;
+    std::cout << "b is " << b << std::endl;
+    std::cout << "c is " << c << std::endl;
+    std::cout << "d is " << d << std::endl;
 
     std::cout << "a is " << a.toInt() << " as integer" << std::endl;
-    // std::cout << "b is " << b.toInt() << " as integer" << std::endl;
-    std::cout << "c is " << c.toFloat() << " as float" << std::endl;
-    // std::cout << "d is " << d.toFloat() << " as float" << std::endl;
+    std::cout << "b is " << b.toInt() << " as integer" << std::endl;
+    std::cout << "c is " << c.toInt() << " as integer" << std::endl;
+    std::cout << "d is " << d.toInt() << " as integer" << std::endl << std::endl;
+
+    std::cout << "a + b = " << a.toInt() + b.toInt() << std::endl;
+    std::cout << "b + c + d = " << b.toInt() + c.toInt() + d.toInt() << std::endl;
     return 0;
 }
 
