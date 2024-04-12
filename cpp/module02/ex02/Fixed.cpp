@@ -141,7 +141,28 @@ const Fixed Fixed::operator++(int)
 
 Fixed Fixed::max(const Fixed &a, const Fixed &b)
 {
-    if (a.fixedPointValue > b.fixedPointValue)
+    if (a.getRawBits() > b.getRawBits())
+        return a;
+    return b;
+}
+
+Fixed Fixed::min(const Fixed &a, const Fixed &b)
+{
+    if (a.getRawBits() < b.getRawBits())
+        return a;
+    return b;
+}
+
+Fixed &Fixed::max(Fixed &a, Fixed &b)
+{
+    if (a.getRawBits() > b.getRawBits())
+        return a;
+    return b;
+}
+
+Fixed &Fixed::min(Fixed &a, Fixed &b)
+{
+    if (a.getRawBits() < b.getRawBits())
         return a;
     return b;
 }
