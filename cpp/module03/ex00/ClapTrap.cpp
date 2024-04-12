@@ -13,7 +13,10 @@ ClapTrap::ClapTrap(string Name) : _Name(Name), _Hit_point(10), _Energy_point(10)
 ClapTrap::ClapTrap(const ClapTrap &claptrap)
 {
     cout << "Copy of the claptrap " GREEN << claptrap._Name << RESET " model is complete" << endl;
-    *this = claptrap;
+    _Name = claptrap._Name;
+    _Hit_point = claptrap._Hit_point;
+    _Energy_point = claptrap._Energy_point;
+    _Attack_damage = claptrap._Attack_damage;
 }
 
 ClapTrap &ClapTrap::operator=(const ClapTrap &claptrap)

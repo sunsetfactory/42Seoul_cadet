@@ -1,8 +1,8 @@
 #include "ClapTrap.hpp"
 
-ClapTrap::ClapTrap() : _Hit_point(10), _Energy_point(10), _Attack_damage(0)
+ClapTrap::ClapTrap() : _Name("None"), _Hit_point(10), _Energy_point(10), _Attack_damage(0)
 {
-    cout << "Create a claptrap dummy" << endl;
+    cout << get_Name() << " product was produced with claptrap" << endl;
 }
 
 ClapTrap::ClapTrap(string Name) : _Name(Name), _Hit_point(10), _Energy_point(10), _Attack_damage(0)
@@ -12,14 +12,16 @@ ClapTrap::ClapTrap(string Name) : _Name(Name), _Hit_point(10), _Energy_point(10)
 
 ClapTrap::ClapTrap(const ClapTrap &claptrap)
 {
-    cout << "Copy of the claptrap " << claptrap.get_Name() << " model is complete" << endl;
-    *this = claptrap;
+    cout << "Produced the same model as " << claptrap.get_Name() << endl;
+    _Name = claptrap._Name;
+    _Hit_point = claptrap._Hit_point;
+    _Energy_point = claptrap._Energy_point;
+    _Attack_damage = claptrap._Attack_damage;
 }
 
 ClapTrap &ClapTrap::operator=(const ClapTrap &claptrap)
 {
-    claptrap.get_Damage();
-    cout << "Assignation of the claptrap " << claptrap.get_Name() << " model is complete" << endl;
+    cout << get_Name() << " was set the same as " << claptrap.get_Name() << endl;
     _Name = claptrap._Name;
     _Hit_point = claptrap._Hit_point;
     _Energy_point = claptrap._Energy_point;
@@ -39,19 +41,45 @@ unsigned int ClapTrap::get_Damage(void) const
 
 void ClapTrap::attack(const string &target)
 {
-    cout << "claptrap " << get_Name() << " attacks " RED << target << RESET " causing " << _Attack_damage << " points of damage!"
-         << endl;
+    if (_Energy_point == 0)
+    {
+        cout << "claptrap " << get_Name() << " has no energy" << endl;
+        return;
+    }
+    else
+    {
+        cout << "claptrap " << get_Name() << " attacks " RED << target << RESET " causing " << _Attack_damage
+             << " points of damage!" << endl;
+        _Energy_point -= 1;
+    }
 }
 
 void ClapTrap::takeDamage(unsigned int amount)
 {
-    cout << "claptrap " << get_Name() << " takes " << amount << " points of damage!" << endl;
+    if (_Hit_point <= amount)
+    {
+        cout << get_Name() << " is died" << endl;
+        _Hit_point = 0;
+        return;
+    }
+    else
+    {
+        cout << get_Name() << " takes " << amount << " points of damage!" << endl;
+        _Hit_point -= amount;
+    }
 }
 
 void ClapTrap::beRepaired(unsigned int amount)
 {
-    cout << "claptrap " << get_Name() << " is repaired by " << amount << " points!" << endl;
+    if (_Hit_point + amount >= 10)
+    {
+        cout << get_Name() << " is fully repaired" << endl;
+        _Hit_point = 10;
+        return;
+    }
+    cout << get_Name() << " is repaired by " << amount << " points!" << endl;
 }
+
 string ClapTrap::get_Name() const
 {
     string expressed_name;

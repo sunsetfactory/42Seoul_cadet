@@ -64,5 +64,5 @@ bool bsp(Point const a, Point const b, Point const c, Point const point)
     // c_x
     //           << ") * (" << p_y << " - " << c_y << ")" << std::endl;
 
-    return (a1 >= 0 && a2 >= 0 && a3 >= 0) || (a1 <= 0 && a2 <= 0 && a3 <= 0);
+    return (a1 > 0 && a2 > 0 && a3 > 0) || (a1 < 0 && a2 < 0 && a3 < 0);
 }
