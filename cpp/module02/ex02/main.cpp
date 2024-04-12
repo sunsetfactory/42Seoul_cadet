@@ -41,6 +41,6 @@ int main(void)
     std::cout << "/*================test3================*/" << std::endl;
     Fixed const e(42.42f);
     Fixed const f(21.21f);
-    std::cout << Fixed::max(e, f) << std::endl << std::endl;
+    std::cout << Fixed::min(e, f) << std::endl << std::endl;
     return 0;
 }
