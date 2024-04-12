@@ -45,7 +45,7 @@ int Fixed::getRawBits(void) const
 void Fixed::setRawBits(int const raw)
 {
     std::cout << "setRawBits member function called" << std::endl;
-    fixedPointValue = raw;
+    this->fixedPointValue = raw;
 }
 
 Fixed::Fixed(const int value)
@@ -62,12 +62,12 @@ Fixed::Fixed(const float value)
 
 float Fixed::toFloat(void) const
 {
-    return (float)fixedPointValue / (1 << fractionalBits);
+    return (float)this->getRawBits() / (1 << fractionalBits);
 }
 
 int Fixed::toInt(void) const
 {
-    return fixedPointValue >> fractionalBits;
+    return this->getRawBits() >> fractionalBits;
 }
 
 std::ostream &operator<<(std::ostream &out, const Fixed &fixed)
@@ -78,32 +78,32 @@ std::ostream &operator<<(std::ostream &out, const Fixed &fixed)
 
 bool Fixed::operator>(const Fixed &fixed) const
 {
-    return fixedPointValue > fixed.getRawBits();
+    return this->getRawBits() > fixed.getRawBits();
 }
 
 bool Fixed::operator<(const Fixed &fixed) const
 {
-    return fixedPointValue < fixed.getRawBits();
+    return this->getRawBits() < fixed.getRawBits();
 }
 
 bool Fixed::operator>=(const Fixed &fixed) const
 {
-    return fixedPointValue >= fixed.getRawBits();
+    return this->getRawBits() >= fixed.getRawBits();
 }
 
 bool Fixed::operator<=(const Fixed &fixed) const
 {
-    return fixedPointValue <= fixed.getRawBits();
+    return this->getRawBits() <= fixed.getRawBits();
 }
 
 bool Fixed::operator==(const Fixed &fixed) const
 {
-    return fixedPointValue == fixed.getRawBits();
+    return this->getRawBits() == fixed.getRawBits();
 }
 
 bool Fixed::operator!=(const Fixed &fixed) const
 {
-    return fixedPointValue != fixed.getRawBits();
+    return this->getRawBits() != fixed.getRawBits();
 }
 
 Fixed Fixed::operator+(const Fixed &fixed) const
