@@ -60,6 +60,7 @@ void Character::equip(AMateria *m)
             return;
         }
     }
+    std::cout << "Inventory is full" << std::endl;
 }
 
 void Character::unequip(int idx)

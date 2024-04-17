@@ -1,8 +1,9 @@
 #include "ScavTrap.hpp"
 
-ScavTrap::ScavTrap(string name) : ClapTrap(name)
+ScavTrap::ScavTrap() : ClapTrap()
 {
     _Hit_point = 100;
+    _Max_hit_point = 100;
     _Energy_point = 50;
     _Attack_damage = 20;
     cout << get_Name() << " product was produced with scavtrap" << endl;
@@ -11,7 +12,11 @@ ScavTrap::ScavTrap(string name) : ClapTrap(name)
 ScavTrap::ScavTrap(const ScavTrap &scavtrap) : ClapTrap(scavtrap)
 {
     cout << "Copy of the ScavTrap " << scavtrap.get_Name() << " model is complete" << endl;
-    *this = scavtrap;
+    _Name = scavtrap._Name;
+    _Hit_point = scavtrap._Hit_point;
+    _Max_hit_point = scavtrap._Max_hit_point;
+    _Energy_point = scavtrap._Energy_point;
+    _Attack_damage = scavtrap._Attack_damage;
 }
 
 ScavTrap &ScavTrap::operator=(const ScavTrap &scavtrap)
@@ -19,6 +24,7 @@ ScavTrap &ScavTrap::operator=(const ScavTrap &scavtrap)
     cout << "Assignation of the ScavTrap " << scavtrap.get_Name() << " model is complete" << endl;
     _Name = scavtrap._Name;
     _Hit_point = scavtrap._Hit_point;
+    _Max_hit_point = scavtrap._Max_hit_point;
     _Energy_point = scavtrap._Energy_point;
     _Attack_damage = scavtrap._Attack_damage;
     return *this;
@@ -29,23 +35,33 @@ ScavTrap::~ScavTrap()
     cout << "ScavTrap " << get_Name() << " was " RED "destroyed" RESET << endl;
 }
 
-void ScavTrap::guardGate(void)
+ScavTrap::ScavTrap(string name) : ClapTrap(name)
 {
-    cout << "ScavTrap " << get_Name() << " have enterred in Gate keeper mode." << endl;
+    _Hit_point = 100;
+    _Max_hit_point = 100;
+    _Energy_point = 50;
+    _Attack_damage = 20;
+    cout << get_Name() << " product was produced with scavtrap" << endl;
 }
 
 void ScavTrap::attack(const string &target)
 {
-    cout << "ScavTrap " << get_Name() << " attacks " RED << target << RESET " causing " << _Attack_damage << " points of damage!"
-         << endl;
+    if (_Energy_point == 0)
+    {
+        cout << "ScavTrap " << get_Name() << " has no energy" << endl;
+        return;
+    }
+    if (_Hit_point == 0)
+    {
+        cout << "ScavTrap " << get_Name() << " is already dead" << endl;
+        return;
+    }
+    cout << "ScavTrap " << get_Name() << " attacks " RED << target << RESET " causing " << _Attack_damage
+         << " points of damage!" << endl;
+    _Energy_point -= 1;
 }
 
-void ScavTrap::takeDamage(unsigned int amount)
+void ScavTrap::guardGate(void)
 {
-    cout << "ScavTrap " << get_Name() << " takes " << amount << " points of damage!" << endl;
-}
-
-void ScavTrap::beRepaired(unsigned int amount)
-{
-    cout << "ScavTrap " << get_Name() << " is repaired by " << amount << " points!" << endl;
+    cout << "ScavTrap " << get_Name() << " have enterred in Gate keeper mode." << endl;
 }

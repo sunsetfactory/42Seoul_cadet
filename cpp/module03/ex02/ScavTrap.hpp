@@ -8,10 +8,10 @@ class ScavTrap : public ClapTrap
 {
   public:
     ScavTrap();
-    ScavTrap(string name);
     ScavTrap(const ScavTrap &scavtrap);
     ScavTrap &operator=(const ScavTrap &scavtrap);
     ~ScavTrap();
+    ScavTrap(string name);
     void attack(const string &target);
     void guardGate(void);
 };

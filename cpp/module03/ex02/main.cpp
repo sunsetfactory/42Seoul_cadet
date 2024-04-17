@@ -20,16 +20,24 @@ int main()
     scavtrap.guardGate();
     cout << endl;
 
-    cout << YELLOW "==================Clapline=================" RESET << endl;
+    cout << YELLOW "==================Clapline1=================" RESET << endl;
     ClapTrap claptrap("clap-01");
     claptrap.attack("Frag-01");
     claptrap.takeDamage(10);
     claptrap.beRepaired(10);
     cout << endl;
 
-    cout << YELLOW "==================Copyline=================" RESET << endl;
+    cout << YELLOW "==================Copyline2=================" RESET << endl;
+    fragtrap.attack("seokjyan");
+    fragtrap.get_status(fragtrap);
+    fragtrap.takeDamage(50);
+    fragtrap.takeDamage(50);
+    fragtrap.takeDamage(50);
+    fragtrap.beRepaired(10);
     FragTrap fragtrap2(fragtrap);
-    cout << fragtrap2.get_Name() << endl;
+    fragtrap2.get_status(fragtrap);
+    fragtrap2.attack("seokjyan");
+    fragtrap2.takeDamage(50);
     ScavTrap scavtrap2(scavtrap);
     cout << scavtrap2.get_Name() << endl;
     ClapTrap claptrap2(claptrap);
