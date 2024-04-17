@@ -32,11 +32,11 @@ ScavTrap::~ScavTrap()
 
 ScavTrap::ScavTrap(string name) : ClapTrap(name)
 {
+    cout << get_Name() << " product was produced with scavtrap" << endl;
     _Hit_point = 100;
     _Max_hit_point = 100;
     _Energy_point = 50;
     _Attack_damage = 20;
-    cout << get_Name() << " product was produced with scavtrap" << endl;
 }
 
 void ScavTrap::attack(const string &target)

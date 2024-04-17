@@ -9,16 +9,6 @@ FragTrap::FragTrap() : ClapTrap()
     cout << get_Name() << " product has been upgraded to Fragtrap" << endl;
 }
 
-FragTrap::FragTrap(string name) : ClapTrap()
-{
-    cout << get_Name() << " produced " GREEN << name << RESET << endl;
-    _Name = name;
-    _Hit_point = 100;
-    _Max_hit_point = 100;
-    _Energy_point = 100;
-    _Attack_damage = 30;
-}
-
 FragTrap::FragTrap(const FragTrap &FragTrap) : ClapTrap(FragTrap)
 {
     cout << "Copy of the FragTrap " << FragTrap.get_Name() << " model is complete" << endl;
@@ -41,6 +31,15 @@ FragTrap::~FragTrap()
     cout << "FragTrap " << get_Name() << " was " RED "destroyed" RESET << endl;
 }
 
+FragTrap::FragTrap(string name) : ClapTrap(name)
+{
+    cout << get_Name() << " produced " GREEN << name << RESET << endl;
+    _Hit_point = 100;
+    _Max_hit_point = 100;
+    _Energy_point = 100;
+    _Attack_damage = 30;
+}
+
 void FragTrap::attack(const string &target)
 {
     if (_Energy_point == 0)
@@ -48,7 +47,6 @@ void FragTrap::attack(const string &target)
         cout << "FragTrap " << get_Name() << " has no energy" << endl;
         return;
     }
-<<<<<<< HEAD
     if (_Hit_point == 0)
     {
         cout << "FragTrap " << get_Name() << " is already dead" << endl;
@@ -57,14 +55,6 @@ void FragTrap::attack(const string &target)
     cout << "FragTrap " << get_Name() << " attacks " RED << target << RESET " causing " << _Attack_damage
          << " points of damage!" << endl;
     _Energy_point -= 1;
-=======
-    else
-    {
-        cout << "FragTrap " << get_Name() << " attacks " RED << target << RESET " causing " << _Attack_damage
-             << " points of damage!" << endl;
-        _Energy_point -= 1;
-    }
->>>>>>> 2886fe13c2d8b90757605de8c0bd1332dc24116f
 }
 
 void FragTrap::highFivesGuys(void)
