@@ -1,12 +1,12 @@
 #include "Cat.hpp"
 
-Cat::Cat() : Animal("Cat")
+Cat::Cat() : AAnimal("Cat")
 {
     this->brain = new Brain();
     std::cout << "냥줍하다... 사랑하다!" << std::endl;
 }
 
-Cat::Cat(const Cat &cat) : Animal("Cat")
+Cat::Cat(const Cat &cat) : AAnimal("Cat")
 {
     *this = cat;
     std::cout << "냥냥줍하다... 사랑사랑하다!!" << std::endl;

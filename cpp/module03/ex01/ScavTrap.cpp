@@ -35,7 +35,26 @@ ScavTrap::~ScavTrap()
     cout << "ScavTrap " << get_Name() << " was " RED "destroyed" RESET << endl;
 }
 
+<<<<<<< HEAD
 ScavTrap::ScavTrap(string name) : ClapTrap(name)
+=======
+void ScavTrap::attack(const string &target)
+{
+    if (_Energy_point == 0)
+    {
+        cout << "ScavTrap " << get_Name() << " has no energy" << endl;
+        return;
+    }
+    else
+    {
+        cout << "ScavTrap " << get_Name() << " attacks " RED << target << RESET " causing " << _Attack_damage
+             << " points of damage!" << endl;
+        _Energy_point -= 1;
+    }
+}
+
+void ScavTrap::guardGate(void)
+>>>>>>> 2886fe13c2d8b90757605de8c0bd1332dc24116f
 {
     _Hit_point = 100;
     _Max_hit_point = 100;
@@ -43,6 +62,7 @@ ScavTrap::ScavTrap(string name) : ClapTrap(name)
     _Attack_damage = 20;
     cout << get_Name() << " product was produced with scavtrap" << endl;
 }
+<<<<<<< HEAD
 
 void ScavTrap::attack(const string &target)
 {
@@ -65,3 +85,5 @@ void ScavTrap::guardGate(void)
 {
     cout << "ScavTrap " << get_Name() << " have enterred in Gate keeper mode." << endl;
 }
+=======
+>>>>>>> 2886fe13c2d8b90757605de8c0bd1332dc24116f

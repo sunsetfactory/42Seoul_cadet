@@ -17,7 +17,10 @@ class ClapTrap
   private:
     string _Name;
     unsigned int _Hit_point;
+<<<<<<< HEAD
     unsigned int _Max_hit_point;
+=======
+>>>>>>> 2886fe13c2d8b90757605de8c0bd1332dc24116f
     unsigned int _Energy_point;
     unsigned int _Attack_damage;
 
@@ -28,10 +31,17 @@ class ClapTrap
     ClapTrap &operator=(const ClapTrap &claptrap);
     ~ClapTrap();
     unsigned int get_Damage(void) const;
+<<<<<<< HEAD
     void attack(const string &target);
     void takeDamage(unsigned int amount);
     void beRepaired(unsigned int amount);
     string get_Name() const;
+=======
+    string get_Name(void) const;
+    void attack(const string &target);
+    void takeDamage(unsigned int amount);
+    void beRepaired(unsigned int amount);
+>>>>>>> 2886fe13c2d8b90757605de8c0bd1332dc24116f
 };
 
 #endif

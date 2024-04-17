@@ -48,6 +48,7 @@ void FragTrap::attack(const string &target)
         cout << "FragTrap " << get_Name() << " has no energy" << endl;
         return;
     }
+<<<<<<< HEAD
     if (_Hit_point == 0)
     {
         cout << "FragTrap " << get_Name() << " is already dead" << endl;
@@ -56,6 +57,14 @@ void FragTrap::attack(const string &target)
     cout << "FragTrap " << get_Name() << " attacks " RED << target << RESET " causing " << _Attack_damage
          << " points of damage!" << endl;
     _Energy_point -= 1;
+=======
+    else
+    {
+        cout << "FragTrap " << get_Name() << " attacks " RED << target << RESET " causing " << _Attack_damage
+             << " points of damage!" << endl;
+        _Energy_point -= 1;
+    }
+>>>>>>> 2886fe13c2d8b90757605de8c0bd1332dc24116f
 }
 
 void FragTrap::highFivesGuys(void)

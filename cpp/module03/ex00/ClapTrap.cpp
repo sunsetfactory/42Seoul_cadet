@@ -1,6 +1,10 @@
 #include "ClapTrap.hpp"
 
+<<<<<<< HEAD
 ClapTrap::ClapTrap() : _Name("None"), _Hit_point(10), _Max_hit_point(10), _Energy_point(10), _Attack_damage(0)
+=======
+ClapTrap::ClapTrap() : _Name("None"), _Hit_point(10), _Energy_point(10), _Attack_damage(0)
+>>>>>>> 2886fe13c2d8b90757605de8c0bd1332dc24116f
 {
     cout << get_Name() << " product was produced with claptrap" << endl;
 }
@@ -46,6 +50,7 @@ void ClapTrap::attack(const string &target)
         cout << "claptrap " << get_Name() << " has no energy" << endl;
         return;
     }
+<<<<<<< HEAD
     if (_Hit_point == 0)
     {
         cout << "claptrap " << get_Name() << " is already dead" << endl;
@@ -54,24 +59,46 @@ void ClapTrap::attack(const string &target)
     cout << "claptrap " << get_Name() << " attacks " RED << target << RESET " causing " << _Attack_damage
          << " points of damage!" << endl;
     _Energy_point -= 1;
+=======
+    else
+    {
+        cout << "claptrap " << get_Name() << " attacks " RED << target << RESET " causing " << _Attack_damage
+             << " points of damage!" << endl;
+        _Energy_point -= 1;
+    }
+>>>>>>> 2886fe13c2d8b90757605de8c0bd1332dc24116f
 }
 
 void ClapTrap::takeDamage(unsigned int amount)
 {
+<<<<<<< HEAD
     if (_Hit_point >= amount)
+=======
+    if (_Hit_point <= amount)
+    {
+        cout << get_Name() << " is died" << endl;
+        _Hit_point = 0;
+        return;
+    }
+    else
+>>>>>>> 2886fe13c2d8b90757605de8c0bd1332dc24116f
     {
         cout << get_Name() << " takes " << amount << " points of damage!" << endl;
         _Hit_point -= amount;
     }
+<<<<<<< HEAD
     if (_Hit_point <= 0)
     {
         cout << get_Name() << " is died" << endl;
         _Hit_point = 0;
     }
+=======
+>>>>>>> 2886fe13c2d8b90757605de8c0bd1332dc24116f
 }
 
 void ClapTrap::beRepaired(unsigned int amount)
 {
+<<<<<<< HEAD
     if (_Energy_point == 0)
     {
         cout << get_Name() << " has no energy" << endl;
@@ -93,6 +120,15 @@ void ClapTrap::beRepaired(unsigned int amount)
     if (_Hit_point > _Max_hit_point)
         _Hit_point = _Max_hit_point;
     _Energy_point -= 1;
+=======
+    if (_Hit_point + amount >= 10)
+    {
+        cout << get_Name() << " is fully repaired" << endl;
+        _Hit_point = 10;
+        return;
+    }
+    cout << get_Name() << " is repaired by " << amount << " points!" << endl;
+>>>>>>> 2886fe13c2d8b90757605de8c0bd1332dc24116f
 }
 
 string ClapTrap::get_Name() const

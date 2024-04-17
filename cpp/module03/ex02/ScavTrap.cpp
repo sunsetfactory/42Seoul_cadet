@@ -41,8 +41,17 @@ ScavTrap::ScavTrap(string name) : ClapTrap(name)
 
 void ScavTrap::attack(const string &target)
 {
-    cout << "ScavTrap " << get_Name() << " attacks " RED << target << RESET " causing " << _Attack_damage
-         << " points of damage!" << endl;
+    if (_Energy_point == 0)
+    {
+        cout << "ScavTrap " << get_Name() << " has no energy" << endl;
+        return;
+    }
+    else
+    {
+        cout << "ScavTrap " << get_Name() << " attacks " RED << target << RESET " causing " << _Attack_damage
+             << " points of damage!" << endl;
+        _Energy_point -= 1;
+    }
 }
 
 void ScavTrap::guardGate(void)
