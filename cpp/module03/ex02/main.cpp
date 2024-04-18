@@ -29,13 +29,13 @@ int main()
 
     cout << YELLOW "==================Copyline2=================" RESET << endl;
     fragtrap.attack("seokjyan");
-    fragtrap.get_status(fragtrap);
+    // fragtrap.get_status(fragtrap);
     fragtrap.takeDamage(50);
     fragtrap.takeDamage(50);
     fragtrap.takeDamage(50);
     fragtrap.beRepaired(10);
     FragTrap fragtrap2(fragtrap);
-    fragtrap2.get_status(fragtrap);
+    // fragtrap2.get_status(fragtrap);
     fragtrap2.attack("seokjyan");
     fragtrap2.takeDamage(50);
     ScavTrap scavtrap2(scavtrap);

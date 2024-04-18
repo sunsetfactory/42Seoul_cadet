@@ -103,11 +103,11 @@ string ClapTrap::get_Name() const
     return expressed_name;
 }
 
-void ClapTrap::get_status(ClapTrap &claptrap)
-{
-    cout << "Name: " << claptrap.get_Name() << endl;
-    cout << "Hit_point: " << claptrap._Hit_point << endl;
-    cout << "Max_hit_point: " << claptrap._Max_hit_point << endl;
-    cout << "Energy_point: " << claptrap._Energy_point << endl;
-    cout << "Attack_damage: " << claptrap._Attack_damage << endl;
-}
+// void ClapTrap::get_status(ClapTrap &claptrap)
+// {
+//     cout << "Name: " << claptrap.get_Name() << endl;
+//     cout << "Hit_point: " << claptrap._Hit_point << endl;
+//     cout << "Max_hit_point: " << claptrap._Max_hit_point << endl;
+//     cout << "Energy_point: " << claptrap._Energy_point << endl;
+//     cout << "Attack_damage: " << claptrap._Attack_damage << endl;
+// }
