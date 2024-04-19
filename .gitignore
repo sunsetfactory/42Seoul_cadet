@@ -1,0 +1,10 @@
+*.o
+a.out
+*.pdf
+objs
+depd
+*.d
+*.gch
+*DYSM
+.vscode
+.DS_Store
