@@ -33,7 +33,7 @@ class ClapTrap
     void takeDamage(unsigned int amount);
     void beRepaired(unsigned int amount);
     string get_Name() const;
-    void get_status(ClapTrap &claptrap);
+    // void get_status(ClapTrap &claptrap);
 };
 
 #endif
