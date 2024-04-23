@@ -10,6 +10,7 @@ int main()
     fragtrap.takeDamage(10);
     fragtrap.beRepaired(10);
     fragtrap.highFivesGuys();
+    fragtrap.get_status(fragtrap);
     cout << endl;
 
     cout << YELLOW "==================Scavline=================" RESET << endl;
@@ -18,6 +19,7 @@ int main()
     scavtrap.takeDamage(10);
     scavtrap.beRepaired(10);
     scavtrap.guardGate();
+    scavtrap.get_status(scavtrap);
     cout << endl;
 
     cout << YELLOW "==================Clapline1=================" RESET << endl;
