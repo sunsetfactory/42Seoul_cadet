@@ -53,29 +53,29 @@ int Form::getGradeToExecute() const
 
 void Form::beSigned(Bureaucrat const &bureaucrat)
 {
-    if (bureaucrat.signForm(_gradeToSign, _name) == true)
-        _signed = true;
-    else
+    if (bureaucrat.getGrade() > this->getGradeToSign())
         throw Form::GradeTooLowException();
+    _signed = true;
+    return;
 }
 
 const char *Form::GradeTooHighException::what() const throw()
 {
-    return "Grade is too high";
+    return ("Grade is too high");
 }
 
 const char *Form::GradeTooLowException::what() const throw()
 {
-    return "Grade is too low";
+    return ("Grade is too low");
 }
 
 std::ostream &operator<<(std::ostream &out, Form const &src)
 {
     out << "Form " << src.getName() << " is ";
     if (src.getSigned() == true)
-        out << "signed";
+        out << GREEN "signed" RESET;
     if (src.getSigned() == false)
-        out << "not signed";
+        out << RED "not signed" RESET;
     out << " and requires grade " << src.getGradeToSign() << " to sign and grade " << src.getGradeToExecute()
         << " to execute";
     return out;

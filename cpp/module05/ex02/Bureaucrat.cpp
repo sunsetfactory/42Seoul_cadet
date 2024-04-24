@@ -1,5 +1,5 @@
 #include "Bureaucrat.hpp"
-#include "AForm.hpp"
+#include "Form.hpp"
 
 Bureaucrat::Bureaucrat() : _name("default"), _grade(150)
 {
@@ -55,30 +55,19 @@ void Bureaucrat::decrementGrade()
     _grade++;
 }
 
-void Bureaucrat::signForm(AForm const &form)
+void Bureaucrat::signForm(Form &form)
 {
-    if (_grade > form.getGradeToSign())
+    if (form.getSigned() == true)
     {
-        std::cout << _name << " cannot sign " << form.getName() << " because grade is too low" << std::endl;
+        std::cout << this->getName() << " couldn’t sign " << form.getName()
+                  << YELLOW " because form is already signed" RESET << std::endl;
         return;
     }
-    std::cout << _name << " signs " << form.getName() << std::endl;
+    if (this->getGrade() > form.getGradeToSign())
+        std::cout << this->getName() << RED " couldn’t sign " RESET << form.getName() << YELLOW " because " RESET;
+    else
+        std::cout << this->getName() << GREEN " signed " RESET << form.getName() << std::endl;
     form.beSigned(*this);
-}
-
-void Bureaucrat::executeForm(AForm const &form)
-{
-    if (form.getSigned() == false)
-    {
-        std::cout << _name << " cannot execute " << form.getName() << " because form is not signed" << std::endl;
-        return;
-    }
-    if (_grade > form.getGradeToExecute())
-    {
-        std::cout << _name << " cannot execute " << form.getName() << " because grade is too low" << std::endl;
-        return;
-    }
-    form.execute(*this);
 }
 
 const char *Bureaucrat::GradeTooHighException::what() const throw()
