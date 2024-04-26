@@ -1,5 +1,20 @@
 #include "AMateria.hpp"
 
+AMateria::AMateria()
+{
+}
+
+AMateria::AMateria(AMateria const &src)
+{
+    _type = src._type;
+}
+
+AMateria &AMateria::operator=(AMateria const &src)
+{
+    _type = src._type;
+    return *this;
+}
+
 AMateria::~AMateria()
 {
 }

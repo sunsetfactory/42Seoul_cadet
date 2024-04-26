@@ -8,19 +8,17 @@ Cat::Cat() : Animal("Cat")
 
 Cat::Cat(const Cat &cat) : Animal("Cat")
 {
-    *this = cat;
+    this->brain = new Brain(*cat.brain);
+    this->type = cat.type;
     std::cout << "냥냥줍하다... 사랑사랑하다!!" << std::endl;
 }
 
 Cat &Cat::operator=(const Cat &cat)
 {
-    // Brain *tmp = cat.getBrain();
-    // Brain *tmp2 = this->getBrain();
-    // *tmp2 = *tmp;
-    // this->type = cat.type;
+    // delete this->brain;
+    // this->brain = new Brain(*cat.brain);
 
-    delete this->brain;
-    this->brain = new Brain(*cat.brain);
+    *this->brain = *cat.brain;
     this->type = cat.type;
     std::cout << "냥이 묭실 다녀오는중... 미용사 블러딩중..." << std::endl;
     return *this;

@@ -3,14 +3,10 @@
 #include "WrongCat.hpp"
 
 Animal *meta[10];
-Animal *meta_copy[10];
-
-Dog *d = new Dog();
-Dog *d2 = new Dog();
 
 void del()
 {
-    std::cout << "==================== del ====================" << std::endl;
+    std::cout << "=================== 소멸의 순서 ===================" << std::endl;
 
     for (size_t i = 0; i < 10; i++)
     {
@@ -19,22 +15,7 @@ void del()
             delete meta[i];
             meta[i] = NULL;
         }
-        if (meta_copy[i] != NULL)
-        {
-            delete meta_copy[i];
-            meta_copy[i] = NULL;
-        }
         std::cout << std::endl;
-    }
-    if (d != NULL)
-    {
-        delete d;
-        d = NULL;
-    }
-    if (d2 != NULL)
-    {
-        delete d2;
-        d2 = NULL;
     }
 
     std::cout << std::endl;
@@ -42,51 +23,27 @@ void del()
 
 void test3()
 {
-    std::cout << "==================== test3 ====================" << std::endl;
+    std::cout << "=================== 복사의 순서 ===================" << std::endl;
 
-    std::string str;
-    *d2 = *d;
-    std::cout << std::endl;
+    Dog *d = new Dog();
 
-    str = d->getBrain()->getIdea(0);
-    d->makeSound();
-    std::cout << "강아지의 첫번째 생각 : " << str << std::endl;
+    d->getBrain()->setIdea("주인 나 배고프다...", 0);
+    d->getBrain()->setIdea("주인 나 산책 가고싶다....", 1);
 
-    d->getBrain()->setIdea("주인 나 배고프다...", 1);
-    str = d->getBrain()->getIdea(1);
-    d->makeSound();
-    std::cout << "강아지의 두번째 생각 : " << str << std::endl;
+    std::cout << "강아지의 첫번째 생각 : " << d->getBrain()->getIdea(0) << std::endl;
+    std::cout << "강아지의 두번째 생각 : " << d->getBrain()->getIdea(1) << std::endl;
 
-    d2->getBrain()->setIdea("주인 나 산책 가고싶다....", 2);
-    str = d2->getBrain()->getIdea(2);
-    d2->makeSound();
-    std::cout << "강아지의 세번째 생각 : " << str << std::endl;
+    Dog *d2 = new Dog(*d);
 
-    std::cout << std::endl;
-}
-
-void test2()
-{
-    std::cout << "==================== test2 ====================" << std::endl;
-
-    for (size_t i = 0; i < 10; i++)
-    {
-        if (i % 2)
-        {
-            meta_copy[i] = new Animal(*meta[i]);
-        }
-        else
-        {
-            meta_copy[i] = new Animal(*meta[i]);
-        }
-    }
+    std::cout << "강아지의 첫번째 생각 : " << d2->getBrain()->getIdea(0) << std::endl;
+    std::cout << "강아지의 두번째 생각 : " << d2->getBrain()->getIdea(1) << std::endl;
 
     std::cout << std::endl;
 }
 
 void test1()
 {
-    std::cout << "==================== test1 ====================" << std::endl;
+    std::cout << "================== 생성자의 순서 ==================" << std::endl;
 
     for (size_t i = 0; i < 10; i++)
     {
@@ -106,7 +63,6 @@ void test1()
 int main(void)
 {
     test1();
-    test2();
     test3();
 
     del();
