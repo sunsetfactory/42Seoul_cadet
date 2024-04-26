@@ -6,16 +6,16 @@ PresidentialPardonForm::PresidentialPardonForm() : AForm("PresidentialPardonForm
 
 PresidentialPardonForm::PresidentialPardonForm(PresidentialPardonForm const &src) : AForm(src)
 {
-	*this = src;
+    *this = src;
 }
 
 PresidentialPardonForm &PresidentialPardonForm::operator=(PresidentialPardonForm const &src)
 {
-	if (this != &src)
-	{
-		this->_target = src._target;
-	}
-	return *this;
+    if (this != &src)
+    {
+        this->_target = src._target;
+    }
+    return *this;
 }
 
 PresidentialPardonForm::~PresidentialPardonForm()
@@ -24,13 +24,16 @@ PresidentialPardonForm::~PresidentialPardonForm()
 
 PresidentialPardonForm::PresidentialPardonForm(std::string const target) : AForm("PresidentialPardonForm", 25, 5)
 {
-	this->_target = target;
+    this->_target = target;
 }
 
 void PresidentialPardonForm::execute(Bureaucrat const &executor) const
 {
-	AForm::execute(executor);
-	std::cout << this->_target << " has been pardoned by Zafod Beeblebrox." << std::endl;
+    if (executor.getGrade() > this->getGradeToExecute())
+        throw AForm::GradeTooLowException();
+    if (this->getSigned() == false)
+        throw AForm::FormNotSignedException();
+    std::cout << this->_target << " has been pardoned by Zafod Beeblebrox." << std::endl;
 }
 
 std::ostream &operator<<(std::ostream &out, PresidentialPardonForm const &src)
@@ -44,4 +47,3 @@ std::ostream &operator<<(std::ostream &out, PresidentialPardonForm const &src)
         << " to execute";
     return out;
 }
-

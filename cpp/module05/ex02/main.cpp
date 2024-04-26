@@ -8,7 +8,6 @@ int main(void)
     try
     {
         Bureaucrat b1("seokjyan", 1);
-        b1.incrementGrade();
         std::cout << b1 << std::endl;
 
         PresidentialPardonForm p1("p1");
@@ -18,6 +17,10 @@ int main(void)
         b1.signForm(p1);
         b1.signForm(r1);
         b1.signForm(s1);
+
+        b1.executeForm(p1);
+        b1.executeForm(r1);
+        b1.executeForm(s1);
     }
     catch (std::exception &e)
     {
