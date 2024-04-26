@@ -69,6 +69,16 @@ const char *AForm::GradeTooLowException::what() const throw()
     return ("Grade is too low");
 }
 
+const char *AForm::FormNotSignedException::what() const throw()
+{
+    return ("Form is not signed");
+}
+
+const char *AForm::FormAlreadySignedException::what() const throw()
+{
+    return ("Form is already signed");
+}
+
 std::ostream &operator<<(std::ostream &out, AForm const &src)
 {
     out << "Form " << src.getName() << " is ";
