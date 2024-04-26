@@ -11,10 +11,12 @@ class Character : public ICharacter
     AMateria *_inventory[4];
 
   public:
-    Character(std::string const &name);
+    Character();
     Character(Character const &src);
     ~Character();
     Character &operator=(Character const &src);
+
+    Character(std::string const &name);
 
     std::string const &getName() const;
     void equip(AMateria *m);

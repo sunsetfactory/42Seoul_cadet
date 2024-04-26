@@ -9,11 +9,11 @@ class Ice : public AMateria
   public:
     Ice();
     Ice(Ice const &src);
-    ~Ice();
     Ice &operator=(Ice const &src);
+    ~Ice();
 
     AMateria *clone() const;
-    void use(ICharacter &target);
+    virtual void use(ICharacter &target);
 };
 
 #endif
