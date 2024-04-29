@@ -17,7 +17,7 @@ Cat &Cat::operator=(const Cat &cat)
 {
     // delete this->brain;
     // this->brain = new Brain(*cat.brain);
-
+    
     *this->brain = *cat.brain;
     this->type = cat.type;
     std::cout << "냥이 묭실 다녀오는중... 미용사 블러딩중..." << std::endl;
