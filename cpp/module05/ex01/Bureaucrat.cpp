@@ -70,12 +70,12 @@ void Bureaucrat::signForm(Form &form)
     form.beSigned(*this);
 }
 
-const char *Bureaucrat::GradeTooHighException::what() const throw()
+const char *Bureaucrat::GradeTooHighException::what() const
 {
     return "Grade is too high";
 }
 
-const char *Bureaucrat::GradeTooLowException::what() const throw()
+const char *Bureaucrat::GradeTooLowException::what() const
 {
     return "Grade is too low";
 }
