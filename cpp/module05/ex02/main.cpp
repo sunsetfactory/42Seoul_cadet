@@ -21,9 +21,19 @@ int main(void)
         b1.executeForm(p1);
         b1.executeForm(r1);
         b1.executeForm(s1);
+
+        Bureaucrat b2("", 150);
+        std::cout << b2 << std::endl;
+        PresidentialPardonForm p2("p2");
+        // b1.signForm(p1);
+        b2.signForm(p2);
     }
-    catch (std::exception &e)
+    catch (const AForm::AFormException &e)
     {
-        std::cerr << e.what() << std::endl;
+        std::cout << RED << e.what() << RESET << std::endl;
+    }
+    catch (const Bureaucrat::BureaucratException &e)
+    {
+        std::cout << RED << e.what() << RESET << std::endl;
     }
 }

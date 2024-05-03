@@ -19,10 +19,9 @@ Bureaucrat::Bureaucrat(Bureaucrat const &src) : _name(src._name), _grade(src._gr
 
 Bureaucrat &Bureaucrat::operator=(Bureaucrat const &src)
 {
-    if (this != &src)
-    {
-        _grade = src._grade;
-    }
+    if (this == &src)
+        return *this;
+    _grade = src._grade;
     return *this;
 }
 
@@ -54,12 +53,12 @@ void Bureaucrat::decrementGrade()
     _grade++;
 }
 
-const char *Bureaucrat::GradeTooHighException::what() const throw()
+const char *Bureaucrat::GradeTooHighException::what() const
 {
     return "Grade is too high";
 }
 
-const char *Bureaucrat::GradeTooLowException::what() const throw()
+const char *Bureaucrat::GradeTooLowException::what() const
 {
     return "Grade is too low";
 }
@@ -69,3 +68,10 @@ std::ostream &operator<<(std::ostream &out, Bureaucrat const &src)
     out << src.getName() << ", bureaucrat grade " << src.getGrade();
     return out;
 }
+
+// throw 혹시 아시나요?
+// 함수 뒤에 throw가 붙는 걸 아시나요?
+// 우린 예외가 발생할 수 있는 객체의 형을 미리 지정해줄 수 있어요
+// 그리고 이를 기반으로 예외처리를 만들어 놓을 수있는데
+// 이게 거지같아서 없에버렸습니다 언제부터? 11~17년도 동안 차근 차근
+// 하지만 잔재가 남아있죠

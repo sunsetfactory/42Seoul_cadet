@@ -16,12 +16,13 @@ class AForm
     bool _signed;
     int const _gradeToSign;
     int const _gradeToExecute;
+    // unused
 
   public:
     AForm();
     AForm(AForm const &src);
     AForm &operator=(AForm const &src);
-    ~AForm();
+    virtual ~AForm();
 
     AForm(std::string const name, int gradeToSign, int gradeToExecute);
 
