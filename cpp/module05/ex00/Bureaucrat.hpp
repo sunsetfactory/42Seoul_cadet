@@ -8,11 +8,13 @@ class Bureaucrat
   private:
     std::string const _name;
     int _grade;
+
+    // unused
+    Bureaucrat();
+    Bureaucrat(Bureaucrat const &src);
     Bureaucrat &operator=(Bureaucrat const &src);
 
   public:
-    Bureaucrat();
-    Bureaucrat(Bureaucrat const &src);
     ~Bureaucrat();
 
     Bureaucrat(std::string const name, int grade);
