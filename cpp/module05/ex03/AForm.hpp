@@ -16,7 +16,6 @@ class AForm
     bool _signed;
     int const _gradeToSign;
     int const _gradeToExecute;
-    // unused
 
   public:
     AForm();

@@ -11,10 +11,12 @@ class Bureaucrat
     std::string const _name;
     int _grade;
 
-  public:
+    // unused
     Bureaucrat();
     Bureaucrat(Bureaucrat const &src);
     Bureaucrat &operator=(Bureaucrat const &src);
+
+  public:
     ~Bureaucrat();
 
     Bureaucrat(std::string const name, int grade);
