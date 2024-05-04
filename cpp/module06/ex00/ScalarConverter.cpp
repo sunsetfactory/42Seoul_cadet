@@ -64,15 +64,18 @@ void ScalarConverter::convertChar(const std::string &str)
 {
     try
     {
-        char c = std::strtod(str.c_str(), NULL);
-
-        if (c < std::numeric_limits<char>::lowest() || c > std::numeric_limits<char>::max())
+        double c = std::strtod(str.c_str(), NULL);
+        if (c == 0)
+        {
+            c = static_cast<double>((str[0]));
+        }
+        if (!std::isprint(c) || str == "0")
         {
             std::cout << "char: impossible" << std::endl;
         }
         else if (std::isprint(c))
         {
-            std::cout << "char: '" << c << "'" << std::endl;
+            std::cout << "char: '" << static_cast<char>(c) << "'" << std::endl;
         }
         else
         {
@@ -89,10 +92,11 @@ void ScalarConverter::convertInt(const std::string &str)
 {
     try
     {
-        // double d = std::strtod(str.c_str(), NULL);
-        // int i = static_cast<int>(d);
-        int i = std::stoi(str.c_str());
-        if (i < std::numeric_limits<int>::lowest() || i > std::numeric_limits<int>::max())
+        double d = std::strtod(str.c_str(), NULL);
+        int i = static_cast<int>(d);
+        if (std::isdigit(str[0]))
+            std::cout << "int: " << i << std::endl;
+        else if (i < std::numeric_limits<int>::lowest() || i > std::numeric_limits<int>::max())
         {
             std::cout << "int: impossible" << std::endl;
         }
