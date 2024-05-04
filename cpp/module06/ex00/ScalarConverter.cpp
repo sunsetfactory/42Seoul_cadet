@@ -93,13 +93,17 @@ void ScalarConverter::convertInt(const std::string &str)
     try
     {
         double d = std::strtod(str.c_str(), NULL);
+        if (d == 0 && str != "0")
+        {
+            d = static_cast<double>((str[0]));
+        }
         int i = static_cast<int>(d);
-        if (std::isdigit(str[0]))
-            std::cout << "int: " << i << std::endl;
-        else if (i < std::numeric_limits<int>::lowest() || i > std::numeric_limits<int>::max())
+        if (d < -2147483648 || d > 2147483647)
         {
             std::cout << "int: impossible" << std::endl;
         }
+        else if (std::isdigit(str[0]))
+            std::cout << "int: " << i << std::endl;
         else
         {
             std::cout << "int: " << i << std::endl;
@@ -117,6 +121,10 @@ void ScalarConverter::convertFloat(const std::string &str)
     try
     {
         float f = std::strtof(str.c_str(), NULL);
+        if (f == 0 && str != "0")
+        {
+            f = static_cast<float>((str[0]));
+        }
         std::cout << "float: " << std::fixed << std::setprecision(1) << f << "f" << std::endl;
     }
     catch (std::exception &e)
@@ -130,6 +138,10 @@ void ScalarConverter::convertDouble(const std::string &str)
     try
     {
         double d = std::strtod(str.c_str(), NULL);
+        if (d == 0 && str != "0")
+        {
+            d = static_cast<double>((str[0]));
+        }
         std::cout << "double: " << d << std::endl;
     }
     catch (std::exception &e)
