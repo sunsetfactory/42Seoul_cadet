@@ -3,8 +3,14 @@
 #include "Ice.hpp"
 #include "MateriaSource.hpp"
 
+void f()
+{
+    system("leaks ex03");
+}
+
 int main()
 {
+    atexit(*f);
     IMateriaSource *src = new MateriaSource();
     src->learnMateria(new Ice());
     src->learnMateria(new Cure());
@@ -18,7 +24,8 @@ int main()
     me->use(0, *bob);
     me->use(1, *bob);
 
-    // me->unequip(0);
+    me->unequip(0);
+    delete me->getMateria();
     // me->unequip(1);
 
     // delete ice;

@@ -72,11 +72,19 @@ void Character::equip(AMateria *m)
 void Character::unequip(int idx)
 {
     if (idx >= 0 && idx < 4)
+    {
+        _materia = _inventory[idx];
         _inventory[idx] = NULL;
+    }
 }
 
 void Character::use(int idx, ICharacter &target)
 {
     if (idx >= 0 && idx < 4 && _inventory[idx])
         _inventory[idx]->use(target);
+}
+
+AMateria *Character::getMateria() const
+{
+    return _materia;
 }
