@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_stack_a.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: seokjyan <seokjyan@student.42seoul.kr>     +#+  +:+       +#+        */
+/*   By: seokjyan <seokjyan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 14:33:47 by seokjyan          #+#    #+#             */
-/*   Updated: 2023/10/14 17:57:44 by seokjyan         ###   ########.fr       */
+/*   Updated: 2023/11/14 20:50:01 by seokjyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ t_info	av_connect_node(int argc, char **argv)
 		new->prev = tmp;
 		tmp = new;
 	}
-	info.a = set_reserve_node(new);
+	if (new)
+		info.a = set_reserve_node(new);
 	return (info);
 }
