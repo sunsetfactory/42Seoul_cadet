@@ -1,5 +1,3 @@
-#include "mutantstack.hpp"
-
 // But why would we accept this?
 // Especially if we can take the liberty of butchering the original stack to
 // create missing features.

@@ -23,6 +23,8 @@
 // 함수가 예외를 던질 수 있습니다. 이러한 경우, 호출된 함수가 예외를 던지면
 // std::terminate()가 호출되어 프로그램이 종료됩니다.
 
+//
+
 template <typename T>
 class Array {
  private:
