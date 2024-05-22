@@ -6,19 +6,20 @@
 
 class ShrubberyCreationForm : public AForm
 {
-  private:
-    std::string _target;
-    // unused
-    ShrubberyCreationForm();
-    ShrubberyCreationForm(ShrubberyCreationForm const &src);
-    ShrubberyCreationForm &operator=(ShrubberyCreationForm const &src);
+private:
+  std::string _target;
 
-  public:
-    virtual ~ShrubberyCreationForm();
+  // unused private member functions but required by the subject
+  ShrubberyCreationForm();
+  ShrubberyCreationForm(ShrubberyCreationForm const &src);
+  ShrubberyCreationForm &operator=(ShrubberyCreationForm const &src);
 
-    ShrubberyCreationForm(std::string const target);
+public:
+  virtual ~ShrubberyCreationForm();
 
-    void execute(Bureaucrat const &executor) const;
+  ShrubberyCreationForm(std::string const target);
+
+  void execute(Bureaucrat const &executor) const;
 };
 
 std::ostream &operator<<(std::ostream &out, ShrubberyCreationForm const &src);

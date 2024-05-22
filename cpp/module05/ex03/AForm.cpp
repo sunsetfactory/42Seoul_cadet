@@ -1,6 +1,24 @@
 #include "AForm.hpp"
 
-AForm::AForm() : _name("default"), _signed(false), _gradeToSign(150), _gradeToExecute(150)
+// AForm::AForm() : _name("default"), _signed(false), _gradeToSign(150), _gradeToExecute(150)
+// {
+// }
+
+// AForm::AForm(AForm const &src)
+//     : _name(src._name), _signed(src._signed), _gradeToSign(src._gradeToSign), _gradeToExecute(src._gradeToExecute)
+// {
+// }
+
+// AForm &AForm::operator=(AForm const &src)
+// {
+//     if (this != &src)
+//     {
+//         _signed = src._signed;
+//     }
+//     return *this;
+// }
+
+AForm::~AForm()
 {
 }
 
@@ -11,24 +29,6 @@ AForm::AForm(std::string const name, int gradeToSign, int gradeToExecute)
         throw AForm::GradeTooHighException();
     if (gradeToSign > 150 || gradeToExecute > 150)
         throw AForm::GradeTooLowException();
-}
-
-AForm::AForm(AForm const &src)
-    : _name(src._name), _signed(src._signed), _gradeToSign(src._gradeToSign), _gradeToExecute(src._gradeToExecute)
-{
-}
-
-AForm &AForm::operator=(AForm const &src)
-{
-    if (this != &src)
-    {
-        _signed = src._signed;
-    }
-    return *this;
-}
-
-AForm::~AForm()
-{
 }
 
 std::string const &AForm::getName() const
@@ -53,30 +53,32 @@ int AForm::getGradeToExecute() const
 
 void AForm::beSigned(Bureaucrat const &bureaucrat)
 {
+    if (_signed == true)
+        throw AForm::FormAlreadySignedException();
     if (bureaucrat.getGrade() > this->getGradeToSign())
         throw AForm::GradeTooLowException();
     _signed = true;
     return;
 }
 
-const char *AForm::GradeTooHighException::what() const
+const char *AForm::GradeTooHighException::what() const throw()
 {
-    return ("\033[3;33mGrade is too high\033[0m");
+    return (RED "Grade is too high" RESET);
 }
 
-const char *AForm::GradeTooLowException::what() const
+const char *AForm::GradeTooLowException::what() const throw()
 {
-    return ("\033[3;33mGrade is too low\033[0m");
+    return (RED "Grade is too low" RESET);
 }
 
-const char *AForm::FormNotSignedException::what() const
+const char *AForm::FormNotSignedException::what() const throw()
 {
-    return ("\033[3;33mForm is not signed\033[0m");
+    return (RED "Form is not signed" RESET);
 }
 
-const char *AForm::FormAlreadySignedException::what() const
+const char *AForm::FormAlreadySignedException::what() const throw()
 {
-    return ("\033[3;33mForm is already signed\033[0m");
+    return (RED "Form is already signed" RESET);
 }
 
 std::ostream &operator<<(std::ostream &out, AForm const &src)

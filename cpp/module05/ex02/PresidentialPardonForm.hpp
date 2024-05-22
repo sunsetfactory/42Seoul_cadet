@@ -5,18 +5,22 @@
 
 class PresidentialPardonForm : public AForm
 {
-  private:
-    std::string _target;
+private:
+  std::string _target;
 
-  public:
-    PresidentialPardonForm();
-    PresidentialPardonForm(PresidentialPardonForm const &src);
-    PresidentialPardonForm &operator=(PresidentialPardonForm const &src);
-    ~PresidentialPardonForm();
+  // unused private member functions but required by the subject
+  PresidentialPardonForm();
+  PresidentialPardonForm(PresidentialPardonForm const &src);
+  PresidentialPardonForm &operator=(PresidentialPardonForm const &src);
 
-    PresidentialPardonForm(std::string const target);
+public:
+  virtual ~PresidentialPardonForm();
 
-    void execute(Bureaucrat const &executor) const;
+  PresidentialPardonForm(std::string const target);
+
+  void execute(Bureaucrat const &executor) const;
 };
+
+std::ostream &operator<<(std::ostream &out, PresidentialPardonForm const &src);
 
 #endif
