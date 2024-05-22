@@ -1,5 +1,6 @@
 #include "ScalarConverter.hpp"
 
+// 최대 정밀도,,,
 int main(int argc, char **argv)
 {
     if (argc != 2)
