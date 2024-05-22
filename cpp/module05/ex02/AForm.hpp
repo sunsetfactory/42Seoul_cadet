@@ -11,57 +11,59 @@
 
 class AForm
 {
-  private:
-    std::string const _name;
-    bool _signed;
-    int const _gradeToSign;
-    int const _gradeToExecute;
+private:
+  std::string const _name;
+  bool _signed;
+  int const _gradeToSign;
+  int const _gradeToExecute;
 
+  // unused private member functions but required by the subject
+  AForm();
+  AForm(AForm const &src);
+  AForm &operator=(AForm const &src);
+
+public:
+  virtual ~AForm();
+
+  AForm(std::string const name, int gradeToSign, int gradeToExecute);
+
+  std::string const &getName() const;
+  bool getSigned() const;
+  int getGradeToSign() const;
+  int getGradeToExecute() const;
+
+  void beSigned(Bureaucrat const &bureaucrat);
+  virtual void execute(Bureaucrat const &executor) const = 0;
+
+  class AFormException : public std::exception
+  {
+    // public:
+    //   virtual const char *what() const = 0;
+  };
+
+  class GradeTooHighException : public AForm::AFormException
+  {
   public:
-    AForm();
-    AForm(AForm const &src);
-    AForm &operator=(AForm const &src);
-    ~AForm();
+    virtual const char *what() const throw();
+  };
 
-    AForm(std::string const name, int gradeToSign, int gradeToExecute);
+  class GradeTooLowException : public AForm::AFormException
+  {
+  public:
+    virtual const char *what() const throw();
+  };
 
-    std::string const &getName() const;
-    bool getSigned() const;
-    int getGradeToSign() const;
-    int getGradeToExecute() const;
+  class FormNotSignedException : public AForm::AFormException
+  {
+  public:
+    virtual const char *what() const throw();
+  };
 
-    void beSigned(Bureaucrat const &bureaucrat);
-    virtual void execute(Bureaucrat const &executor) const = 0;
-
-    class AFormException
-    {
-      public:
-        virtual const char *what() const = 0;
-    };
-
-    class GradeTooHighException : public AForm::AFormException
-    {
-      public:
-        virtual const char *what() const;
-    };
-
-    class GradeTooLowException : public AForm::AFormException
-    {
-      public:
-        virtual const char *what() const;
-    };
-
-    class FormNotSignedException : public AForm::AFormException
-    {
-      public:
-        virtual const char *what() const;
-    };
-
-    class FormAlreadySignedException : public AForm::AFormException
-    {
-      public:
-        virtual const char *what() const;
-    };
+  class FormAlreadySignedException : public AForm::AFormException
+  {
+  public:
+    virtual const char *what() const throw();
+  };
 };
 
 std::ostream &operator<<(std::ostream &out, AForm const &src);

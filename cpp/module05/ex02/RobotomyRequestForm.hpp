@@ -2,24 +2,28 @@
 #define ROBOTOMYREQUESTFORM_HPP
 
 #include "AForm.hpp"
-#include <fstream>
 #include <cstdlib> // for system
-#include <ctime> // for rand
+#include <ctime>   // for rand
+#include <fstream>
 
 class RobotomyRequestForm : public AForm
 {
-  private:
-	std::string _target;
+private:
+  std::string _target;
 
-  public:
-	RobotomyRequestForm();
-	RobotomyRequestForm(RobotomyRequestForm const &src);
-	RobotomyRequestForm &operator=(RobotomyRequestForm const &src);
-	~RobotomyRequestForm();
+  // unused private member functions but required by the subject
+  RobotomyRequestForm();
+  RobotomyRequestForm(RobotomyRequestForm const &src);
+  RobotomyRequestForm &operator=(RobotomyRequestForm const &src);
 
-	RobotomyRequestForm(std::string const target);
+public:
+  virtual ~RobotomyRequestForm();
 
-	void execute(Bureaucrat const &executor) const;
+  RobotomyRequestForm(std::string const target);
+
+  void execute(Bureaucrat const &executor) const;
 };
+
+std::ostream &operator<<(std::ostream &out, RobotomyRequestForm const &src);
 
 #endif

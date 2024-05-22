@@ -1,6 +1,24 @@
 #include "ShrubberyCreationForm.hpp"
 
-ShrubberyCreationForm::ShrubberyCreationForm() : AForm("ShrubberyCreationForm", 145, 137)
+// ShrubberyCreationForm::ShrubberyCreationForm() : AForm("ShrubberyCreationForm", 145, 137)
+// {
+// }
+
+// ShrubberyCreationForm::ShrubberyCreationForm(ShrubberyCreationForm const &src) : AForm(src)
+// {
+//     *this = src;
+// }
+
+// ShrubberyCreationForm &ShrubberyCreationForm::operator=(ShrubberyCreationForm const &src)
+// {
+//     if (this != &src)
+//     {
+//         this->_target = src._target;
+//     }
+//     return *this;
+// }
+
+ShrubberyCreationForm::~ShrubberyCreationForm()
 {
 }
 
@@ -9,46 +27,39 @@ ShrubberyCreationForm::ShrubberyCreationForm(std::string const target) : AForm("
     this->_target = target;
 }
 
-ShrubberyCreationForm::ShrubberyCreationForm(ShrubberyCreationForm const &src) : AForm(src)
+void ShrubberyCreationForm::execute(Bureaucrat const &bureaucrat) const
 {
-    *this = src;
-}
-
-ShrubberyCreationForm &ShrubberyCreationForm::operator=(ShrubberyCreationForm const &src)
-{
-    if (this != &src)
-    {
-        this->_target = src._target;
-    }
-    return *this;
-}
-
-ShrubberyCreationForm::~ShrubberyCreationForm()
-{
-}
-
-void ShrubberyCreationForm::execute(Bureaucrat const &executor) const
-{
+    if (bureaucrat.getGrade() > this->getGradeToExecute())
+        throw AForm::GradeTooLowException();
+    if (this->getSigned() == false)
+        throw AForm::FormNotSignedException();
     std::string filename = this->_target;
     filename.append("_shrubbery");
     std::ofstream file(filename.c_str());
     if (file.fail())
     {
-        std::cout << "sorry, can't open " << filename << std::endl;
+        std::cerr << "Error: failed to open file" << std::endl;
     }
     else
     {
-        file << executor.getName() << std::endl;
-        file << "      /\\      " << std::endl;
-        file << "     /\\*\\     " << std::endl;
-        file << "    /\\O\\*\\    " << std::endl;
-        file << "   /*/\\/\\/\\   " << std::endl;
-        file << "  /\\O\\/\\*\\/\\  " << std::endl;
-        file << " /\\*\\/\\*\\/\\/\\ " << std::endl;
-        file << "/\\O\\/\\/*/\\/O/\\" << std::endl;
-        file << "      ||      " << std::endl;
-        file << "      ||      " << std::endl;
-        file << "      ||      " << std::endl;
+        {
+            file << "                                /\\\n";
+            file << "                           /\\  //\\\\\n";
+            file << "                    /\\    //\\\\///\\\\\\          /\\\n";
+            file << "                   //\\\\  ///\\////\\\\\\\\  /\\  //\\\\\n";
+            file << "          /\\      /   /  ^ \\/^ ^/^  ^  ^ \\/^ \\/  ^ \\\n";
+            file << "         / ^\\    /\\  / ^   /  ^/ ^ ^ ^   ^\\ ^/  ^^  \\\n";
+            file << "        /^   \\  / ^\\/ ^ ^   ^ / ^  ^    ^  \\/ ^   ^  \\       *\n";
+            file << "       /  ^ ^ \\/^  ^\\ ^ ^ ^   ^  ^   ^   ____  ^   ^  \\     /|\\\n";
+            file << "      / ^^  ^ ^ ^\\ ^  _\\___________________|  |_____^ ^  \\ /||o\\\n";
+            file << "     / ^ ^  ^ \\ ^  _\\___________________|  |_____^ ^  \\   /||o||\\\n";
+            file << "    / ^^  ^ ^ ^\\  /______________________________\\ ^ ^ \\ /|o|||||\\\n";
+            file << "   /  ^  ^^ ^ ^  /________________________________\\  ^  /|||||o|||\\\n";
+            file << "  /^ ^  ^ ^^  ^    ||___|___||||||||||||___|__|||      /||o||||||||\\       \n";
+            file << " / ^   ^   ^    ^  ||___|___||||||||||||___|__|||          | |           \n";
+            file << "/ ^ ^ ^  ^  ^  ^   ||||||||||||||||||||||||||||||oooooooooo| |ooooooo  \n";
+            file << "oooooooooooooooooooooooooooooooooooooooooooooooooooooooo\n";
+        }
         file << std::endl;
         file.close();
     }

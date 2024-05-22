@@ -16,13 +16,9 @@ void test4()
         bureaucrat.signForm(form);
         bureaucrat.incrementGrade();
     }
-    catch (const Form::FormException &e)
+    catch (const std::exception &e)
     {
-        std::cout << RED << e.what() << RESET << std::endl;
-    }
-    catch (const Bureaucrat::BureaucratException &e)
-    {
-        std::cout << RED << e.what() << RESET << std::endl;
+        std::cerr << e.what() << std::endl;
     }
 }
 
@@ -37,13 +33,9 @@ void test3()
         bureaucrat.signForm(form);
         std::cout << form << std::endl;
     }
-    catch (const Form::FormException &e)
+    catch (const std::exception &e)
     {
-        std::cout << RED << e.what() << RESET << std::endl;
-    }
-    catch (const Bureaucrat::BureaucratException &e)
-    {
-        std::cout << RED << e.what() << RESET << std::endl;
+        std::cerr << e.what() << std::endl;
     }
 }
 
@@ -58,13 +50,9 @@ void test2()
         bureaucrat.signForm(form);
         std::cout << form << std::endl;
     }
-    catch (const Form::FormException &e)
+    catch (const std::exception &e)
     {
-        std::cout << RED << e.what() << RESET << std::endl;
-    }
-    catch (const Bureaucrat::BureaucratException &e)
-    {
-        std::cout << RED << e.what() << RESET << std::endl;
+        std::cerr << e.what() << std::endl;
     }
 }
 
@@ -76,13 +64,9 @@ void test1()
         Form form("서류1", 1, 1);
         std::cout << form << std::endl;
     }
-    catch (const Form::FormException &e)
+    catch (const std::exception &e)
     {
-        std::cout << RED << e.what() << RESET << std::endl;
-    }
-    catch (const Bureaucrat::BureaucratException &e)
-    {
-        std::cout << RED << e.what() << RESET << std::endl;
+        std::cerr << e.what() << std::endl;
     }
 }
 
