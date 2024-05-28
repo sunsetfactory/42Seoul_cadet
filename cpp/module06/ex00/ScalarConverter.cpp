@@ -120,7 +120,7 @@ void ScalarConverter::convertFloat(const std::string &str)
 {
     try
     {
-        float f = std::strtof(str.c_str(), NULL);
+        double f = std::strtod(str.c_str(), NULL);
         if (f == 0 && str != "0")
         {
             f = static_cast<float>((str[0]));
