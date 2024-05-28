@@ -1,7 +1,7 @@
 SERVER=server
 CLIENT=client
 
-MAKEFLAGS += -j # for parallel build
+MAKEFLAGS += -j
 
 RED="\033[0;31m Warining: "
 GREEN="\033[3;32m"
@@ -43,7 +43,7 @@ $(OBJ_DIR)/%.o: %.cpp
 	|| echo $(RED)"Failed to compile $<"$(ANCI_INIT);
 
 clean:
-	@$(RM) $(OBJS_SERVER); $(RM) $(OBJS_CLIENT) \
+	@$(RM) $(OBJS_SERVER); $(RM) $(OBJS_CLIENT); $(RM) $(OBJ_DIR) $(DEPD) $(DEP_DIR)\
 	&& echo $(GREEN)"Clean successful!"$(ANCI_INIT) \
 	|| echo $(RED)"Clean failed!"$(ANCI_INIT);
 
