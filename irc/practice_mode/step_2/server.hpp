@@ -25,8 +25,9 @@ private:
 	int create_socket();
 	int bind_socket();
 	int listen_socket();
+	void add_event();
+	void handle_event();
 	int accept_socket(int kq);
-	void add_event(int kq, int ident, int filter, int flags);
 	void handle_client(struct kevent &event);
 	int close_socket();
 

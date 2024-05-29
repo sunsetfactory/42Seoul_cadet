@@ -50,7 +50,7 @@ int Server::listen_socket()
 	return 0;
 }
 
-void Server::add_event(int kq, int ident, int filter, int flags)
+void Server::add_event()
 {
 	// kqueue 생성
 	kq = kqueue();
@@ -60,30 +60,6 @@ void Server::add_event(int kq, int ident, int filter, int flags)
 		exit(EXIT_FAILURE);
 	}
 
-	// server_fd를 kqueue에 등록
-	struct kevent change;
-	EV_SET(&change, ident, filter, flags, 0, 0, NULL);
-	if (kevent(kq, &change, 1, NULL, 0, NULL) == -1)
-	{
-		perror("kevent");
-		exit(EXIT_FAILURE);
-	}
-}
-
-int Server::run()
-{
-	create_socket();
-	bind_socket();
-	listen_socket();
-
-	// kqueue 생성
-	kq = kqueue();
-	if (kq == -1)
-	{
-		perror("kqueue");
-		exit(EXIT_FAILURE);
-	}
-	// server_fd를 kqueue에 등록
 	struct kevent change;
 	// EV_SET: 이벤트를 설정 (struct kevent *kev, uintptr_t ident, short filter, u_short flags, u_int fflags, intptr_t data, void *udata)
 	// EVFILT_READ: 파일 디스크립터에 대한 읽기 가능 여부를 확인
@@ -92,17 +68,20 @@ int Server::run()
 	// __kevp__->ident = (arg[0]);                  \ // 이벤트 식별자, 파일 디스크립터
 	// __kevp__->filter = (arg[1]);                 \ // 이벤트 필터, EVFILT_READ = 파일 디스크립터에 대한 읽기 가능 여부를 확인, EVFILT_WRITE = 파일 디스크립터에 대한 쓰기 가능 여부를 확인
 	// __kevp__->flags = (arg[2]);                  \ // 이벤트 플래그, EV_ADD = 이벤트를 추가, EV_DELETE = 이벤트를 삭제, EV_ENABLE = 이벤트를 활성화, EV_DISABLE = 이벤트를 비활성화
-
+	// 이벤트란? 파일 디스크립터에 대한 읽기 가능 여부, 쓰기 가능 여부, 예외 상황 여부를 확인하는 것
 	EV_SET(&change, server_fd, EVFILT_READ, EV_ADD | EV_ENABLE, 0, 0, NULL);
 
 	// kevent를 통해 이벤트를 등록
 	// kevent 함수는 이벤트를 등록하고 이벤트가 발생할 때까지 대기
 	if (kevent(kq, &change, 1, NULL, 0, NULL) == -1)
 	{
-		perror("kevent register");
+		perror("kevent");
 		exit(EXIT_FAILURE);
 	}
+}
 
+void Server::handle_event()
+{
 	// 이벤트가 발생하면 이벤트를 처리
 	struct kevent events[10];
 	while (true)
@@ -117,6 +96,9 @@ int Server::run()
 		// 이벤트 처리
 		for (int i = 0; i < nevents; i++)
 		{
+			// events[i].ident: 이벤트 식별자
+			// server_fd: 서버의 파일 디스크립터
+			// 이둘을 비교하는 이유는 서버의 파일 디스크립터인 경우 클라이언트의 연결을 수락하기 위함
 			if (events[i].ident == static_cast<uintptr_t>(server_fd))
 			{
 				accept_socket(kq);
@@ -127,7 +109,15 @@ int Server::run()
 			}
 		}
 	}
+}
 
+int Server::run()
+{
+	create_socket();
+	bind_socket();
+	listen_socket();
+	add_event();
+	handle_event();
 	close_socket();
 	return 0;
 }
