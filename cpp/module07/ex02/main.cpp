@@ -1,38 +1,68 @@
 #include "Array.hpp"
 
-#define MAX_VAL 750
-int main(int, char **) {
+#define MAX_VAL 10
+int main(int, char **)
+{
   Array<int> numbers(MAX_VAL);
   int *mirror = new int[MAX_VAL];
   srand(time(NULL));
-  for (int i = 0; i < MAX_VAL; i++) {
-    const int value = rand();
+  for (int i = 0; i < MAX_VAL; i++)
+  {
+    const int value = rand() % 100;
     numbers[i] = value;
     mirror[i] = value;
   }
-  // SCOPE
-  {
-    Array<int> tmp = numbers;
-    Array<int> test(tmp);
-  }
 
-  for (int i = 0; i < MAX_VAL; i++) {
-    if (mirror[i] != numbers[i]) {
+  for (int i = 0; i < MAX_VAL; i++)
+  {
+    if (mirror[i] != numbers[i])
+    {
       std::cerr << "didn't save the same value!!" << std::endl;
       return 1;
     }
   }
-  try {
+  try
+  {
     numbers[-2] = 0;
-  } catch (const std::exception &e) {
+  }
+  catch (const std::exception &e)
+  {
     std::cerr << e.what() << '\n';
   }
-  try {
+  try
+  {
     numbers[MAX_VAL] = 0;
-  } catch (const std::exception &e) {
+  }
+  catch (const std::exception &e)
+  {
     std::cerr << e.what() << '\n';
   }
 
-  delete[] mirror;  //
+  delete[] mirror; //
+
+  // srand(time(NULL));
+  // Array<char> chars(MAX_VAL);
+  // char *mirror = new char[MAX_VAL];
+  // srand(time(NULL));
+  // for (int i = 0; i < MAX_VAL; i++)
+  // {
+  //   // const char value = rand() % 26 + 97;
+  //   const char value = "abcdefghijklmnopqrstuvwxyz"[rand() % 26];
+  //   chars[i] = value;
+  //   mirror[i] = value;
+  // }
+
+  // for (int i = 0; i < MAX_VAL; i++)
+  // {
+  //   if (mirror[i] != chars[i])
+  //   {
+  //     std::cerr << "didn't save the same value!!" << std::endl;
+  //     return 1;
+  //   }
+  // }
+
+  // chars.printArray();
+  // delete[] mirror;
+
   return 0;
 }

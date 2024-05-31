@@ -39,9 +39,6 @@ int Server::bind_socket()
 
 int Server::listen_socket()
 {
-	// 연결 대기
-	// 3: 동시에 처리할 수 있는 연결의 최대 개수
-	// 동시에 처리할 수 있는 최대 연결 개수란 서버가 동시에 처리할 수 있는 최대 클라이언트의 수를 의미한다.
 	if (listen(server_fd, 3) < 0)
 	{
 		perror("listen");

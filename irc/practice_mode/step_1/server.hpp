@@ -8,7 +8,7 @@
 #include <netinet/in.h>
 
 #define PORT 8080
-#define BUFFER_SIZE 1024
+#define BUFFER_SIZE 1500
 
 class Server
 {
