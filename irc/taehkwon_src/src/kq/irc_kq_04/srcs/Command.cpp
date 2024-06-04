@@ -7,7 +7,6 @@ Command::Command(Server &server) : _server(server) {}
 /* destructor */
 Command::~Command() {}
 
-
 /* verify commands */
 void Command::run(int fd)
 {
@@ -15,14 +14,14 @@ void Command::run(int fd)
 	std::string buffer;
 	std::map<int, Client>::iterator iter;
 	std::vector<std::string> command_vec;
-	std::map<int, Client>& clients = _server.getClients();
+	std::map<int, Client> &clients = _server.getClients();
 	iter = clients.find(fd);
 	while (getline(iss, buffer, ' '))
 	{
 		std::size_t endPos = buffer.find_last_not_of("\r\n");
 		command_vec.push_back(buffer.substr(0, endPos + 1));
 	}
-	if (iter != clients.end() && !iter->second.getIsRegist())	// clients authentication
+	if (iter != clients.end() && !iter->second.getIsRegist()) // clients authentication
 	{
 		if (command_vec[0] == "PASS")
 		{
