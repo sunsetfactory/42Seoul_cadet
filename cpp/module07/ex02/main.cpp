@@ -48,7 +48,7 @@ int main(int, char **)
   {
     numbers[i] = rand();
   }
-  delete[] mirror; //
+  delete[] mirror;
 
   // additional test for char
   // numbers.printArray();
