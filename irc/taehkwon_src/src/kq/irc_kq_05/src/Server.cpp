@@ -12,6 +12,12 @@ Server::Server(int port, std::string password) : port(port), password(password),
 {
 }
 
+// Kq = kqueue()
+
+// event_n = kevent(kq, &change_list[0], change_list.size(), event_list, 8, NULL)
+
+// handleEvent()
+
 void Server::init()
 {
 	this->server_socket = socket(AF_INET, SOCK_STREAM, 0);
@@ -45,18 +51,14 @@ void Server::init()
 		close(server_socket);
 		throw kqueueError();
 	}
-	// 서버 소켓의 read를 큐에 등록
 	changeEvent(change_list, this->server_socket, EVFILT_READ, EV_ADD | EV_ENABLE, 0, 0, NULL);
 }
 
-// change_list 에 새 이벤트 추가
 void Server::changeEvent(std::vector<struct kevent> &change_list, uintptr_t ident, int16_t filter, uint16_t flags, uint32_t fflags, intptr_t data, void *udata)
 {
 	struct kevent temp_event;
 
-	// kevent 구조체인 temp_event를 인자들로 설정
 	EV_SET(&temp_event, ident, filter, flags, fflags, data, udata);
-	// 설정한 이벤트를 kevent 배열에 추가
 	this->change_list.push_back(temp_event);
 }
 
@@ -66,9 +68,6 @@ void Server::run()
 	struct kevent *curr_event;
 	while (1)
 	{
-		// change_list 에 있는 이벤트들을 kqueue에 등록
-		// change_list = 큐에 등록할 이벤트들이 담겨있는 배열
-		// event_list = 발생할 이벤트들이 리턴될 배열
 		new_events = kevent(kq, &change_list[0], change_list.size(), event_list, 8, NULL);
 		if (new_events == -1)
 		{
@@ -77,36 +76,28 @@ void Server::run()
 			throw keventError();
 		}
 
-		// 큐에 다 담았으니 change_list 초기화
 		change_list.clear();
 
-		// 리턴된 이벤트를 체크
 		for (int i = 0; i < new_events; ++i)
 		{
-			// 하나씩 돌면서 확인
 			curr_event = &event_list[i];
 
-			// 이벤트 리턴값이 error인 경우 (이벤틑 처리 과정에서 에러 발생)
 			if (curr_event->flags & EV_ERROR)
 			{
-				// 서버에서 에러가 난 경우 -> 서버 포트 닫고, 에러 던지고 프로그램 종료
 				if (curr_event->ident == server_socket)
 				{
 					closeClient();
 					close(server_socket);
 					throw std::runtime_error("server socket error");
 				}
-				// 클라이언트에서 에러가 난 경우 -> 해당 클라이언트 소켓 닫기 (관련된 이미 등록된 이벤트는 큐에서 삭제됨)
 				else
 				{
 					std::cerr << "client socket error" << std::endl;
 					disconnectClient(curr_event->ident);
 				}
 			}
-			// read 가 가능한 경우
 			else if (curr_event->filter == EVFILT_READ)
 			{
-				// 서버인 경우 (클라이언트가 새로 접속한 경우)
 				if (curr_event->ident == server_socket)
 				{
 					int client_socket;
@@ -115,20 +106,15 @@ void Server::run()
 					std::cout << "accept new client: " << client_socket << std::endl;
 					fcntl(client_socket, F_SETFL, O_NONBLOCK);
 
-					// 새로 등록된 경우 클라이언트의 read와 write 이벤트 모두 등록
 					changeEvent(change_list, client_socket, EVFILT_READ, EV_ADD | EV_ENABLE, 0, 0, NULL);
 					changeEvent(change_list, client_socket, EVFILT_WRITE, EV_ADD | EV_ENABLE, 0, 0, NULL);
-					// 클라이언트 목록에 추가
 					clients[client_socket] = Client(client_socket);
 				}
-				// 이미 연결된 클라이언트의 read 가 가능한 경우
 				else if (clients.find(curr_event->ident) != clients.end())
 				{
 					char buf[1024];
-					// 해당 클라이언트의 데이터 읽기
 					int n = recv(curr_event->ident, buf, sizeof(buf), 0);
 
-					// 에러 발생 시 클라이언트 연결 끊기
 					if (n <= 0)
 					{
 						if (n < 0)
@@ -140,26 +126,20 @@ void Server::run()
 						buf[n] = '\0';
 						clients[curr_event->ident].addBuffer(buf);
 						std::cout << "received data from " << curr_event->ident << ": " << clients[curr_event->ident].getBuffer() << std::endl;
-						// 읽은 데이터 파싱해서 write할 데이터 클라이언트 배열의 버퍼에 넣기
 						parseData(clients[curr_event->ident]);
-						// 버퍼가 비어있지 않은 경우에만 write 이벤트로 전환
 						if (!send_data[curr_event->ident].empty())
 						{
-							// read 이벤트 리턴 x -> 발생해도 큐에서 처리 x
 							changeEvent(change_list, curr_event->ident, EVFILT_READ, EV_DISABLE, 0, 0, curr_event->udata);
-							// write 이벤트 등록
 							changeEvent(change_list, curr_event->ident, EVFILT_WRITE, EV_ADD | EV_ENABLE, 0, 0, curr_event->udata);
 						}
 					}
 				}
 			}
-			// write 가 가능한 경우
 			else if (curr_event->filter == EVFILT_WRITE)
 			{
 				std::map<int, Client>::iterator it = clients.find(curr_event->ident);
 				if (it != clients.end())
-				{ // 버퍼가 비어있는 경우 전송 x
-					// 버퍼에 문자가 있으면 전송
+				{
 					if (!send_data[curr_event->ident].empty())
 					{
 						int n;
@@ -167,12 +147,9 @@ void Server::run()
 						if ((n = send(curr_event->ident, this->send_data[curr_event->ident].c_str(),
 									  this->send_data[curr_event->ident].size(), 0) == -1))
 						{
-							// 전송하다 에러난 경우 연결 끊기
 							std::cerr << "client write error!" << std::endl;
 							disconnectClient(curr_event->ident);
 						}
-						// 전송 성공한 경우
-						// 버퍼 비우기
 						else
 						{
 							this->send_data[curr_event->ident].clear();
@@ -181,9 +158,7 @@ void Server::run()
 								disconnectClient(curr_event->ident);
 								continue;
 							}
-							// write 이벤트 리턴 x -> 발생해도 큐에서 처리 x
 							changeEvent(change_list, curr_event->ident, EVFILT_WRITE, EV_DISABLE, 0, 0, curr_event->udata);
-							// read 이벤트 등록
 							changeEvent(change_list, curr_event->ident, EVFILT_READ, EV_ADD | EV_ENABLE, 0, 0, curr_event->udata);
 						}
 					}

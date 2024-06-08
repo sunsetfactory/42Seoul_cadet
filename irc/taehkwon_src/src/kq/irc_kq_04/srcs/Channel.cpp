@@ -16,7 +16,6 @@ Channel::~Channel()
 	delete this->_bot;
 }
 
-
 /* getters */
 std::vector<int> Channel::getOperatorFdList()
 {
@@ -62,7 +61,6 @@ std::string Channel::getTopic()
 	return (this->_topic);
 }
 
-
 /* setters */
 void Channel::setChannelName(std::string &channelName)
 {
@@ -91,7 +89,6 @@ void Channel::setKey(std::string key)
 {
 	this->_key = key;
 }
-
 
 /* check */
 bool Channel::checkInvite(int fd)
@@ -130,7 +127,6 @@ bool Channel::checkClientInChannel(int fd)
 	return (false);
 }
 
-
 /* others */
 void Channel::appendClientFdList(int client_fd)
 {
@@ -143,7 +139,6 @@ void Channel::removeClientFdList(int client_fd)
 	if (it != this->_clientFdList.end())
 		this->_clientFdList.erase(it);
 }
-
 
 std::vector<int>::iterator Channel::findMyClientIt(int fd)
 {

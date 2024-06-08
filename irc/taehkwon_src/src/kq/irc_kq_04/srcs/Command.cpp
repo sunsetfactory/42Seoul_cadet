@@ -21,7 +21,7 @@ void Command::run(int fd)
 		std::size_t endPos = buffer.find_last_not_of("\r\n");
 		command_vec.push_back(buffer.substr(0, endPos + 1));
 	}
-	if (iter != clients.end() && !iter->second.getIsRegist()) // clients authentication
+	if (iter != clients.end() && !iter->second.getIsRegist()) // 클라이언트가 등록되지 않은 상태
 	{
 		if (command_vec[0] == "PASS")
 		{

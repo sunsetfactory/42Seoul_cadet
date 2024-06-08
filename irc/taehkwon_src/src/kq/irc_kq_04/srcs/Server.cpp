@@ -76,6 +76,7 @@ void Server::setServerSock()
 {
 	int option = 1;
 	_serverSock = socket(PF_INET, SOCK_STREAM, 0);
+	// setsockopt() : 소켓 옵션 설정, SOL_SOCKET : 소켓 레벨, SO_REUSEADDR : 주소 재사용
 	setsockopt(_serverSock, SOL_SOCKET, SO_REUSEADDR, &option, sizeof(option));
 	if (_serverSock == -1)
 		throw std::logic_error("ERROR :: socket() error");
