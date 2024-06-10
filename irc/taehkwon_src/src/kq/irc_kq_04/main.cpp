@@ -7,11 +7,6 @@ int main(int argc, char *argv[])
 		std::cout << "Warning :: Argument is only two" << std::endl;
 		return (1);
 	}
-	if (strlen(argv[2]) > 510)
-	{
-		std::cout << "Warning :: msg is under 512 digit" << std::endl;
-		return (1);
-	}
 	try
 	{
 		Server server(argv[1], argv[2]);

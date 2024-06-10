@@ -10,5 +10,13 @@ int main() {
   sp.addNumber(11);
   std::cout << sp.shortestSpan() << std::endl;
   std::cout << sp.longestSpan() << std::endl;
+
+  Span sp2 = Span(10000);
+  std::vector<int> v(10000, 0);
+  for (int i = 0; i < 10000; i++) {
+    v[i] = i;
+  }
+  sp2.addNumber(v.begin(), v.end());
+  std::cout << sp2.shortestSpan() << std::endl;
+  std::cout << sp2.longestSpan() << std::endl;
 }
-x2

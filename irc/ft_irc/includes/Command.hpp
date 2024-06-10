@@ -1,8 +1,6 @@
 // #ifndef COMMAND_HPP
 // #define COMMAND_HPP
 
-// #include "Main.hpp"
-
 
 // #endif // COMMAND_HPP
 
@@ -10,8 +8,7 @@
 #ifndef COMMAND_HPP
 # define COMMAND_HPP
 
-# include "../includes/Main.hpp"
-# include "../includes/Server.hpp"
+# include "./Main.hpp"
 // # include "./Client.hpp"
 // # include "./Channel.hpp"
 // # include "./Error.hpp"

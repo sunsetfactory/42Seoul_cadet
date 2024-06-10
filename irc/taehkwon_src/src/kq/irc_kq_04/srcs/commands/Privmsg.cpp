@@ -15,13 +15,13 @@ void Command::privmsg(int fd, std::vector<std::string> command_vec)
 	std::istringstream iss(command_vec[1]);
 	std::string buffer;
 	std::vector<std::string> vec;
-	while (getline(iss, buffer, ',')) // 채널이 여러 개인 경우
+	while (getline(iss, buffer, ',')) // 채널이 여러 개인 경우 -
 	{
 		// buffer를 vec에 저장
 		vec.push_back(buffer);
 	}
 	std::vector<std::string>::iterator vec_iter = vec.begin();
-	for (; vec_iter != vec.end(); vec_iter++) // 채널이 여러 개인 경우
+	for (; vec_iter != vec.end(); vec_iter++) // 채널이 여러 개인 경우 -
 	{
 		if ((*vec_iter)[0] == '#' || (*vec_iter)[0] == '&') // 채널인 경우 :
 		{

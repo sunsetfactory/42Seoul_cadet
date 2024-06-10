@@ -129,21 +129,23 @@ void Server::run()
 						parseData(clients[curr_event->ident]);
 						if (!send_data[curr_event->ident].empty())
 						{
-							changeEvent(change_list, curr_event->ident, EVFILT_READ, EV_DISABLE, 0, 0, curr_event->udata);
 							changeEvent(change_list, curr_event->ident, EVFILT_WRITE, EV_ADD | EV_ENABLE, 0, 0, curr_event->udata);
 						}
 					}
 				}
 			}
-			else if (curr_event->filter == EVFILT_WRITE)
+			else if (curr_event->filter == EVFILT_WRITE) // 이벤트가 쓰기 이벤트인 경우
 			{
 				std::map<int, Client>::iterator it = clients.find(curr_event->ident);
+				// 클라이언트가 존재하는 경우
 				if (it != clients.end())
 				{
+					// 보낼 데이터가 있는 경우
 					if (!send_data[curr_event->ident].empty())
 					{
 						int n;
 						std::cout << "send data from " << curr_event->ident << ": " << this->send_data[curr_event->ident] << std::endl;
+						// 데이터 전송
 						if ((n = send(curr_event->ident, this->send_data[curr_event->ident].c_str(),
 									  this->send_data[curr_event->ident].size(), 0) == -1))
 						{
@@ -152,8 +154,9 @@ void Server::run()
 						}
 						else
 						{
+							// 전송한 데이터 삭제
 							this->send_data[curr_event->ident].clear();
-							if (clients[curr_event->ident].getClose())
+							if (clients[curr_event->ident].getClose()) // 클라이언트 종료 요청이 들어온 경우
 							{
 								disconnectClient(curr_event->ident);
 								continue;
