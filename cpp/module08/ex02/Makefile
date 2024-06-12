@@ -17,7 +17,7 @@ CXXFLAGS+=-MMD -MP -MF $(DEP_DIR)/$*.d
 RM=rm -rf
 
 SRCS=$(wildcard *.cpp)
-OBJS=$(addprefix $(OBJ_DIR)/, $(SRCS:.cpp=.o))
+OBJS=$(addprefix $(OBJ_DIR)/, $(SRCS:.cpp=.o))₩
 DEPD=$(addprefix $(DEP_DIR)/, $(SRCS:.cpp=.d))
 
 $(NAME): $(OBJS)

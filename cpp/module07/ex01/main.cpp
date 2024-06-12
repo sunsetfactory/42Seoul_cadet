@@ -1,11 +1,13 @@
 #include "iter.hpp"
 
 template <typename T>
-void print(T const &x) {
+void print(T const &x)
+{
   std::cout << x << std::endl;
 }
 
-int main(void) {
+int main(void)
+{
   int intArray[] = {1, 2, 3, 4, 5};
   float floatArray[] = {1.1f, 2.2f, 3.3f, 4.4f, 5.5f};
   std::string stringArray[] = {"one", "two", "three", "four", "five"};
