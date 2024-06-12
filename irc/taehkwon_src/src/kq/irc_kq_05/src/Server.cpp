@@ -111,7 +111,7 @@ void Server::run()
 					clients[client_socket] = Client(client_socket);
 				}
 				else if (clients.find(curr_event->ident) != clients.end())
-				{
+				{wwww
 					char buf[1024];
 					int n = recv(curr_event->ident, buf, sizeof(buf), 0);
 

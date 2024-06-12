@@ -42,3 +42,9 @@ int Span::longestSpan() {
   std::sort(numbers.begin(), numbers.end());
   return numbers.back() - numbers.front();
 }
+
+void Span::printNumbers() {
+  for (std::vector<int>::iterator it = numbers.begin(); it != numbers.end(); it++) {
+    std::cout << *it << std::endl;
+  }
+}
