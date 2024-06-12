@@ -6,23 +6,21 @@
 
 int main(void)
 {
-    Intern intern;
-    Bureaucrat bureaucrat("bureaucrat", 1);
+    Intern im_Intern;
+    AForm *random_Form;
+    Bureaucrat b("im_Bureaucrat", 1);
 
-    AForm *form1 = intern.makeForm("shrubbery creation", "seokjyan");
-    AForm *form2 = intern.makeForm("robotomy request", "seok");
-    AForm *form3 = intern.makeForm("presidential pardon", "jyan");
+    random_Form = im_Intern.makeForm("robotomy request", "seokjyan");
+    b.signForm(*random_Form);
+    b.executeForm(*random_Form);
 
-    bureaucrat.signForm(*form1);
-    bureaucrat.executeForm(*form1);
-    bureaucrat.signForm(*form2);
-    bureaucrat.executeForm(*form2);
-    bureaucrat.signForm(*form3);
-    bureaucrat.executeForm(*form3);
+    random_Form = im_Intern.makeForm("presidential pardon", "seokjyan");
+    b.signForm(*random_Form);
+    b.executeForm(*random_Form);
 
-    delete form1;
-    delete form2;
-    delete form3;
+    random_Form = im_Intern.makeForm("shrubbery creation", "seokjyan");
+    b.signForm(*random_Form);
+    b.executeForm(*random_Form);
 
     return 0;
 }

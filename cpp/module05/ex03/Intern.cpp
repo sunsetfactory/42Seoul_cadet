@@ -8,16 +8,16 @@ Intern::Intern()
     // Empty Body
 }
 
-Intern::Intern(const Intern &src)
-{
-    *this = src;
-}
+// Intern::Intern(const Intern &src)
+// {
+//     *this = src;
+// }
 
-Intern &Intern::operator=(const Intern &rhs)
-{
-    (void)rhs; // unused
-    return *this;
-}
+// Intern &Intern::operator=(const Intern &rhs)
+// {
+//     (void)rhs; // unused
+//     return *this;
+// }
 
 Intern::~Intern()
 {

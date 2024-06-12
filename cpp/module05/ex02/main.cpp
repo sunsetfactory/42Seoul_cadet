@@ -25,15 +25,10 @@ int main(void)
         Bureaucrat b2("", 150);
         std::cout << b2 << std::endl;
         PresidentialPardonForm p2("p2");
-        // b1.signForm(p1);
         b2.signForm(p2);
     }
-    catch (const AForm::AFormException &e)
+    catch (const std::exception &e)
     {
-        std::cout << RED << e.what() << RESET << std::endl;
-    }
-    catch (const Bureaucrat::BureaucratException &e)
-    {
-        std::cout << RED << e.what() << RESET << std::endl;
+        std::cerr << e.what() << std::endl;
     }
 }

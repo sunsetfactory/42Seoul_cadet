@@ -57,27 +57,25 @@ void Bureaucrat::decrementGrade()
 
 void Bureaucrat::signForm(Form &form)
 {
-    if (form.getSigned() == true)
+    try
     {
-        std::cout << this->getName() << " couldn’t sign " << form.getName()
-                  << YELLOW " because form is already signed" RESET << std::endl;
-        return;
+        form.beSigned(*this);
+        std::cout << _name << " signed " << form.getName() << std::endl;
     }
-    if (this->getGrade() > form.getGradeToSign())
-        std::cout << this->getName() << RED " couldn’t sign " RESET << form.getName() << YELLOW " because " RESET;
-    else
-        std::cout << this->getName() << GREEN " signed " RESET << form.getName() << std::endl;
-    form.beSigned(*this);
+    catch (const Form::FormException &e)
+    {
+        std::cout << _name << " couldn`t signed " << form.getName() << " because " << e.what() << std::endl;
+    }
 }
 
-const char *Bureaucrat::GradeTooHighException::what() const
+const char *Bureaucrat::GradeTooHighException::what() const throw()
 {
-    return "Grade is too high";
+    return RED "Grade is too high" RESET;
 }
 
-const char *Bureaucrat::GradeTooLowException::what() const
+const char *Bureaucrat::GradeTooLowException::what() const throw()
 {
-    return "Grade is too low";
+    return RED "Grade is too low" RESET;
 }
 
 std::ostream &operator<<(std::ostream &out, Bureaucrat const &src)

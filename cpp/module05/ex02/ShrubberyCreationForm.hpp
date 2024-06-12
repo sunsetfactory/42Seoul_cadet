@@ -2,22 +2,26 @@
 #define SHRUUBBERYCREATIONFORM_HPP
 
 #include "AForm.hpp"
-#include <fstream>
+#include <fstream> // for ofstream
 
 class ShrubberyCreationForm : public AForm
 {
-  private:
-    std::string _target;
+private:
+  std::string _target;
 
-  public:
-    ShrubberyCreationForm();
-    ShrubberyCreationForm(ShrubberyCreationForm const &src);
-    ShrubberyCreationForm &operator=(ShrubberyCreationForm const &src);
-    ~ShrubberyCreationForm();
+  // unused private member functions but required by the subject
+  ShrubberyCreationForm();
+  ShrubberyCreationForm(ShrubberyCreationForm const &src);
+  ShrubberyCreationForm &operator=(ShrubberyCreationForm const &src);
 
-    ShrubberyCreationForm(std::string const target);
+public:
+  virtual ~ShrubberyCreationForm();
 
-    void execute(Bureaucrat const &executor) const;
+  ShrubberyCreationForm(std::string const target);
+
+  void execute(Bureaucrat const &executor) const;
 };
+
+std::ostream &operator<<(std::ostream &out, ShrubberyCreationForm const &src);
 
 #endif
