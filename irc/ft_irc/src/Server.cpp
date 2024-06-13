@@ -1,5 +1,4 @@
 #include "../includes/Server.hpp"
-#include "../includes/IRCException.hpp"
 
 /* constructor */
 // Server::Server(char *portNum, char *password)
@@ -122,9 +121,9 @@ void Server::execute()
 					fcntl(clientSock, F_SETFL, O_NONBLOCK);
 
 					changeEvent(clientSock, READ, NULL);
-					_clients[clientSock] = Client(clientSock);
+					_clientList[clientSock] = Client(clientSock);
 				}
-				else if (_clients.find(_curr_event->ident) != _clients.end())
+				else if (_clientList.find(_curr_event->ident) != _clientList.end())
 				{
 					char buf[1024];
 					int n = recv(_curr_event->ident, buf, sizeof(buf), 0);
@@ -138,8 +137,8 @@ void Server::execute()
 					else
 					{
 						buf[n] = '\0';
-						_clients[_curr_event->ident].addBuffer(buf);
-						std::cout << "received data from " << _curr_event->ident << ": " << _clients[_curr_event->ident].getBuffer() << std::endl;
+						_clientList[_curr_event->ident].appendReciveBuf(buf);
+						std::cout << "received data from " << _curr_event->ident << ": " << _clientList[_curr_event->ident].getReciveBuf() << std::endl;
 						_command.run(_curr_event->ident);
 					}
 				}
@@ -162,4 +161,39 @@ void Server::changeEvent(int ident, int flag, void *udata)
 /* destructor */
 Server::~Server()
 {
+}
+
+// 태현 추가
+std::map<int, Client>::iterator Server::findClient(std::string nickname)
+{
+	std::map<int, Client>::iterator iter;
+	
+	iter = _clientList.begin();
+	while (iter != _clientList.end())
+	{
+		if (iter->second.getNickname() == nickname)
+			return (iter);
+		iter++;
+	}
+	return (iter);
+}
+// 태현 추가
+std::map<int, Client> &Server::getClientList()
+{
+	return (_clientList);
+}
+
+std::map<std::string, Channel> &Server::getChannelList()
+{
+	return (_channelList);
+}
+
+Channel* Server::findChannel(std::string channel_name)
+{
+	std::map<std::string, Channel>::iterator iter;
+	
+	iter = _channelList.find(channel_name);
+	if (iter != _channelList.end())
+		return (&(iter->second));
+	return (NULL);
 }

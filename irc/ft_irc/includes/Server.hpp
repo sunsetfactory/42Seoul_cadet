@@ -25,7 +25,8 @@ private:
 
 	// /* member variables */
 	// server socket
-	std::map<int, Client> 		_clients;
+	std::map<int, Client> 		_clientList;		// 태현
+	std::map<std::string, Channel> _channelList;	// 태현
 	struct sockaddr_in			_clientAddr;
 	socklen_t					_clientAddrSize;
 	Command						_command;
@@ -63,16 +64,17 @@ public:
 
 	/* member functions */
 	// getter
-	std::map<int, Client> &getClients();
+	std::map<int, Client> &getClientList();		// 태현
 	std::string getPassword();
 	std::string getMessage(int);
-	std::map<std::string, Channel *> &getChannelList();
+	std::map<std::string, Channel> &getChannelList();
 	// others
 	void run();
-	Channel *findChannel(std::string);
+	Channel* findChannel(std::string);
 	std::map<int, Client>::iterator findClient(std::string);
 	void removeChannel(std::string);
 	void appendNewChannel(std::string &, int);
+
 
 		class bindError : public std::exception
 	{

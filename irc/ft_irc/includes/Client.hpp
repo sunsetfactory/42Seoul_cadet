@@ -1,60 +1,65 @@
 #ifndef CLIENT_HPP
-#define CLIENT_HPP
+# define CLIENT_HPP
 
-# include "./Main.hpp"
-#include <iostream>
-#include <string>
-#include <map>
+# include "Server.hpp"
 
-#define CLIENT_CHANLIMIT 3
-
-class Channel;
-
-class Client {
+class Client
+{
 	private:
-		int socket;
-		bool reg;
-		bool close;
-		std::string buffer;
-		std::string pre_cmd;
-		std::string nickname;
-		std::string username;
-		std::string hostname;
-		std::string servername;
-		std::string realname;
-		std::map<std::string, Channel> channels;
+		int							_fd;
+		std::vector<std::string>	_channelList;
 
-	public:
+		std::string					_reciveBuf;
+		std::string					_nickName;
+		std::string					_userName;
+		std::string					_realName;
+		std::string					_hostName;
+		std::string					_serverName;
+
+		// Regist status
+		bool						_isRegiPass;
+		bool						_isRegiNick;
+		bool						_isRegiUser;
+
+		// OCCF
 		Client();
+	
+	public:
+		Client(int);
+		Client(const Client &);
+		Client &operator=(const Client &);
 		~Client();
-		Client(int socket);
-		void setSocket(int socket);
-		int getSocket() const;
-		void setRegister(bool flag);
-		bool getRegister() const;
-		void setClose(bool flag);
-		bool getClose() const;
-		void setNickname(std::string& nickname);
-		std::string getNickname() const;
-		void setUsername(std::string& username);
-		std::string getUsername() const;
-		void setHostname(std::string& hostname);
-		std::string getHostname() const;
-		void setServername(std::string& servername);
-		std::string getServername() const;
-		void setRealname(std::string& realname);
-		std::string getRealname() const;
-		void addBuffer(std::string data);
-		std::string getBuffer() const;
-		void clearBuffer();
-		void setPreCmd(std::string& pre_cmd);
-		std::string getPreCmd() const;
-		std::string getPrefix() const;
-		void joinChannel(const Channel* channel);
-		std::map<std::string, Channel> getChannels() const;
-		void leaveChannel(Channel *channel);
-};
+		std::vector<std::string>::iterator	findChannel(std::string);
 
-		bool operator==(const Client& lhs, const Client& rhs);
+		// getter
+		int							getClientFd();
+		std::vector<std::string>	&getChannelList();
+		std::string					getNickname();
+		std::string					getUsername();
+		std::string					getHostname();
+		std::string					getServername();
+		std::string					getRealname();
+		std::string					getReciveBuf();
+		bool						getIsRegist();
+		bool						getRegiPass();
+		bool						getRegiNick();
+		bool						getRegiUser();
+
+		// setter
+		void						setRegiPass(bool);
+		void						setRegiNick(bool);
+		void						setRegiUser(bool);
+		void						setRegiAll(bool);
+		void						setNickname(std::string);
+		void						setUserinfo(std::string, std::string, std::string, std::string);
+		void						appendReciveBuf(std::string);
+		void						appendChannel(std::string);
+
+		// clear
+		void						clearReciveBuf();
+		void						clearAllChannel();
+		void						resetClient();
+		void						deleteChannel(std::string);
+};
 
 #endif
