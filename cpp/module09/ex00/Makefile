@@ -1,4 +1,4 @@
-NAME=ex03
+NAME=ex00
 
 RED="\033[0;31m Warining: "
 GREEN="\033[3;32m"
@@ -6,8 +6,6 @@ ANCI_INIT="\033[0m"
 
 DEP_DIR=depend
 OBJ_DIR=objs
-
-MAKEFLAGS += -j
 
 CXX=c++
 
