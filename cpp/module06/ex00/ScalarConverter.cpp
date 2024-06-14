@@ -98,6 +98,8 @@ void ScalarConverter::convertInt(const std::string &str)
             d = static_cast<double>((str[0]));
         }
         int i = static_cast<int>(d);
+
+
         if (d < -2147483648 || d > 2147483647)
         {
             std::cout << "int: impossible" << std::endl;

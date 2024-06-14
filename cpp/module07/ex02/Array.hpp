@@ -1,6 +1,5 @@
-#ifndef ARRAY_HPP
-#define ARRAY_HPP
-
+#ifndef Array_hpp
+#define Array_hpp
 #include <iostream>
 #include <cstdlib>
 #include <ctime>

@@ -6,26 +6,19 @@ void Command::privmsg(int fd, std::vector<std::string> command_vec)
 	/* PRIVMSG(or /msg) <channel/nickname> <messages ...> */
 	std::map<int, Client> &clients = _server.getClients();
 	std::map<int, Client>::iterator client_iter = clients.find(fd);
-	if (command_vec.size() < 2) // 명령어에 필요한 인자가 부족한 경우 :
+	if (command_vec.size() < 3) // 명령어에 필요한 인자가 부족한 경우 :
 	{
 		// ERR_NEEDMOREPARAMS = "Not enough parameters\r\n"
 		err_needmoreparams_461(client_iter->second);
-		return;
+		return; 
 	}
-	std::istringstream iss(command_vec[1]);
-	std::string buffer;
-	std::vector<std::string> vec;
-	while (getline(iss, buffer, ',')) // 채널이 여러 개인 경우 -
+	std::vector<std::string> msgChannels = split(command_vec[1], ',');
+	std::vector<std::string>::iterator msgChannelIter = msgChannels.begin();
+	for (; msgChannelIter != msgChannels.end(); msgChannelIter++) // 채널이 여러 개인 경우 -
 	{
-		// buffer를 vec에 저장
-		vec.push_back(buffer);
-	}
-	std::vector<std::string>::iterator vec_iter = vec.begin();
-	for (; vec_iter != vec.end(); vec_iter++) // 채널이 여러 개인 경우 -
-	{
-		if ((*vec_iter)[0] == '#' || (*vec_iter)[0] == '&') // 채널인 경우 :
+		if ((*msgChannelIter)[0] == '#' || (*msgChannelIter)[0] == '&') // 채널인 경우 :
 		{
-			Channel *channel = _server.findChannel(*vec_iter);
+			Channel *channel = _server.findChannel(*msgChannelIter);
 			if (channel) // 채널이 존재하는 경우 :
 			{
 				if (command_vec.size() > 2 && checkBotCommand(command_vec[2])) // 만약 BOT 명령어인 경우
@@ -41,13 +34,13 @@ void Command::privmsg(int fd, std::vector<std::string> command_vec)
 			else // 채널이 존재하지 않는 경우 :
 			{
 				// ERR_NOSUCHCHANNEL = "No such channel\r\n"
-				err_nosuchchannel_403(client_iter->second, *vec_iter);
+				err_nosuchchannel_403(client_iter->second, *msgChannelIter);
 			}
 		}
 		else
 		{
 			// 채널이 아니고 클라이언트가 존재하는 경우
-			std::map<int, Client>::iterator client = _server.findClient(*vec_iter);
+			std::map<int, Client>::iterator client = _server.findClient(*msgChannelIter);
 			if (client != _server.getClients().end())
 			{
 				// 메시지 생성
@@ -58,7 +51,7 @@ void Command::privmsg(int fd, std::vector<std::string> command_vec)
 			else
 			{
 				// ERR_NOSUCHNICK = "No such nick/channel\r\n"
-				err_nosuchnick_401(client_iter->second, *vec_iter);
+				err_nosuchnick_401(client_iter->second, *msgChannelIter);
 			}
 		}
 	}

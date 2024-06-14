@@ -7,6 +7,8 @@ ANCI_INIT="\033[0m"
 DEP_DIR=depend
 OBJ_DIR=objs
 
+MAKEFLAGS += -j
+
 CXX=c++
 
 CXXFLAGS=-Wall -Wextra -Werror

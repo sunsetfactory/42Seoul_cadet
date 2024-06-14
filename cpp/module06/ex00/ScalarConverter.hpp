@@ -3,15 +3,8 @@
 
 #include <cctype>  // std::isprint
 #include <iomanip> // std::setprecision
-#include <iosfwd>  // std::stringstream
 #include <iostream>
-<<<<<<< HEAD
-#include <limits> // std::numeric_limits
-#include <cstdlib>
-=======
-#include <limits>  // std::numeric_limits
 #include <cstdlib> // std::strtod
->>>>>>> 53394717813b86277ec76bdd0b8ec64fdda18860
 
 class ScalarConverter
 {
