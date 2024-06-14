@@ -3,10 +3,11 @@
 #include "Ice.hpp"
 #include "MateriaSource.hpp"
 
-void f()
-{
-    system("leaks ex03");
-}
+// #include <cstdlib> // for system and atexit
+// void f()
+// {
+//     system("leaks ex03");
+// }
 
 int main()
 {
