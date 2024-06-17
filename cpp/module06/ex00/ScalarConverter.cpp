@@ -64,26 +64,24 @@ void ScalarConverter::convertChar(const std::string &str)
 {
     try
     {
-        double c = std::strtod(str.c_str(), NULL);
-        std::cout << c << "\n";
-        // // double c = 0;
-        // if (c == 0)
-        // {
-        //     // c = static_cast<double>((str[0]));
-        // }
-        // if (!std::isprint(c) || str == "0")
-        // {
-        //     std::cout << "char: impossible" << std::endl;
-        // }
-        // else if (std::isprint(c))
-        // {
-        //     // std::cout << "char: '" << static_cast<char>(c) << "'" << std::endl;
-        // }
-        // else
-        // {
-        //     std::cout << "char: Non displayable" << std::endl;
-        // }
-        int i = std::isprint(static_cast<int>(c));
+        // double c = std::strtod(str.c_str(), NULL);
+        double c = 0;
+        if (c == 0)
+        {
+            c = static_cast<double>((str[0]));
+        }
+        if (!std::isprint(c) || str == "0")
+        {
+            std::cout << "char: impossible" << std::endl;
+        }
+        else if (std::isprint(c))
+        {
+            std::cout << "char: '" << static_cast<char>(c) << "'" << std::endl;
+        }
+        else
+        {
+            std::cout << "char: Non displayable" << std::endl;
+        }
     }
     catch (std::exception &e)
     {
@@ -101,7 +99,6 @@ void ScalarConverter::convertInt(const std::string &str)
             d = static_cast<double>((str[0]));
         }
         int i = static_cast<int>(d);
-
 
         if (d < -2147483648 || d > 2147483647)
         {
