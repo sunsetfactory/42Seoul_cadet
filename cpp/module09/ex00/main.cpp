@@ -9,11 +9,5 @@ int main(int argc, char* argv[]) {
 	std::string inputFilename = argv[1];
 	std::map<std::string, double> database = parseInputFile(inputFilename);
 
-	std::string line;
-	while (std::getline(std::cin, line)) {
-		double exchangeRate = calculateExchangeRate(database, line);
-		std::cout << exchangeRate << std::endl;
-	}
-
 	return 0;
 }

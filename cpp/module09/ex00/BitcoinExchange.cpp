@@ -3,7 +3,7 @@
 std::map<std::string, double> parseInputFile(const std::string &filename)
 {
 	std::map<std::string, double> data;
-	std::ifstream inputFile(filename);
+	std::ifstream inputFile(filename.c_str());
 	if (inputFile.is_open())
 	{
 		std::string line;
