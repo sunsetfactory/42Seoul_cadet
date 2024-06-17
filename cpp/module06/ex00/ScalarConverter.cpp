@@ -64,7 +64,8 @@ void ScalarConverter::convertChar(const std::string &str)
 {
     try
     {
-        double c = std::strtod(str.c_str(), NULL);
+        // double c = std::strtod(str.c_str(), NULL);
+        double c = 0;
         if (c == 0)
         {
             c = static_cast<double>((str[0]));
