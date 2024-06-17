@@ -7,7 +7,8 @@ int main(int argc, char* argv[]) {
 	}
 
 	std::string inputFilename = argv[1];
-	std::map<std::string, double> database = parseInputFile(inputFilename);
+	std::map<std::string, double> inputData = parseInputFile(inputFilename);
+	std::map<std::string, double> excahngeRate = parseDataSheet("data.csv");
 
 	return 0;
 }

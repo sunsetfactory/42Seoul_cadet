@@ -24,6 +24,31 @@ std::map<std::string, double> parseInputFile(const std::string &filename)
 	return data;
 }
 
+std::map<std::string, double> parseDataSheet (const std::string &filename)
+{
+	std::map<std::string, double> data;
+	std::ifstream inputFile(filename.c_str());
+	if (inputFile.is_open())
+	{
+		std::string line;
+		while (std::getline(inputFile, line))
+		{
+			std::map<std::string, double> tokens = split(line, ',');
+			for (std::map<std::string, double>::const_iterator it = tokens.begin(); it != tokens.end(); ++it)
+			{
+				data[it->first] = it->second;
+			}
+		}
+		inputFile.close();
+	}
+	else
+	{
+		std::cerr << "Error: Unable to open file" << std::endl;
+	}
+	return data;
+
+}
+
 double calculateExchangeRate(const std::map<std::string, double> &database, const std::string &date)
 {
 	std::map<std::string, double>::const_iterator it = database.lower_bound(date);
