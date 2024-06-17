@@ -106,7 +106,7 @@ void Command::join(int fd, std::vector<std::string> command_vec)
 		else // 채널이 존재하지 않을 경우 :
 		{
 			_server.appendNewChannel(*iter, fd); // 채널 생성
-			_server.findChannel(*iter)->appendClientFdList(-1);
+			_server.findChannel(*iter)->appendClientFdList(-1); // 봇 추가
 			_server.findChannel(*iter)->appendClientFdList(fd); // 채널에 클라이언트 추가
 			client.appendChannelList(*iter);					// 클라이언트에 채널 추가
 			msgToAllChannel(fd, *iter, "JOIN", "");				// JOIN 메시지 전송
@@ -116,7 +116,7 @@ void Command::join(int fd, std::vector<std::string> command_vec)
 		// 채널에 봇이 있을 경우 봇 메시지 전송
 		msgToAllChannel(-1, *iter, "PRIVMSG", _server.findChannel(*iter)->getBot()->introduce());
 		iter++;
-		if (command_vec.size() > 2 || keyIter != joinKey.end()) // (<options>)가 존재할 때 :
+0		if (command_vec.size() > 2 || keyIter != joinKey.end()) // (<options>)가 존재할 때 :
 		{
 			// key처리
 			keyIter++;
