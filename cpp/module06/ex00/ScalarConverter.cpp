@@ -64,24 +64,27 @@ void ScalarConverter::convertChar(const std::string &str)
 {
     try
     {
-        // double c = std::strtod(str.c_str(), NULL);
-        double c = 0;
+        double c = std::strtod(str.c_str(), NULL);
+        std::cout << c << "\n";
+        std::cout << 
+        // double c = 0;
         if (c == 0)
         {
-            c = static_cast<double>((str[0]));
+            // c = static_cast<double>((str[0]));
         }
-        if (!std::isprint(c) || str == "0")
+        if (!std::isprint(static_cast<int>(c)) || str == "0")
         {
             std::cout << "char: impossible" << std::endl;
         }
-        else if (std::isprint(c))
+        else if (std::isprint(static_cast<int>(c)))
         {
-            std::cout << "char: '" << static_cast<char>(c) << "'" << std::endl;
+            // std::cout << "char: '" << static_cast<char>(c) << "'" << std::endl;
         }
         else
         {
             std::cout << "char: Non displayable" << std::endl;
         }
+        std::cout << "print\n";
     }
     catch (std::exception &e)
     {
