@@ -10,5 +10,8 @@ int main(int argc, char* argv[]) {
 	std::map<std::string, double> inputData = parseInputFile(inputFilename);
 	std::map<std::string, double> excahngeRate = parseDataSheet("data.csv");
 
+	// printMap(inputData);
+	printMap(excahngeRate);
+
 	return 0;
 }

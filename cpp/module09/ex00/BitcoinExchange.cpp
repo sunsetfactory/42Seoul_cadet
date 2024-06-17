@@ -49,6 +49,14 @@ std::map<std::string, double> parseDataSheet (const std::string &filename)
 
 }
 
+void printMap(const std::map<std::string, double> &map)
+{
+	for (std::map<std::string, double>::const_iterator it = map.begin(); it != map.end(); ++it)
+	{
+		std::cout << it->first << " " << it->second << std::endl;
+	}
+}
+
 double calculateExchangeRate(const std::map<std::string, double> &database, const std::string &date)
 {
 	std::map<std::string, double>::const_iterator it = database.lower_bound(date);
