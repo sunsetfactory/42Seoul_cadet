@@ -19,7 +19,20 @@ CXXFLAGS+=-MMD -MP -MF $(DEP_DIR)/$*.d
 RM=rm -rf
 
 SRCS_SERVER=main.cpp \
-			src/
+			src/Channel.cpp \
+			src/Client.cpp \
+			src/Command.cpp \
+			src/Error.cpp \
+			src/Msg.cpp \
+			src/Server.cpp \
+			src/Util.cpp \
+			command/Join.cpp \
+			command/Part.cpp \
+			command/Privmsg.cpp \
+			command/Nick.cpp \
+			command/User.cpp \
+			command/Mode.cpp \
+
 
 OBJS_SERVER=$(addprefix $(OBJ_DIR)/, $(SRCS_SERVER:.cpp=.o))
 
