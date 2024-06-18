@@ -1,4 +1,6 @@
 #include "../includes/Server.hpp"
+#include "../includes/Channel.hpp"
+#include "../includes/Client.hpp"
 
 /* constructor */
 // Server::Server(char *portNum, char *password)
@@ -139,7 +141,7 @@ void Server::execute()
 						buf[n] = '\0';
 						_clientList[_curr_event->ident].appendReciveBuf(buf);
 						std::cout << "received data from " << _curr_event->ident << ": " << _clientList[_curr_event->ident].getReciveBuf() << std::endl;
-						_command.run(_curr_event->ident);
+						_command->run(_curr_event->ident);
 					}
 				}
 			}

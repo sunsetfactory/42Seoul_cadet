@@ -1,9 +1,5 @@
 #ifndef SERVER_HPP
 #define SERVER_HPP
-
-#include "Client.hpp"
-#include "Channel.hpp"
-
 #define BUF_SIZE 1024
 #define MAX_CONNECTION 15
 
@@ -24,8 +20,8 @@ private:
 
 	// /* member variables */
 	// server socket
-	std::map<int, Client> 			_clientList;		// 태현
-	std::map<std::string, Channel> _channelList;		// 태현
+	std::map<int, Client*> 			_clientList;		// 태현
+	std::map<std::string, Channel*> _channelList;		// 태현
 	struct sockaddr_in				_clientAddr;
 	socklen_t						_clientAddrSize;
 	Command							*_command;
