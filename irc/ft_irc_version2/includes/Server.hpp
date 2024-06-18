@@ -1,7 +1,6 @@
 #ifndef SERVER_HPP
 #define SERVER_HPP
 
-#include "Command.hpp"
 #include "Client.hpp"
 #include "Channel.hpp"
 
@@ -25,20 +24,20 @@ private:
 
 	// /* member variables */
 	// server socket
-	std::map<int, Client> 		_clientList;		// 태현
-	std::map<std::string, Channel> _channelList;	// 태현
-	struct sockaddr_in			_clientAddr;
-	socklen_t					_clientAddrSize;
-	Command						_command;
-	int							_eventCnt;
-	std::string					_password;
-	unsigned short int			_portNum;
-	struct sockaddr_in			_serverAddr;
-	int							_serverSock;
-	int							_kq;
-	struct kevent				_eventList[256];
-	struct kevent				*_curr_event;
-	std::vector<struct kevent>	_changeList;
+	std::map<int, Client> 			_clientList;		// 태현
+	std::map<std::string, Channel> _channelList;		// 태현
+	struct sockaddr_in				_clientAddr;
+	socklen_t						_clientAddrSize;
+	Command							*_command;
+	int								_eventCnt;
+	std::string						_password;
+	unsigned short int				_portNum;
+	struct sockaddr_in				_serverAddr;
+	int								_serverSock;
+	int								_kq;
+	struct kevent					_eventList[256];
+	struct kevent					*_curr_event;
+	std::vector<struct kevent>		_changeList;
 
 	void kqueueInit();
 	void changeEvent(int ident, int flag, void *udata);
