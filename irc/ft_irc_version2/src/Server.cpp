@@ -114,7 +114,7 @@ void Server::execute()
 					// disconnectClient(_curr_event.ident);
 				}
 			}
-			else if (_curr_event->flags == EVFILT_READ)
+			else if (_curr_event->filter == EVFILT_READ)
 			{
 				if (_curr_event->ident == _serverSock)
 				{
