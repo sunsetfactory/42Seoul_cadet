@@ -1,6 +1,7 @@
 #include "../includes/Server.hpp"
 #include "../includes/Channel.hpp"
 #include "../includes/Client.hpp"
+#include "../includes/Command.hpp"
 
 /* constructor */
 // Server::Server(char *portNum, char *password)
@@ -123,7 +124,7 @@ void Server::execute()
 					fcntl(clientSock, F_SETFL, O_NONBLOCK);
 
 					changeEvent(clientSock, READ, NULL);
-					_clientList[clientSock] = Client(clientSock);
+					_clientList[clientSock] = new Client(clientSock);
 				}
 				else if (_clientList.find(_curr_event->ident) != _clientList.end())
 				{
@@ -139,7 +140,7 @@ void Server::execute()
 					else
 					{
 						buf[n] = '\0';
-						_clientList[_curr_event->ident].appendReciveBuf(buf);
+						_clientList[_curr_event->ident]->appendReciveBuf(buf);
 						std::cout << "received data from " << _curr_event->ident << ": " << _clientList[_curr_event->ident].getReciveBuf() << std::endl;
 						_command->run(_curr_event->ident);
 					}
@@ -166,26 +167,26 @@ Server::~Server()
 }
 
 // 태현 추가
-std::map<int, Client>::iterator Server::findClient(std::string nickname)
+std::map<int, Client*>::iterator Server::findClient(std::string nickname)
 {
-	std::map<int, Client>::iterator iter;
+	std::map<int, Client*>::iterator iter;
 	
 	iter = _clientList.begin();
 	while (iter != _clientList.end())
 	{
-		if (iter->second.getNickname() == nickname)
+		if (iter->second->getNickname() == nickname)
 			return (iter);
 		iter++;
 	}
 	return (iter);
 }
 // 태현 추가
-std::map<int, Client> &Server::getClientList()
+std::map<int, Client*> &Server::getClientList()
 {
 	return (_clientList);
 }
 
-std::map<std::string, Channel> &Server::getChannelList()
+std::map<std::string, Channel*> &Server::getChannelList()
 {
 	return (_channelList);
 }
@@ -202,10 +203,10 @@ std::map<std::string, Channel> &Server::getChannelList()
 
 Channel* Server::findChannel(std::string channel_name)
 {
-	std::map<std::string, Channel>::iterator iter;
+	std::map<std::string, Channel*>::iterator iter;
 	
 	iter = _channelList.find(channel_name);
 	if (iter != _channelList.end())
-		return (&(iter->second));
+		return ((iter->second));
 	return (NULL);
 }

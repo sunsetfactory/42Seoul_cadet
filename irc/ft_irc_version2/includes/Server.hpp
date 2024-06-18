@@ -6,6 +6,8 @@
 #define READ 0
 #define WRITE 1
 
+#include "../includes/Main.hpp"
+
 class	Client;
 class	Channel;
 class	Command;
@@ -55,15 +57,15 @@ public:
 
 	/* member functions */
 	// getter
-	std::map<int, Client> &getClientList();		// 태현
+	std::map<int, Client*> &getClientList();		// 태현
 	std::string getPassword();
 	std::string getMessage(int);
-	std::map<std::string, Channel> &getChannelList();
+	std::map<std::string, Channel*> &getChannelList();
 	// others
 	void run();
 	// Channel findChannel(std::string);
 	Channel* findChannel(std::string);
-	std::map<int, Client>::iterator findClient(std::string);
+	std::map<int, Client*>::iterator findClient(std::string);
 	void removeChannel(std::string);
 	void appendNewChannel(std::string &, int);
 

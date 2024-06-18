@@ -59,6 +59,7 @@ bool Client::getIsRegist()
 {
 	if (_isRegiPass && _isRegiNick && _isRegiUser)
 		return (true);
+	return (false);
 }
 
 bool Client::getRegiPass()
