@@ -142,7 +142,7 @@ void Server::execute()
 					{
 						buf[n] = '\0';
 						_clientList[_curr_event->ident]->appendReciveBuf(buf);
-						std::cout << "received data from " << _curr_event->ident << ": " << _clientList[_curr_event->ident].getReciveBuf() << std::endl;
+						std::cout << "received data from " << _curr_event->ident << ": " << _clientList[_curr_event->ident]->getReciveBuf() << std::endl;
 						_command->run(_curr_event->ident);
 					}
 				}
