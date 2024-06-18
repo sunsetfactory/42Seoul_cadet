@@ -11,10 +11,6 @@
 #define READ 0
 #define WRITE 1
 
-class	Client;
-class	Channel;
-class	Command;
-
 class	Server
 {
 private:
