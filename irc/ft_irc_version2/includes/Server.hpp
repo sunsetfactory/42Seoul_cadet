@@ -20,8 +20,8 @@ private:
 
 	// /* member variables */
 	// server socket
-	std::map<int, Client*> 			_clientList;		// 태현
-	std::map<std::string, Channel*> _channelList;		// 태현
+	std::map<int, Client*> 			_clientList;
+	std::map<std::string, Channel*> _channelList;
 	struct sockaddr_in				_clientAddr;
 	socklen_t						_clientAddrSize;
 	Command							*_command;
@@ -41,7 +41,6 @@ private:
 	void setServerAddr();
 	void setServerBind();
 	void setServerListen();
-	void setBot();
 	// others
 	void execute();
 	int recvMessage(int);
@@ -53,9 +52,6 @@ public:
 	/* OCCF */
 	Server(int, std::string);
 	~Server();
-
-	/* member variables */
-	Client *_bot;
 
 	/* member functions */
 	// getter
@@ -123,9 +119,9 @@ public:
 	class unknownError : public std::exception
 	{
 	public:
-		virtual const char *what(std::string& msg) const throw()
+		virtual const char *what() const throw()
 		{
-			return (msg.c_str());
+			return ("unknown error");
 		}
 	};
 };

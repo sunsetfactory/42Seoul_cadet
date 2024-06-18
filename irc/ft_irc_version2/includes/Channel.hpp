@@ -1,7 +1,7 @@
 #ifndef CHANNEL_HPP
 # define CHANNEL_HPP
 
-# include "../includes/main.hpp"
+# include "../includes/Main.hpp"
 # include "../includes/Server.hpp"
 
 class Channel

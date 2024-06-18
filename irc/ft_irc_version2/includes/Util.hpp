@@ -1,7 +1,7 @@
 #ifndef UTIL_HPP
 # define UTIL_HPP
 
-#include "main.hpp"
+#include "Main.hpp"
 #include "Command.hpp"
 
 bool						isSpecialChar(char c);
