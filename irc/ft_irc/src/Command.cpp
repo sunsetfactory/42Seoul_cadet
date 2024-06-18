@@ -1,4 +1,6 @@
 #include "../includes/Command.hpp"
+# include "../includes/Client.hpp"
+# include "../includes/Server.hpp"
 
 Command::Command(Server &server) : _server(server)
 {

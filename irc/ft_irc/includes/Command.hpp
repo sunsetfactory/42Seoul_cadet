@@ -2,8 +2,6 @@
 # define COMMAND_HPP
 
 # include "../includes/Main.hpp"
-# include "../includes/Client.hpp"
-# include "../includes/Server.hpp"
 # include "../includes/Util.hpp"
 # include "../includes/Error.hpp"
 
