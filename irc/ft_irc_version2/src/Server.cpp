@@ -5,8 +5,9 @@
 
 /* constructor */
 // Server::Server(char *portNum, char *password)
-Server::Server(int portNum, std::string password) : _command(*this)
+Server::Server(int portNum, std::string password)
 {
+	_command = new Command(*this);
 	_portNum = portNum;
 	_password = password;
 	_clientAddrSize = sizeof(_clientAddr);
@@ -86,10 +87,10 @@ void Server::execute()
 	while (1)
 	{
 		_eventCnt = kevent(_kq, &_changeList[0], _changeList.size(), _eventList, 256, NULL);
-		// Kq를 통해 생성된 이벤트 큐(kevent)를 식별할 것이고, \
-		changeList에 있는 이벤트들을 _changeList.size()만큼 감시하고, \
-		실제로 이벤트가 발생한 것이 있으면, eventList[256]에 이벤트들을 저장한다 -> \
-		저장하고, 그 수만큼을 반환
+		// Kq를 통해 생성된 이벤트 큐(kevent)를 식별할 것이고,
+		// changeList에 있는 이벤트들을 _changeList.size()만큼 감시하고,
+		// 실제로 이벤트가 발생한 것이 있으면, eventList[256]에 이벤트들을 저장한다 ->
+		// 저장하고, 그 수만큼을 반환
 		if (_eventCnt == -1)
 		{
 			close(_serverSock);
