@@ -128,7 +128,8 @@ void ScalarConverter::convertFloat(const std::string &str)
             f = static_cast<float>((str[0]));
         }
         // std::cout << "float: " << static_cast<float>(f) << std::endl;
-        std::cout << "float: " << std::fixed << std::setprecision(1) << f << "f" << std::endl;
+        std::cout << "float: " << std::fixed << std::setprecision(16) << f << "f" << std::endl;
+        std::cout << "float: " << std::fixed << std::setprecision(7) << f << "f" << std::endl;
     }
     catch (std::exception &e)
     {
