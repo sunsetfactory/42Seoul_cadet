@@ -2,11 +2,11 @@
 
 void Command::join(int fd, std::vector<std::string> cmdVector)
 {
-	Client &client = _server.getClientList().find(fd)->second;
+	Client *client = _server.getClientList().find(fd)->second;
 	if (cmdVector.size() < 2) // 명령어에 인자가 부족할 때 :
 	{
 		// ERR_NEEDMOREPARAMS = ":<server> 461 <nickname> JOIN :Not enough parameters"
-		ERROR_needmoreparams_461(client);
+		ERROR_needmoreparams_461(*client);
 		return;
 	}
 
@@ -32,18 +32,18 @@ void Command::join(int fd, std::vector<std::string> cmdVector)
 		// if (iter->at(0) != '#' && iter->at(0) != '&')
 		if ((*iter)[0] != '#' && (*iter)[0] != '&')
 		{
-			ERROR_nosuchchannel_403(client, *iter);
+			ERROR_nosuchchannel_403(*client, *iter);
 			iter++;
 			if (cmdVector.size() > 2 && keyIter != joinKeyArgv.end())
 				keyIter++;
 			continue;
 		}
-		std::map<std::string, Channel> &channelList = _server.getChannelList();
-		std::map<std::string, Channel>::iterator channelIt = channelList.find(*iter);
+		std::map<std::string, Channel*> &channelList = _server.getChannelList();
+		std::map<std::string, Channel*>::iterator channelIt = channelList.find(*iter);
 		// 채널이 존재 할 경우
 		if (channelIt != channelList.end())
 		{
-			Channel channel = channelIt->second;
+			Channel *channel = channelIt->second;
 			// 채널에 클라이언트가 있는지 확인
 			if (channel.diffClientInChannel(fd))
 			{
