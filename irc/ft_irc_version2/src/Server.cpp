@@ -102,7 +102,8 @@ void Server::execute()
 			_curr_event = &_eventList[i];
 			if (_curr_event->flags & EV_ERROR)
 			{
-				if (_curr_event->ident == _serverSock)
+				// if (_curr_event->ident == _serverSock)
+				if (_curr_event->ident == static_cast<uintptr_t>(_serverSock))
 				{
 					// closeClient();
 					close(_serverSock);
@@ -116,7 +117,7 @@ void Server::execute()
 			}
 			else if (_curr_event->filter == EVFILT_READ)
 			{
-				if (_curr_event->ident == _serverSock)
+				if (_curr_event->ident == static_cast<uintptr_t>(_serverSock))
 				{
 					int clientSock;
 					if ((clientSock = accept(_serverSock, NULL, NULL)) == -1)
