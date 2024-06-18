@@ -13,7 +13,7 @@ CXX=c++
 
 CXXFLAGS=-Wall -Wextra -Werror
 CXXFLAGS+=-std=c++98
-#$CXXFLAGS+=-g3 -fsanitize=address
+#CXXFLAGS+=-g3 -fsanitize=address
 CXXFLAGS+=-MMD -MP -MF $(DEP_DIR)/$*.d
 
 RM=rm -rf
@@ -30,10 +30,8 @@ SRCS_SERVER=main.cpp \
 			command/Nick.cpp \
 			command/User.cpp \
 
-
+# Replace .cpp with .o and add OBJ_DIR prefix
 OBJS_SERVER=$(addprefix $(OBJ_DIR)/, $(SRCS_SERVER:.cpp=.o))
-
-# DEPD=$(addprefix $(DEP_DIR)/, $(SRCS:.cpp=.d))
 
 all: $(SERVER)
 
@@ -41,19 +39,19 @@ $(SERVER): $(OBJS_SERVER)
 	@$(CXX) $(CXXFLAGS) $(OBJS_SERVER) $(LIBFT) -o $(SERVER)
 
 $(OBJ_DIR)/%.o: %.cpp
-	@mkdir -p $(OBJ_DIR)
+	@mkdir -p $(dir $@) # Create the necessary directories
 	@mkdir -p $(DEP_DIR)
 	@$(CXX) $(CXXFLAGS) -c $< -o $@ \
 	&& echo $(GREEN)"Compiled successful!" $<$(ANCI_INIT) \
 	|| echo $(RED)"Failed to compile $<"$(ANCI_INIT);
 
 clean:
-	@$(RM) $(OBJS_SERVER); $(RM); $(RM) $(OBJ_DIR) $(DEPD) $(DEP_DIR)\
+	@$(RM) $(OBJS_SERVER); $(RM); $(RM) $(OBJ_DIR) $(DEPD) $(DEP_DIR) \
 	&& echo $(GREEN)"Clean successful!"$(ANCI_INIT) \
 	|| echo $(RED)"Clean failed!"$(ANCI_INIT);
 
 fclean: clean
-	@$(RM) $(SERVER); $(RM)\
+	@$(RM) $(SERVER); $(RM) \
 	&& echo $(GREEN)"fclean successful!"$(ANCI_INIT) \
 	|| echo $(RED)"fclean failed!"$(ANCI_INIT);
 
