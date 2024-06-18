@@ -33,7 +33,7 @@ SRCS_SERVER=main.cpp \
 
 OBJS_SERVER=$(addprefix $(OBJ_DIR)/, $(SRCS_SERVER:.cpp=.o))
 
-DEPD=$(addprefix $(DEP_DIR)/, $(SRCS:.cpp=.d))
+# DEPD=$(addprefix $(DEP_DIR)/, $(SRCS:.cpp=.d))
 
 all: $(SERVER)
 
