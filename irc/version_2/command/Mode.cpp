@@ -66,7 +66,7 @@ void Command::mode(int fd, std::vector<std::string> cmdVector)
 	// "/Mode #channel +i <modeValueList>" 이므로 Value는 4부터 시작이므로, 3으로 초기화 해서, Value 만나면 그때서야 확신 갖고 ++증가
 	char sign = '\0';
 
-	int idx = 0;
+	size_t idx = 0;
 	while (idx < modeArgv.length() && (modeArgv[idx] == '+' || modeArgv[idx] == '-'))
 	{
 		sign = modeArgv[idx];

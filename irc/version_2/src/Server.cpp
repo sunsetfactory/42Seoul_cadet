@@ -3,11 +3,10 @@
 #include "../includes/Client.hpp"
 #include "../includes/Command.hpp"
 
-/* constructor */
 // Server::Server(char *portNum, char *password)
 Server::Server(int portNum, std::string password)
 {
-	_command = new Command(*this);
+	_command = new Command(*this);	// Command 객체 생성 -> 왜? 전방선언 하...
 	_portNum = portNum;
 	_password = password;
 	_clientAddrSize = sizeof(_clientAddr);
@@ -102,7 +101,6 @@ void Server::execute()
 			_curr_event = &_eventList[i];
 			if (_curr_event->flags & EV_ERROR)
 			{
-				// if (_curr_event->ident == _serverSock)
 				if (_curr_event->ident == static_cast<uintptr_t>(_serverSock))
 				{
 					// closeClient();
@@ -126,7 +124,7 @@ void Server::execute()
 					fcntl(clientSock, F_SETFL, O_NONBLOCK);
 
 					changeEvent(clientSock, READ, NULL);
-					_clientList[clientSock] = new Client(clientSock);
+					_clientList.insert(std::make_pair(clientSock, Client(clientSock)));
 				}
 				else if (_clientList.find(_curr_event->ident) != _clientList.end())
 				{
@@ -142,8 +140,8 @@ void Server::execute()
 					else
 					{
 						buf[n] = '\0';
-						_clientList[_curr_event->ident]->appendReciveBuf(buf);
-						std::cout << "received data from " << _curr_event->ident << ": " << _clientList[_curr_event->ident]->getReciveBuf() << std::endl;
+						_clientList[_curr_event->ident].appendReciveBuf(buf);
+						std::cout << "received data from " << _curr_event->ident << ": " << _clientList[_curr_event->ident].getReciveBuf() << std::endl;
 						_command->run(_curr_event->ident);
 					}
 				}
@@ -163,27 +161,52 @@ void Server::changeEvent(int ident, int flag, void *udata)
 }
 
 
-/* destructor */
+// 태현 추가
 Server::~Server()
 {
+	std::map<int, Client>::iterator iter;
+	iter = _clientList.begin();
+	while (iter != _clientList.end())
+	{
+		close(iter->first);
+		iter++;
+	}
+
+	std::map<std::string, Channel*>::iterator channelIter;
+	channelIter = _channelList.begin();
+	while (channelIter != _channelList.end())
+	{
+		delete (channelIter->second);
+		// delete 하는 이유
+		// Server::appendNewChannel(int fd, std::string& channelName) 에서
+ 		// ( ... , 'new Channel'(channelName, fd)));
+		// new로 동적할당했기 때문에 Channel 은 꼭 delete 할것!!
+		channelIter++;
+	}
+
+	_clientList.clear();
+	_channelList.clear();
+	// clear()는 map의 모든 요소를 제거함
+	delete _command;	// new Command(*this); 생성자에서 동적할당했었음
+	close(_serverSock);
 }
 
 // 태현 추가
-std::map<int, Client*>::iterator Server::findClient(std::string nickname)
+std::map<int, Client>::iterator Server::findClient(std::string nickname)
 {
-	std::map<int, Client*>::iterator iter;
+	std::map<int, Client>::iterator iter;
 	
 	iter = _clientList.begin();
 	while (iter != _clientList.end())
 	{
-		if (iter->second->getNickname() == nickname)
+		if (iter->second.getNickname() == nickname)
 			return (iter);
 		iter++;
 	}
 	return (iter);
 }
 // 태현 추가
-std::map<int, Client*> &Server::getClientList()
+std::map<int, Client> &Server::getClientList()
 {
 	return (_clientList);
 }
@@ -211,4 +234,39 @@ Channel* Server::findChannel(std::string channel_name)
 	if (iter != _channelList.end())
 		return ((iter->second));
 	return (NULL);
+}
+
+// 태현 추가
+void Server::appendNewChannel(int fd, std::string& channelName)
+{
+	_channelList.insert(std::make_pair(channelName, new Channel(channelName, fd)));
+}
+
+std::string Server::getMessage(int clientSock)
+{
+	std::string message;
+	char buf[1024];
+	int n = recv(clientSock, buf, sizeof(buf), 0);
+	if (n <= 0)
+	{
+		if (n < 0)
+			std::cerr << "client read error!" << std::endl;
+		// disconnectClient(clientSock);
+	}
+	else
+	{
+		buf[n] = '\0';
+		message = buf;
+	}
+	return message;
+}
+
+std::string Server::getPassword()
+{
+	return (_password);
+}
+
+void Server::removeChannel(std::string channelName)
+{
+	_channelList.erase(channelName);
 }

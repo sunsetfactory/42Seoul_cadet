@@ -13,8 +13,8 @@ void Command::run(int fd)
 	std::stringstream				serverMsg;	// server에 저장된 메시지
 	std::string						cmdBuffer;
 	std::vector<std::string>		cmdVector;
-	std::map<int, Client*>::iterator	iter;		// clients를 순회하기 위한 iterator
-	std::map<int, Client*>& clientList = _server.getClientList();	// 서버에 저장된 client 목록
+	std::map<int, Client>::iterator	iter;		// clients를 순회하기 위한 iterator
+	std::map<int, Client>& clientList = _server.getClientList();	// 서버에 저장된 client 목록
 
 	serverMsg << _server.getMessage(fd);
 	while (getline(serverMsg, cmdBuffer, ' ')) // 명령어 파싱
@@ -27,7 +27,7 @@ void Command::run(int fd)
 	}
 
 	iter = clientList.find(fd);
-	if ((iter != clientList.end()) && !(iter->second->getIsRegist())) // 클라이언트가 등록되어 있지 않은 경우
+	if ((iter != clientList.end()) && !(iter->second.getIsRegist())) // 클라이언트가 등록되어 있지 않은 경우
 	{
 		signUp(fd, iter, cmdVector, clientList);
 	}
@@ -37,7 +37,7 @@ void Command::run(int fd)
 	}
 }
 
-void Command::signUp(int fd, std::map<int, Client*>::iterator iter, std::vector<std::string>& cmdVector, std::map<int, Client*>& clientList)
+void Command::signUp(int fd, std::map<int, Client>::iterator iter, std::vector<std::string>& cmdVector, std::map<int, Client>& clientList)
 {
 	if (cmdVector[0] == "PASS")
 	{
@@ -60,20 +60,20 @@ void Command::signUp(int fd, std::map<int, Client*>::iterator iter, std::vector<
 	iter = clientList.find(fd);
 	if (iter != clientList.end())
 	{
-		if (iter->second->getIsRegist())
-			iter->second->appendReciveBuf(":IRC 001 " + iter->second->getNickname() + " :Welcome to the Interget Relay Network " + iter->second->getNickname() + "!" + iter->second->getUsername() + "@" + iter->second->getHostname() + "\r\n");
+		if (iter->second.getIsRegist())
+			iter->second.appendReciveBuf(":IRC 001 " + iter->second.getNickname() + " :Welcome to the Interget Relay Network " + iter->second.getNickname() + "!" + iter->second.getUsername() + "@" + iter->second.getHostname() + "\r\n");
 	}
 }
 
-void Command::notRegister(int fd, std::map<int, Client*>::iterator iter, std::map<int, Client*>& clientList)
+void Command::notRegister(int fd, std::map<int, Client>::iterator iter, std::map<int, Client>& clientList)
 {
 	// ERR_NOTREGISTERED (451):
 	// ex) ":server_name 451 <nickname> :You have not registered"
 
-	iter->second->appendReciveBuf(iter->second->getNickname() + " :");
-	iter->second->appendReciveBuf(ERR_NOTREGISTERED);
-	send(fd, iter->second->getReciveBuf().c_str(), iter->second->getReciveBuf().length(), 0);
-	iter->second->resetClient();
+	iter->second.appendReciveBuf(iter->second.getNickname() + " :");
+	iter->second.appendReciveBuf(ERR_NOTREGISTERED);
+	send(fd, iter->second.getReciveBuf().c_str(), iter->second.getReciveBuf().length(), 0);
+	iter->second.resetClient();
 	clientList.erase(fd);
 	close(fd);
 

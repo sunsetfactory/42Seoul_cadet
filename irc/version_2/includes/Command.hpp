@@ -6,6 +6,7 @@
 # include "../includes/Server.hpp"
 # include "../includes/Util.hpp"
 # include "../includes/Error.hpp"
+# include "../includes/Channel.hpp"
 
 class Client;
 class Server;
@@ -29,14 +30,15 @@ class Command
 		~Command();
 
 		void		run(int);
-		void		signUp(int, std::map<int, Client*>::iterator, std::vector<std::string>&, std::map<int, Client*>&);
-		void		notRegister(int, std::map<int, Client*>::iterator, std::map<int, Client*>&);
+		void		signUp(int, std::map<int, Client>::iterator, std::vector<std::string>&, std::map<int, Client>&);
+		void		notRegister(int, std::map<int, Client>::iterator, std::map<int, Client>&);
 		void		signIn(int, std::vector<std::string>&);
 		void		pass(int, std::vector<std::string>);
 		void		nick(int, std::vector<std::string>);
 		void		user(int, std::vector<std::string>);
 		void		ping(int, std::vector<std::string>);
-		void		privmsg(int, std::vector<std::string>);		void		quit(int, std::vector<std::string>);
+		void 		privmsg(int, std::vector<std::string>);
+		void		quit(int, std::vector<std::string>);
 		void		part(int, std::vector<std::string>);
 		void		join(int, std::vector<std::string>);
 		void		kick(int, std::vector<std::string>);
@@ -45,10 +47,8 @@ class Command
 		void		invite(int, std::vector<std::string>);
 		// utils in commands/
 		void		botCommand(int, std::vector<std::string>);
-		void		topicMsg(int, std::string);
-		// bool		checkNicknameDuplicate(std::string, std::map<int, Client*>&);
-		bool		nicknameDuplicate(std::string, std::map<int, Client*>&);
-		// bool		checkNicknameValidate(std::string);
+		void		topicMessage(int, std::string);
+		bool		nicknameDuplicate(std::string, std::map<int, Client>&);
 		bool		nickNameValidate(std::string);
 		bool		checkRealname(std::string);
 		bool		checkBotCommand(std::string);

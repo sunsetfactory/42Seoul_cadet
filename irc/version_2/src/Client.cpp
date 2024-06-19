@@ -10,6 +10,30 @@ Client::Client(int fd)
 	_isRegiUser = false;	
 }
 
+Client::Client()
+{
+	_fd = -1;
+	_nickName = "Client";
+	_isRegiPass = false;
+	_isRegiNick = false;
+	_isRegiUser = false;
+}
+
+Client::Client(const Client &ref)
+{
+	_fd = ref._fd;
+	_nickName = ref._nickName;
+	_userName = ref._userName;
+	_hostName = ref._hostName;
+	_serverName = ref._serverName;
+	_realName = ref._realName;
+	_reciveBuf = ref._reciveBuf;
+	_isRegiPass = ref._isRegiPass;
+	_isRegiNick = ref._isRegiNick;
+	_isRegiUser = ref._isRegiUser;
+	_channelList = ref._channelList;
+}
+
 Client::~Client()
 {
 }
@@ -118,9 +142,9 @@ void Client::appendReciveBuf(std::string inputBuffer)
 	_reciveBuf.append(inputBuffer);
 }
 
-void Client::appendChannel(std::string inputChannel)
+void Client::appendChannelList(std::string channelName)
 {
-	_channelList.push_back(inputChannel);
+	_channelList.push_back(channelName);
 }
 
 // clear
@@ -135,7 +159,7 @@ void Client::clearAllChannel()
 }
 
 void Client::resetClient()
-{
+{	// 클라이언트 정보 초기화 -> 다른 클라이언트가 또 쓸 수 있게
 	setRegiAll(false);
 	clearAllChannel();
 	clearReciveBuf();

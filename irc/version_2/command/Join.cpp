@@ -2,11 +2,11 @@
 
 void Command::join(int fd, std::vector<std::string> cmdVector)
 {
-	Client *client = _server.getClientList().find(fd)->second;
+	Client &client = _server.getClientList().find(fd)->second;
 	if (cmdVector.size() < 2) // 명령어에 인자가 부족할 때 :
 	{
 		// ERR_NEEDMOREPARAMS = ":<server> 461 <nickname> JOIN :Not enough parameters"
-		ERROR_needmoreparams_461(*client);
+		ERROR_needmoreparams_461(client);
 		return;
 	}
 
@@ -32,7 +32,7 @@ void Command::join(int fd, std::vector<std::string> cmdVector)
 		// if (iter->at(0) != '#' && iter->at(0) != '&')
 		if ((*iter)[0] != '#' && (*iter)[0] != '&')
 		{
-			ERROR_nosuchchannel_403(*client, *iter);
+			ERROR_nosuchchannel_403(client, *iter);
 			iter++;
 			if (cmdVector.size() > 2 && keyIter != joinKeyArgv.end())
 				keyIter++;
@@ -45,7 +45,7 @@ void Command::join(int fd, std::vector<std::string> cmdVector)
 		{
 			Channel *channel = channelIt->second;
 			// 채널에 클라이언트가 있는지 확인
-			if (channel.diffClientInChannel(fd))
+			if (channel->diffClientInChannel(fd))
 			{
 				// 이미 채널에 있는 경우
 				iter++;
@@ -57,9 +57,9 @@ void Command::join(int fd, std::vector<std::string> cmdVector)
 				continue;
 			}
 			// invite mode 일 때
-			if (channel.diffMode('i'))
+			if (channel->diffMode('i'))
 			{
-				if (channel.diffInvite(fd))
+				if (channel->diffInvite(fd))
 				{
 					ERROR_inviteonlychan_473(client, *iter);
 					iter++;
@@ -72,9 +72,9 @@ void Command::join(int fd, std::vector<std::string> cmdVector)
 				}
 			}
 			// key mode 일 때
-			if (channel.diffMode('k'))
+			if (channel->diffMode('k'))
 			{
-				if (cmdVector.size() <= 2 || keyIter == joinKeyArgv.end() || !channel.diffKey(*keyIter))
+				if (cmdVector.size() <= 2 || keyIter == joinKeyArgv.end() || !channel->diffKey(*keyIter))
 				{
 					// ERR_BADCHANNELKEY = ":<server> 475 <nickname> <channel> :Cannot join channel (+k)"
 					ERROR_badchannelkey_475(client, *iter);
@@ -87,9 +87,9 @@ void Command::join(int fd, std::vector<std::string> cmdVector)
 				}
 			}
 			// LIMIT 모드일 때
-			if (channel.diffMode('l'))
+			if (channel->diffMode('l'))
 			{
-				if (channel.getFdListClient().size() >= channel.getLimit()) // LIMIT을 초과할 때 :
+				if (channel->getFdListClient().size() >= channel->getLimit()) // LIMIT을 초과할 때 :
 				{
 					// ERR_CHANNELISFULL = ":<server> 471 <nickname> <channel> :Cannot join channel (+l)"
 					ERROR_channelisfull_471(client, *iter);
@@ -102,23 +102,23 @@ void Command::join(int fd, std::vector<std::string> cmdVector)
 					continue;
 				}
 			}
-			// 채널에 클라이언트 추가
-			channel.appendFdListClient(fd);
-			// 채널에 클라이언트 추가 메시지 전송
-			channel.messageAllChannel(fd, "JOIN", *iter, ", ");
+			std::string channelName = (*channelIt).second->getChannelName();
+			client.appendChannelList(channelName);					// operator인 client가 속한 channelList에 '#genral, #random' 추가
+			(*channelIt).second->appendFdListClient(fd);			// #general, #random 등 실제 채널에 fd 추가 (이름으로 직접 접근 ㄴㄴ 서버에 저장된 채널리스트를 iter로 순회하며 채널 접근)
+			messageAllChannel(fd, "JOIN", channelName, ", ");		// 채널에 JOIN 메시지 전송 -> "야 채널에 누구 참여했다"
+			topicMessage(fd, channelName);								// fd에게 채널's TOPIC 메시지 전송 -> "야 신삥 우리 채널에 주제는 ~ 라고 해"
 		}
 		else // 채널이 존재하지 않을 경우
 		{
-			Channel channel = Channel(*iter, fd);
-			// channelList.insert(std::make_pair(*iter, &channel));
-			channelList.insert(std::make_pair(*iter, channel));
-			channel.appendFdListClient(fd);
-			channel.messageAllChannel(fd, "JOIN", *iter, ", ");
-			iter++;
-			if (cmdVector.size() > 2 || keyIter != joinKeyArgv.end())
-			{
-				keyIter++;
-			}
+			_server.appendNewChannel(fd, *iter);					// 채널 없으면 생성
+			_server.findChannel(*iter)->appendFdListClient(-1);		// -1은 봇 예정 -> 봇이 1빠 예정
+			_server.findChannel(*iter)->appendFdListClient(fd);		// 새로 만들어진 채널's 클라이언트 리스트 중 클라이언트(fd주인) 추가
+			client.appendChannelList(*iter);						// client가 속한 channelList에 '#채널' 추가
+			messageAllChannel(fd, *iter, "JOIN", "");
 		}
+		nameListMsg(fd, *iter);
+		iter++;
+		if (cmdVector.size() > 2 || keyIter != joinKeyArgv.end())
+			keyIter++;
 	}
 }

@@ -21,10 +21,11 @@ class Client
 		bool						_isRegiNick;
 		bool						_isRegiUser;
 
-		// OCCF
-		Client();
 	
 	public:
+		// OCCF
+		Client();
+		
 		Client(int);
 		Client(const Client &);
 		Client &operator=(const Client &);
@@ -53,7 +54,7 @@ class Client
 		void						setNickname(std::string);
 		void						setUserinfo(std::string, std::string, std::string, std::string);
 		void						appendReciveBuf(std::string);
-		void						appendChannel(std::string);
+		void						appendChannelList(std::string);
 
 		// clear
 		void						clearReciveBuf();
