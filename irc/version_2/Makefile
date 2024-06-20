@@ -57,6 +57,8 @@ fclean: clean
 	&& echo $(GREEN)"fclean successful!"$(ANCI_INIT) \
 	|| echo $(RED)"fclean failed!"$(ANCI_INIT);
 
-re: fclean all
+re: 
+	fclean
+	all
 
 .PHONY: all clean fclean re
