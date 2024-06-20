@@ -1,7 +1,7 @@
 #ifndef SERVER_HPP
 #define SERVER_HPP
 #define BUF_SIZE 1024
-#define MAX_CONNECTION 15
+#define MAX_CONNECTION 5
 
 #define READ 0
 #define WRITE 1
@@ -49,6 +49,9 @@ class	Server
 		void								addClient(int);
 		bool								checkMessageEnds(int);
 		void								doCommand(int);
+
+		void								closeClient();
+		void								disconnectClient(int client_fd);
 
 	public:
 		// OCCF

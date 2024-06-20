@@ -18,6 +18,7 @@ void Server::run()
 	setServerAddr();
 	setServerBind();
 	setServerListen();
+	kqueueInit();	// kq에 serverSock(리스닝소켓) 등록
 	execute();
 }
 
@@ -68,12 +69,7 @@ void Server::kqueueInit()
 		close(_serverSock);
 		throw std::runtime_error("kqueue error");
 	}
-
 	changeEvent(_serverSock, READ, NULL);
-    // struct kevent change_event;
-    // EV_SET(&change_event, _serverSock, EVFILT_READ, EV_ADD | EV_ENABLE, 0, 0, NULL); // kqueue 설정
-    // _changeList.push_back(change_event);
-
     if (kevent(_kq, &_changeList[0], _changeList.size(), 0, 0, NULL) == -1) 
         throw std::logic_error("ERROR :: kevent() error");
 }
@@ -82,10 +78,14 @@ void Server::kqueueInit()
 
 void Server::execute()
 {
-	kqueueInit();			// kq에 serverSock(리스닝소켓) 등록
+	int tae = 0;
+	
 	while (1)
 	{
+		std::cout << "#tae: " << tae << std::endl;
+		std::cout << "server is running..." << std::endl;
 		_eventCnt = kevent(_kq, &_changeList[0], _changeList.size(), _eventList, 256, NULL);
+		std::cout << "@@eventCnt: " << _eventCnt << std::endl;
 		// Kq를 통해 생성된 이벤트 큐(kevent)를 식별할 것이고,
 		// changeList에 있는 이벤트들을 _changeList.size()만큼 감시하고,
 		// 실제로 이벤트가 발생한 것이 있으면, eventList[256]에 이벤트들을 저장한다 ->
@@ -98,25 +98,29 @@ void Server::execute()
 		_changeList.clear();
 		for (int i = 0; i < _eventCnt; i++)
 		{
+			std::cout << "#for# tae: " << tae << std::endl;
 			_curr_event = &_eventList[i];
 			if (_curr_event->flags & EV_ERROR)
 			{
+				std::cerr << "EV_ERROR" << std::endl;
 				if (_curr_event->ident == static_cast<uintptr_t>(_serverSock))
 				{
-					// closeClient();
+					closeClient();
 					close(_serverSock);
 					throw std::runtime_error("server socket error");
 				}
 				else
 				{
 					std::cerr << "client socket error" << std::endl;
-					// disconnectClient(_curr_event.ident);
+					disconnectClient(_curr_event->ident);
 				}
 			}
 			else if (_curr_event->filter == EVFILT_READ)
 			{
+				std::cout << "#==READ# tae: " << tae << std::endl;
 				if (_curr_event->ident == static_cast<uintptr_t>(_serverSock))
 				{
+					std::cout << "#==serversock# tae: " << tae << std::endl;
 					int clientSock;
 					if ((clientSock = accept(_serverSock, NULL, NULL)) == -1)
 						throw acceptError();
@@ -124,29 +128,48 @@ void Server::execute()
 					fcntl(clientSock, F_SETFL, O_NONBLOCK);
 
 					changeEvent(clientSock, READ, NULL);
+					std::cout << "@@READEVENT: " << std::endl;
 					_clientList.insert(std::make_pair(clientSock, Client(clientSock)));
 				}
 				else if (_clientList.find(_curr_event->ident) != _clientList.end())
 				{
-					char buf[1024];
-					int n = recv(_curr_event->ident, buf, sizeof(buf), 0);
+					// std::cout << "#find# tae: " << tae << std::endl;
+					// char buf[1024];
+					// int n = recv(_curr_event->ident, buf, sizeof(buf), 0);
 
-					if (n <= 0)
-					{
-						if (n < 0)
-							std::cerr << "client read error!" << std::endl;
-						// disconnectClient(_curr_event.ident);
-					}
-					else
-					{
-						buf[n] = '\0';
-						_clientList[_curr_event->ident].appendReciveBuf(buf);
+					// if (n <= 0)
+					// {
+					// 	std::cout << "#find_if# tae: " << tae << std::endl;
+					// 	if (n < 0)
+					// 		std::cerr << "client read error!" << std::endl;
+					// 	// disconnectClient(_curr_event->ident);
+					// 	std::cout << "client disconnectedddddddddddd: " << _curr_event->ident << std::endl;
+					// }
+					// else
+					// {
+						std::cout << "#find_else# tae: " << tae << std::endl;
+						std::cout << "@@received __________000000______: " << std::endl;
+						// buf[n] = '\0';
+						// _clientList[_curr_event->ident].appendReciveBuf(buf);
 						std::cout << "received data from " << _curr_event->ident << ": " << _clientList[_curr_event->ident].getReciveBuf() << std::endl;
 						_command->run(_curr_event->ident);
-					}
+					// }
+					std::cout << "@@received ________________: " << std::endl;
 				}
 			}
 		}
+		std::map<int, Client>::iterator iter;
+		iter = _clientList.begin();
+		while (iter != _clientList.end())
+		{
+			if (iter->second.getReciveBuf().empty() == false)
+			{
+				send(iter->first, iter->second.getReciveBuf().c_str(), iter->second.getReciveBuf().size(), 0);
+				iter->second.clearReciveBuf();
+			}
+			iter++;
+		}
+		tae++;
 	}
 }
 
@@ -155,8 +178,8 @@ void Server::changeEvent(int ident, int flag, void *udata)
 	struct kevent temp_event;
 	if (flag == READ)
 		EV_SET(&temp_event, ident, EVFILT_READ, EV_ADD | EV_ENABLE, 0, 0, udata);
-	else if (flag == WRITE)
-		EV_SET(&temp_event, ident, EVFILT_WRITE, EV_ADD | EV_ENABLE, 0, 0, udata);
+	// else if (flag == WRITE)
+	// 	EV_SET(&temp_event, ident, EVFILT_WRITE, EV_ADD | EV_ENABLE, 0, 0, udata);
 	_changeList.push_back(temp_event);
 }
 
@@ -244,14 +267,20 @@ void Server::appendNewChannel(int fd, std::string& channelName)
 
 std::string Server::getMessage(int clientSock)
 {
+	int tae = 0;
+
+	std::cout << "#fd == clientSock: " << clientSock << std::endl;
+	std::cout << "#getMessage# tae: " << tae << std::endl;
 	std::string message;
 	char buf[1024];
 	int n = recv(clientSock, buf, sizeof(buf), 0);
+	std::cout << "#n: " << n << std::endl;
 	if (n <= 0)
 	{
 		if (n < 0)
 			std::cerr << "client read error!" << std::endl;
-		// disconnectClient(clientSock);
+		disconnectClient(clientSock);
+		std::cout << "#disconnectClient# tae: " << tae << std::endl;
 	}
 	else
 	{
@@ -269,4 +298,37 @@ std::string Server::getPassword()
 void Server::removeChannel(std::string channelName)
 {
 	_channelList.erase(channelName);
+}
+
+void Server::closeClient()
+{
+	std::map<int, Client> clients = _clientList;
+
+	for (std::map<int, Client>::iterator c_it = clients.begin(); c_it != clients.end(); c_it++)
+		close(c_it->first);
+}
+
+void Server::disconnectClient(int client_fd)
+{
+	int tae = 0;
+	std::cout << "#disconnectClient_first# tae: " << tae << std::endl;
+	std::string ch_name;
+	std::string nickname = _clientList[client_fd].getNickname();
+	std::vector<std::string>  channels = _clientList[client_fd].getChannelList();
+
+	std::cout << "#disconnectClient_second# tae: " << tae << std::endl;
+	// 들어가있는 모든 채널에서 삭제
+	for (std::vector<std::string>::iterator m_it = channels.begin(); m_it != channels.end(); m_it++)
+	{
+		ch_name = *m_it;
+		_channelList[ch_name]->removeFdListClient(client_fd);
+		_channelList[ch_name]->removeOperatorFd(client_fd);
+		_channelList[ch_name]->removeInviteFd(client_fd);
+	}
+	std::cout << "#disconnectClient_third# tae: " << tae << std::endl;
+	_clientList[client_fd].clearReciveBuf();
+	_clientList[client_fd].clearAllChannel();
+	_clientList.erase(client_fd);
+	std::cout << "close client " << client_fd << std::endl;
+	close(client_fd);
 }

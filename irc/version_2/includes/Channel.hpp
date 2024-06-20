@@ -53,6 +53,7 @@ class Channel
 		void                        removeOperatorFd(int);
 		void                        appendFdListInvite(int);
 		void						setOperator(int, char);
+		void						removeInviteFd(int);
 
 		// diff
 		bool						diffMode(unsigned char);

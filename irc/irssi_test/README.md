@@ -16,6 +16,9 @@
 ✔ Network irc-project_default	Created                                        0.0s
 ✔ Container irc       			Started
 ```
+kill -9 $(lsof -ti :4001)
+netstat -an | grep LISTEN
+irssi -c 10.19.223.189 -p 4001 -n seokjyan
 
 3. 3개의 터미널 탭을 엽니다.
 
@@ -23,13 +26,14 @@
 1. 1번 탭: `docker logs -f irc`를 입력하여 서버 로그를 확인합니다.
 2. 2번 탭:
    - `docker exec -it irc /bin/bash`를 입력하여 root 계정으로 접속합니다.
-   - `irssi -c 127.0.0.1 -p 6667 -n taehkwon` 명령어를 사용하여 irssi에 접속합니다.
+   - `irssi -c 10.19.223.189 -p 4001 -n seokjyan` 명령어를 사용하여 irssi에 접속합니다.
+   - `irssi -c 127.0.0.1 -p 4001 -n seokjyan` 명령어를 사용하여 irssi에 접속합니다.
    - `/NICK player1`을 입력하여 닉네임을 설정합니다.
    - `/JOIN #general`을 입력하여 채널에 입장합니다.
 3. 3번 탭:
    - (2번 탭과 동일)
    - `docker exec -it irc /bin/bash`를 입력하여 root 계정으로 접속합니다.
-   - `irssi -c 127.0.0.1 -p 6667 -n taehkwon` 명령어를 사용하여 irssi에 접속합니다.
+   - `irssi -c 127.0.0.1 -p 6667 -n seokjyan` 명령어를 사용하여 irssi에 접속합니다.
    - `/NICK player2`를 입력하여 닉네임을 설정합니다.
    - `/JOIN #general`을 입력하여 채널에 입장합니다.
 

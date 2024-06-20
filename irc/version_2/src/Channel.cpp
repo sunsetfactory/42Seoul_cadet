@@ -208,6 +208,15 @@ void Channel::removeOperatorFd(int fd)
         _operatorFdList.erase(iter);
 }
 
+void Channel::removeInviteFd(int fd)	// 석준 추가
+{
+	std::vector<int>::iterator iter;
+	
+	iter = std::find(_inviteFdList.begin(), _inviteFdList.end(), fd);
+	if (iter != _inviteFdList.end())
+		_inviteFdList.erase(iter);
+}
+
 void Channel::appendFdListInvite(int fd)
 {
 	std::vector<int>::iterator iter;
