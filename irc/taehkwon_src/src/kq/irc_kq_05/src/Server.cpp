@@ -1178,27 +1178,34 @@ std::string Server::getChannelModeResponse(Client& client, Channel* p_channel)
 	return response;
 }
 
+#define debugFlag int
+
 void Server::parseData(Client &client)
 {
+	debugFlag seok = 0;
 	std::string buffer = client.getBuffer();
 
 	size_t pos = 0;
 
 	while (1)
 	{
+		std::cout << "buffer : " << buffer <<  "flag : " << seok <<std::endl;
 		if (client.getClose())
 			break;
 		
 		std::string line;
 
-		if (buffer.find("\r\n") != std::string::npos)
+		std::cout << "find : " << buffer <<  "flag : " << seok <<std::endl;
+		if (buffer.find("\n") != std::string::npos)
 		{
-			pos = buffer.find("\r\n");
+			std::cout << "find clrt : " << buffer <<  "flag : " << seok <<std::endl;
+			pos = buffer.find("\n");
 			line = buffer.substr(0, pos + 1);
 			std::cout << "line : " << line << std::endl;
 		}
 		else
 		{
+			std::cout << "not find clrt : " << buffer <<  "flag : " << seok <<std::endl;
 			std::string left_line = buffer;
 			client.clearBuffer();
 			if (!left_line.empty())
@@ -1316,7 +1323,7 @@ void Server::parseData(Client &client)
 		else if (method == "KICK")
 		{
 			response = handleKick(client, buffer_stream);
-    }
+  		}
 		else if (method == "INVITE")
 		{
 			response = handleInvite(client, buffer_stream);
@@ -1327,6 +1334,7 @@ void Server::parseData(Client &client)
 		}
 		this->send_data[client.getSocket()] += makeCRLF(response);
 		buffer = buffer.substr(pos + 2, std::string::npos);
+		seok++;
 	}
 }
 
