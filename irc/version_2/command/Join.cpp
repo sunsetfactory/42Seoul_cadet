@@ -9,7 +9,6 @@ void Command::join(int fd, std::vector<std::string> cmdVector)
 		ERROR_needmoreparams_461(client);
 		return;
 	}
-
 	// parse <channel> : <joinChannelArgv>
 	std::vector<std::string> joinChannelArgv = split(cmdVector[1], ','); // #general,#random
 	std::vector<std::string>::iterator iter = joinChannelArgv.begin();
@@ -110,10 +109,15 @@ void Command::join(int fd, std::vector<std::string> cmdVector)
 		}
 		else // 채널이 존재하지 않을 경우
 		{
+			std::cout << "here=====================10" << std::endl;
 			_server.appendNewChannel(fd, *iter);					// 채널 없으면 생성
+			std::cout << "here=====================11" << std::endl;
 			_server.findChannel(*iter)->appendFdListClient(-1);		// -1은 봇 예정 -> 봇이 1빠 예정
+			std::cout << "here=====================12" << std::endl;
 			_server.findChannel(*iter)->appendFdListClient(fd);		// 새로 만들어진 채널's 클라이언트 리스트 중 클라이언트(fd주인) 추가
+			std::cout << "here=====================13" << std::endl;
 			client.appendChannelList(*iter);						// client가 속한 channelList에 '#채널' 추가
+			std::cout << "here=====================14" << std::endl;
 			messageAllChannel(fd, *iter, "JOIN", "");
 		}
 		nameListMsg(fd, *iter);
