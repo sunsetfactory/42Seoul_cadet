@@ -1223,6 +1223,7 @@ void Server::parseData(Client &client)
 
 		if (method != "CAP" && !client.getRegister())
 		{
+			std::cout << "pre_method : " << method << std::endl;
 			if (method == "PASS")
 			{
 				// 다음 버퍼까지 확인해서 마지막 pass일 때 인증 과정 수행
