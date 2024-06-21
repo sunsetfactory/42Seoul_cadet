@@ -139,13 +139,11 @@ void Server::execute()
 					// }
 					// else
 					// {
-						std::cout << "@@received __________000000______: " << std::endl;
 						// buf[n] = '\0';
 						// _clientList[_curr_event->ident].appendReciveBuf(buf);
 						std::cout << "received data from " << _curr_event->ident << ": " << _clientList[_curr_event->ident].getReciveBuf() << std::endl;
 						_command->run(_curr_event->ident);
 					// }
-					std::cout << "@@received ________________: " << std::endl;
 				}
 			}
 		}
