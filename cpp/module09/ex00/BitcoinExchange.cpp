@@ -1,5 +1,23 @@
 #include "BitcoinExchange.hpp"
 
+std::map<std::string, double>	BitcoinExchange::getData(const std::string dataPath) {
+	std::map<std::string, double>	dataMap;
+	std::ifstream	_file(dataPath);
+	
+	if (!_file.is_open()) {
+		throw std::exception();
+	}
+	std::string	line;
+	std::getline(_file, line);
+	while (std::getline(_file, line)) {
+		std::string date, value;
+		BitcoinExchange::split_line(line, ",", date, value);
+		dataMap[date] = strtodouble(value);
+	}
+	_file.close();
+	return dataMap;
+}
+
 void	BitcoinExchange::startProcessing(std::ifstream& _file) {
 	// 파일이 열렸는지 확인
 	if (_file.is_open()) {
@@ -18,22 +36,32 @@ void	BitcoinExchange::startProcessing(std::ifstream& _file) {
 		std::getline(_file, line);
 		if (line != std::string("date | value"))
 			throw std::runtime_error("File format not valid");
-		while (std::getline(_file, line)) {
+		while (std::getline(_file, line))
+		{
 			std::string	date;
 			std::string value;
-			if (!BitcoinExchange::split_line(line, " | ", date, value)) {
+			// line을 " | "로 나누어 date와 value에 저장
+			if (!BitcoinExchange::split_line(line, " | ", date, value))
+			{
 				std::cout << "Error : line isn't complete." << std::endl;
 				continue;
 			}
 			t_date	s_date;
-			if (BitcoinExchange::date_is_valid(date, s_date)) {
+			// date가 유효한지 확인
+			if (BitcoinExchange::date_is_valid(date, s_date))
+			{
+				// value가 유효한지 확인
 				double number = BitcoinExchange::value_is_valid(value);
-				if (number == -1) {
+				if (number == -1)
+				{
 					std::cout << "Error : value is not valid." << std::endl;
 					continue;
 				}
+				// 계산 수행
 				performCalculations(date, number, dataMap);
-			} else {
+			}
+			else
+			{
 				std::cout << "Error : date is not valid." << std::endl;
 				continue;
 			}
