@@ -8,8 +8,23 @@ Command::~Command()
 {
 }
 
+// print cmdVector
+void printCmdVector(std::vector<std::string> cmdVector)
+{
+	std::cout << "cmdVector: ";
+	for (std::vector<std::string>::iterator it = cmdVector.begin(); it != cmdVector.end(); it++)
+	{
+		std::cout << *it << " ";
+	}
+	std::cout << std::endl;
+}
+
+#define debugFlag int
+
 void Command::run(int fd)
 {
+	debugFlag seok = 0;
+
 	std::stringstream				serverMsg;	// server에 저장된 메시지
 	std::string						cmdBuffer;
 	std::vector<std::string>		cmdVector;
@@ -24,6 +39,7 @@ void Command::run(int fd)
 		cmdVector.push_back(cmdBuffer.substr(0, pos + 1));
 		// "/JOIN #test" -> /JOIN #test 명령어 전체를 Vector에 저장
 	}
+	printCmdVector(cmdVector);
 	iter = clientList.find(fd);
 	if (iter == clientList.end())
 	{
@@ -31,12 +47,15 @@ void Command::run(int fd)
 	}
 	if ((iter != clientList.end()) && !(iter->second.getIsRegist())) // 클라이언트가 등록되어 있지 않은 경우
 	{
+		std::cout << "signUp" << seok << std::endl;
 		signUp(fd, iter, cmdVector, clientList);
 	}
 	else	// 클라이언트가 등록되어 있는 경우
 	{
+		std::cout << "signIn" << seok << std::endl;
 		signIn(fd, cmdVector);
 	}
+	seok++;
 }
 
 void Command::signUp(int fd, std::map<int, Client>::iterator iter, std::vector<std::string>& cmdVector, std::map<int, Client>& clientList)

@@ -16,8 +16,9 @@
 ✔ Network irc-project_default	Created                                        0.0s
 ✔ Container irc       			Started
 ```
+
+sudo lsof -i -P -n | grep LISTEN
 kill -9 $(lsof -ti :4001)
-netstat -an | grep LISTEN
 irssi -c 10.19.223.189 -p 4001 -n seokjyan
 
 3. 3개의 터미널 탭을 엽니다.
