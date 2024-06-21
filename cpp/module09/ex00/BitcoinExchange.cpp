@@ -1,7 +1,23 @@
 #include "BitcoinExchange.hpp"
 
+void	BitcoinExchange::performCalculations(std::string date, double number, std::map<std::string, double> dataMap)
+{
+	std::map<std::string, double>::iterator it = dataMap.upper_bound(date);
+	it--;
+	std::cout << date << " => " << number << " = " << number * it->second << std::endl;
+}
+
+double	BitcoinExchange::value_is_valid(std::string value)
+{
+	double	number = ft_strtod(value);
+	if (number >= static_cast<double>(0) && number <= static_cast<double>(1000))
+		return number;
+	return -1;
+}
+
 bool	BitcoinExchange::in_history_range(std::string date, t_date& s_date)
 {
+	// 날짜를 year, month, day로 나누어 저장
 	s_date.year = atoi(date.substr(0, 4).c_str());
 	s_date.month = atoi(date.substr(5, 7).c_str());
 	s_date.day = atoi(date.substr(8, 10).c_str());
@@ -9,9 +25,22 @@ bool	BitcoinExchange::in_history_range(std::string date, t_date& s_date)
 		s_date.month < 1 || s_date.month > 12 ||\
 		s_date.day < 1 || s_date.day > 31)
 			return false;
+	// 2009년 1월 3일 이전의 날짜는 유효하지 않음
 	if (s_date.year == 2009 && s_date.month == 1 && s_date.day < 3)
 		return false;
+	// 윤년 체크
+	if (s_date.year % 4 == 0 && s_date.year % 100 != 0 || s_date.year % 400 == 0)
+	{
+		if (s_date.month == 2 && s_date.day > 29)
+			return false;
+	}
+	else
+	{
+		if (s_date.month == 2 && s_date.day > 28)
+			return false;
+	}
 	return true;
+
 }
 
 bool	BitcoinExchange::in_date_format(std::string date)
