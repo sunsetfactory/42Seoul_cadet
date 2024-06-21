@@ -1,6 +1,7 @@
 #include "PmergeMe.hpp"
 
-int	main(int ac, char **av) {
+int	main(int ac, char **av)
+{
 	std::vector<int> vect_numbers;
 	std::deque<int> deque_numbers;
 	clock_t	start, end;

@@ -80,12 +80,12 @@ int	PmergeMe::safe_exit(int exit_status)
 
 void PmergeMe::print_vect_of_vect(std::vector<int_vect> v)
 {
-		std::vector<int_vect>::iterator it;
+	std::vector<int_vect>::iterator it;
 	int_vect::iterator v_it;
 	std::cout << "[ ";
 	for (it = v.begin(); it != v.end(); it++)
-{
-			std::cout << "{ ";
+	{
+		std::cout << "{ ";
 		print_vect(CYAN, "", *it);
 		std::cout << " }";
 		if (it != v.end() - 1)
@@ -95,11 +95,11 @@ void PmergeMe::print_vect_of_vect(std::vector<int_vect> v)
 
 void PmergeMe::print_vect(const char* color, const char* status, int_vect &vect)
 {
-		int_vect::iterator it;
+	int_vect::iterator it;
 
 	std::cout << color << status;
 	for (it = vect.begin(); it != vect.end(); it++)
-{
+	{
 			std::cout << *it;
 		if (it != vect.end() - 1)
 			std::cout << " ";
@@ -109,11 +109,11 @@ void PmergeMe::print_vect(const char* color, const char* status, int_vect &vect)
 
 void PmergeMe::print_vect_of_pairs(vect_pair vect)
 {
-		vect_pair::iterator it;
+	vect_pair::iterator it;
 	std::cout << "{ ";
 	for (it = vect.begin(); it != vect.end(); it++)
-{
-			std::cout << "(";
+	{
+		std::cout << "(";
 		PmergeMe::print_vect(GREEN, "",(*it).first);
 		std::cout << " ,";
 		PmergeMe::print_vect(RED, "", (*it).second);
@@ -126,11 +126,11 @@ void PmergeMe::print_vect_of_pairs(vect_pair vect)
 
 void PmergeMe::print_deque(const char* color, const char* status, int_deque& deq)
 {
-		int_deque::iterator it;
+	int_deque::iterator it;
 
 	std::cout << color << status;
 	for (it = deq.begin(); it != deq.end(); it++)
-{
+	{
 			std::cout << *it;
 		if (it != deq.end() - 1)
 			std::cout << " ";
@@ -140,7 +140,7 @@ void PmergeMe::print_deque(const char* color, const char* status, int_deque& deq
 
 void PmergeMe::print_time(clock_t start, clock_t end, size_t container_size, const char* type)
 {
-		double time_taken = (double(end - start) * 1000) / CLOCKS_PER_SEC;
+	double time_taken = (double(end - start) * 1000) / CLOCKS_PER_SEC;
 	std::cout << "Time to process a range of " << RED << container_size << RESET << " elements with " << RED << type << RESET << " : ";
 	std::cout << GREEN << time_taken << RESET << " us" << std::endl;
 }
@@ -149,12 +149,12 @@ void PmergeMe::print_time(clock_t start, clock_t end, size_t container_size, con
 
 void PmergeMe::create_pairs_for_vect(int_vect& numbers, vect_pair& v, size_t len, size_t pairLen)
 {
-		size_t index = 0;
+	size_t index = 0;
 	size_t pairsLeftToCreate = (len / pairLen) % 2 ? len / pairLen - 1 : len / pairLen;
 
 	while (pairsLeftToCreate)
-{
-			int_vect v1, v2;
+	{
+		int_vect v1, v2;
 		while (v1.size() != pairLen)
 			v1.push_back(numbers[index++]);
 		while (v2.size() != pairLen)
@@ -166,15 +166,15 @@ void PmergeMe::create_pairs_for_vect(int_vect& numbers, vect_pair& v, size_t len
 
 void PmergeMe::merge_and_update_vect(int_vect& numbers, vect_pair& v)
 {
-		vect_pair::iterator it;
+	vect_pair::iterator it;
 	int_vect::iterator v_it;
 	size_t index = 0;
 
 	for (it = v.begin(); it != v.end(); it++)
-{
-			if (it->first.back() > it->second.back())
-{
-				for (v_it = it->second.begin(); v_it != it->second.end(); v_it++)
+	{
+		if (it->first.back() > it->second.back())
+		{
+			for (v_it = it->second.begin(); v_it != it->second.end(); v_it++)
 				numbers[index++] = *v_it;
 			for (v_it = it->first.begin(); v_it != it->first.end(); v_it++)
 				numbers[index++] = *v_it;
@@ -186,23 +186,23 @@ void PmergeMe::merge_and_update_vect(int_vect& numbers, vect_pair& v)
 
 size_t binary_search_insert_vect(const int_vect& numbers, int value, size_t start, size_t end)
 {
-	    int_vect::const_iterator lower = std::lower_bound(numbers.begin() + start, numbers.begin() + end, value);
-    return static_cast<size_t>(lower - numbers.begin());
+	int_vect::const_iterator lower = std::lower_bound(numbers.begin() + start, numbers.begin() + end, value);
+    	return static_cast<size_t>(lower - numbers.begin());
 }
 
 void PmergeMe::insertion_vect(int_vect& numbers, size_t len, size_t pairLen)
 {
-		for (size_t i = pairLen; i < len; i++)
-{
-			int current = numbers[i];
+	for (size_t i = pairLen; i < len; i++)
+	{
+		int current = numbers[i];
 		size_t j = i - 1;
 		size_t insertionPoint = binary_search_insert_vect(numbers, current, 0, i);
 		
 		while (j >= insertionPoint && j < i)
-{
+		{
 				numbers[j + 1] = numbers[j];
 			if (j == 0)
-{
+			{
 					break;
 			}
 			j--;
@@ -213,7 +213,7 @@ void PmergeMe::insertion_vect(int_vect& numbers, size_t len, size_t pairLen)
 
 void PmergeMe::merge_insertion_vect(int_vect& numbers, size_t len, size_t pairLen)
 {
-		vect_pair v;
+	vect_pair v;
 	size_t newSize = (len / pairLen) % 2 ? len - pairLen : len;
 
 	if (pairLen == len)
@@ -226,51 +226,48 @@ void PmergeMe::merge_insertion_vect(int_vect& numbers, size_t len, size_t pairLe
 
 void PmergeMe::start_sorting_vect(int_vect& numbers)
 {
-		merge_insertion_vect(numbers, numbers.size(), 1);
+	merge_insertion_vect(numbers, numbers.size(), 1);
 }
 
 // Ford-Johnson Algorithm for Deques
 
 size_t binary_search_insert_deque(const int_deque& numbers, int value, size_t start, size_t end)
 {
-	    int_deque::const_iterator lower = std::lower_bound(numbers.begin() + start, numbers.begin() + end, value);
+	int_deque::const_iterator lower = std::lower_bound(numbers.begin() + start, numbers.begin() + end, value);
     return static_cast<size_t>(lower - numbers.begin());
 }
 
 void PmergeMe::insertion_deque(int_deque& numbers, size_t len, size_t pairLen)
 {
-	    for (size_t i = pairLen; i < len; i++)
-{
-	        int current = numbers[i];
+	for (size_t i = pairLen; i < len; i++)
+	{
+        int current = numbers[i];
         size_t j = i - 1;
-
         size_t insertionPoint = binary_search_insert_deque(numbers, current, 0, i);
-
         while (j >= insertionPoint && j < i)
-{
+		{
 	            numbers[j + 1] = numbers[j];
             if (j == 0)
-{
-	                break;
+			{
+                break;
             }
             j--;
         }
-
         numbers[insertionPoint] = current;
     }
 }
 
 void PmergeMe::merge_and_update_deque(int_deque& numbers, deque_pair& v)
 {
-		deque_pair::iterator it;
+	deque_pair::iterator it;
 	int_deque::iterator v_it;
 	size_t index = 0;
 
 	for (it = v.begin(); it != v.end(); it++)
-{
-			if (it->first.back() > it->second.back())
-{
-				for (v_it = it->second.begin(); v_it != it->second.end(); v_it++)
+	{
+		if (it->first.back() > it->second.back())
+		{
+			for (v_it = it->second.begin(); v_it != it->second.end(); v_it++)
 				numbers[index++] = *v_it;
 			for (v_it = it->first.begin(); v_it != it->first.end(); v_it++)
 				numbers[index++] = *v_it;
@@ -282,12 +279,12 @@ void PmergeMe::merge_and_update_deque(int_deque& numbers, deque_pair& v)
 
 void PmergeMe::create_pairs_for_deque(int_deque& numbers, deque_pair& v, size_t len, size_t pairLen)
 {
-		size_t index = 0;
+	size_t index = 0;
 	size_t pairsLeftToCreate = (len / pairLen) % 2 ? len / pairLen - 1 : len / pairLen;
 
 	while (pairsLeftToCreate)
-{
-			int_deque v1, v2;
+	{
+		int_deque v1, v2;
 		while (v1.size() != pairLen)
 			v1.push_back(numbers[index++]);
 		while (v2.size() != pairLen)
@@ -299,7 +296,7 @@ void PmergeMe::create_pairs_for_deque(int_deque& numbers, deque_pair& v, size_t 
 
 void PmergeMe::merge_insertion_deque(int_deque& numbers, size_t len, size_t pairLen)
 {
-		deque_pair v;
+	deque_pair v;
 	size_t newSize = (len / pairLen) % 2 ? len - pairLen : len;
 
 	if (pairLen == len)
