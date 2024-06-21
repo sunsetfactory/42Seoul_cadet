@@ -36,7 +36,7 @@ bool	BitcoinExchange::in_history_range(std::string date, t_date& s_date)
 	if (s_date.year == 2009 && s_date.month == 1 && s_date.day < 3)
 		return false;
 	// 윤년 체크
-	if (s_date.year % 4 == 0 && s_date.year % 100 != 0 || s_date.year % 400 == 0)
+	if ((s_date.year % 4 == 0 && s_date.year % 100 != 0) || s_date.year % 400 == 0)
 	{
 		if (s_date.month == 2 && s_date.day > 29)
 			return false;
