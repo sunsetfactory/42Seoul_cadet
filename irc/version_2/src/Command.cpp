@@ -10,16 +10,11 @@ Command::~Command()
 
 void Command::run(int fd)
 {
-	int tae = 0;
-	std::cout << "#run# tae: " << tae << std::endl;
 	std::stringstream				serverMsg;	// server에 저장된 메시지
 	std::string						cmdBuffer;
 	std::vector<std::string>		cmdVector;
 	std::map<int, Client>::iterator	iter;		// clients를 순회하기 위한 iterator
 	std::map<int, Client>& clientList = _server.getClientList();	// 서버에 저장된 client 목록
-
-	std::cout << "#run1# tae: " << tae << std::endl;
-
 	serverMsg << _server.getMessage(fd);
 	while (getline(serverMsg, cmdBuffer, ' ')) // 명령어 파싱
 	{
@@ -28,35 +23,24 @@ void Command::run(int fd)
 		// Hello, World\r\n -> 'd'의 위치를 반환
 		cmdVector.push_back(cmdBuffer.substr(0, pos + 1));
 		// "/JOIN #test" -> /JOIN #test 명령어 전체를 Vector에 저장
-		std::cout << "#while_end#tae: " << tae << std::endl;
 	}
-
-	std::cout << "#while_exit#tae: " << tae << std::endl;
 	iter = clientList.find(fd);
-	std::cout << "#.find(fd)tae: " << tae << ", " << fd << std::endl;
-	std::cout << "#Iter: " << iter->first << std::endl;
 	if (iter == clientList.end())
 	{
-		std::cout << "#not_find#tae: " << tae << std::endl;
 		return ;
 	}
 	if ((iter != clientList.end()) && !(iter->second.getIsRegist())) // 클라이언트가 등록되어 있지 않은 경우
 	{
 		signUp(fd, iter, cmdVector, clientList);
-		std::cout << "#singUp#tae: " << tae << std::endl;
 	}
 	else	// 클라이언트가 등록되어 있는 경우
 	{
 		signIn(fd, cmdVector);
-		std::cout << "#signIn#tae: " << tae << std::endl;
 	}
-	std::cout << "#run_exint#tae: " << tae << std::endl;
 }
 
 void Command::signUp(int fd, std::map<int, Client>::iterator iter, std::vector<std::string>& cmdVector, std::map<int, Client>& clientList)
 {
-	int tae = 0;
-	std::cout << "#singUp_FIRST# tae: " << tae << std::endl;
 
 	if (cmdVector.size() > 0)
 	{
@@ -95,10 +79,8 @@ void Command::signUp(int fd, std::map<int, Client>::iterator iter, std::vector<s
 	// 	std::cout << "#noregi# tae: " << tae << std::endl;
 	// }
 
-	std::cout << "#else_exit# tae: " << tae << std::endl;
 	// 첫 실행 시, 인사말 출력
 	iter = clientList.find(fd);
-	std::cout << "#.find(fd)tae: " << tae << std::endl;
 	if (iter != clientList.end())
 	{
 		if (iter->second.getIsRegist())
@@ -130,8 +112,6 @@ void Command::notRegister(int fd, std::map<int, Client>::iterator iter, std::map
 
 void Command::signIn(int fd, std::vector<std::string>& cmdVector)
 {
-	int tae = 0;
-	std::cout << "#signIn# tae: " << tae << std::endl;
 	if (cmdVector.size() > 0)
 	{
 		if (cmdVector[0] == "USER")

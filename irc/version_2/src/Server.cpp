@@ -77,15 +77,10 @@ void Server::kqueueInit()
 // command <option>
 
 void Server::execute()
-{
-	int tae = 0;
-	
+{	
 	while (1)
 	{
-		std::cout << "#tae: " << tae << std::endl;
-		std::cout << "server is running..." << std::endl;
 		_eventCnt = kevent(_kq, &_changeList[0], _changeList.size(), _eventList, 256, NULL);
-		std::cout << "@@eventCnt: " << _eventCnt << std::endl;
 		// Kq를 통해 생성된 이벤트 큐(kevent)를 식별할 것이고,
 		// changeList에 있는 이벤트들을 _changeList.size()만큼 감시하고,
 		// 실제로 이벤트가 발생한 것이 있으면, eventList[256]에 이벤트들을 저장한다 ->
@@ -98,7 +93,6 @@ void Server::execute()
 		_changeList.clear();
 		for (int i = 0; i < _eventCnt; i++)
 		{
-			std::cout << "#for# tae: " << tae << std::endl;
 			_curr_event = &_eventList[i];
 			if (_curr_event->flags & EV_ERROR)
 			{
@@ -117,10 +111,8 @@ void Server::execute()
 			}
 			else if (_curr_event->filter == EVFILT_READ)
 			{
-				std::cout << "#==READ# tae: " << tae << std::endl;
 				if (_curr_event->ident == static_cast<uintptr_t>(_serverSock))
 				{
-					std::cout << "#==serversock# tae: " << tae << std::endl;
 					int clientSock;
 					if ((clientSock = accept(_serverSock, NULL, NULL)) == -1)
 						throw acceptError();
@@ -147,7 +139,6 @@ void Server::execute()
 					// }
 					// else
 					// {
-						std::cout << "#find_else# tae: " << tae << std::endl;
 						std::cout << "@@received __________000000______: " << std::endl;
 						// buf[n] = '\0';
 						// _clientList[_curr_event->ident].appendReciveBuf(buf);
@@ -169,7 +160,6 @@ void Server::execute()
 			}
 			iter++;
 		}
-		tae++;
 	}
 }
 
@@ -267,20 +257,14 @@ void Server::appendNewChannel(int fd, std::string& channelName)
 
 std::string Server::getMessage(int clientSock)
 {
-	int tae = 0;
-
-	std::cout << "#fd == clientSock: " << clientSock << std::endl;
-	std::cout << "#getMessage# tae: " << tae << std::endl;
 	std::string message;
 	char buf[1024];
 	int n = recv(clientSock, buf, sizeof(buf), 0);
-	std::cout << "#n: " << n << std::endl;
 	if (n <= 0)
 	{
 		if (n < 0)
 			std::cerr << "client read error!" << std::endl;
 		disconnectClient(clientSock);
-		std::cout << "#disconnectClient# tae: " << tae << std::endl;
 	}
 	else
 	{
@@ -310,13 +294,10 @@ void Server::closeClient()
 
 void Server::disconnectClient(int client_fd)
 {
-	int tae = 0;
-	std::cout << "#disconnectClient_first# tae: " << tae << std::endl;
 	std::string ch_name;
 	std::string nickname = _clientList[client_fd].getNickname();
 	std::vector<std::string>  channels = _clientList[client_fd].getChannelList();
 
-	std::cout << "#disconnectClient_second# tae: " << tae << std::endl;
 	// 들어가있는 모든 채널에서 삭제
 	for (std::vector<std::string>::iterator m_it = channels.begin(); m_it != channels.end(); m_it++)
 	{
@@ -325,7 +306,6 @@ void Server::disconnectClient(int client_fd)
 		_channelList[ch_name]->removeOperatorFd(client_fd);
 		_channelList[ch_name]->removeInviteFd(client_fd);
 	}
-	std::cout << "#disconnectClient_third# tae: " << tae << std::endl;
 	_clientList[client_fd].clearReciveBuf();
 	_clientList[client_fd].clearAllChannel();
 	_clientList.erase(client_fd);
