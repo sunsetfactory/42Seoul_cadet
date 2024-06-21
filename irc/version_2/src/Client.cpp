@@ -139,8 +139,7 @@ void Client::setUserinfo(std::string inputUserName, std::string inputHostName, s
 
 void Client::appendReciveBuf(std::string inputBuffer)
 {
-	if (inputBuffer == "")
-		return ;
+	std::cout << "appendReciveBuf : " << inputBuffer << std::endl;
 	_reciveBuf.append(inputBuffer);
 }
 

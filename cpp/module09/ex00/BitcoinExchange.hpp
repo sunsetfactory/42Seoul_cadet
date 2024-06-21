@@ -1,33 +1,43 @@
 #ifndef BITCOINEXCHANGE_HPP
-#define BITCOINEXCHANGE_HPP
+# define BITCOINEXCHANGE_HPP
 
-#include <iostream>
-#include <fstream>
-#include <string>
-#include <map>
-#include <algorithm>
-#include <sstream>
+# include <iostream>
+# include <string>
+# include <fstream>
+# include <map>
+# include <iterator>
 
-class BitcoinExchange
-{
-private:
-	std::map<std::string, double> _wallet;
-	BitcoinExchange();
-	BitcoinExchange(const BitcoinExchange &other);
-	BitcoinExchange &operator=(const BitcoinExchange &other);
+typedef struct s_date {
+	int	year;
+	int	month;
+	int	day;
+}	t_date;
 
-public:
-	BitcoinExchange(std::map<std::string, double> wallet);
-	~BitcoinExchange();
+class BitcoinExchange {
+	private:
+		BitcoinExchange();
+		BitcoinExchange(const BitcoinExchange&);
+		BitcoinExchange& operator=(const BitcoinExchange&);
+		~BitcoinExchange();
+
+		//line checking
+		static bool	split_line(std::string, std::string, std::string&, std::string&);
+		
+		//date checking
+		static bool	in_date_format(std::string);
+		static bool	in_history_range(std::string, t_date&);
+		static bool	date_is_valid(std::string, t_date&);
+
+		//value checking
+		static double	value_is_valid(std::string);
+		
+		//perform calculations
+		static void	performCalculations(std::string, double, std::map<std::string, double>);
+
+		//get data from database
+		static std::map<std::string, double>	getData(const std::string);
+	public:
+		static void	startProcessing(std::ifstream&);
 };
-
-std::map<std::string, double> split(const std::string &str, char delimiter);
-
-std::map<std::string, double> parseInputFile(const std::string &filename);
-std::map<std::string, double> parseDataSheet(const std::string &filename);
-
-void printMap(const std::map<std::string, double> &map);
-
-double calculateExchangeRate(const std::map<std::string, double> &database, const std::string &date);
 
 #endif

@@ -1,86 +1,45 @@
 #include "BitcoinExchange.hpp"
 
-std::map<std::string, double> parseInputFile(const std::string &filename)
-{
-	std::map<std::string, double> data;
-	std::ifstream inputFile(filename.c_str());
-	if (inputFile.is_open())
-	{
-		std::string line;
-		while (std::getline(inputFile, line))
+void	BitcoinExchange::startProcessing(std::ifstream& _file) {
+	// 파일이 열렸는지 확인
+	if (_file.is_open()) {
+		std::map<std::string, double> dataMap;
+		std::string	line;
+		// 데이터베이스에서 데이터를 가져옴
+		try 
 		{
-			std::map<std::string, double> tokens = split(line, ' ');
-			for (std::map<std::string, double>::const_iterator it = tokens.begin(); it != tokens.end(); ++it)
-			{
-				data[it->first] = it->second;
+			dataMap = getData(std::string("./data.csv"));
+		}
+		catch (...)
+		{
+			throw std::runtime_error("Can't read data from database");
+		}
+		// 파일의 첫 줄이 "date | value"인지 확인
+		std::getline(_file, line);
+		if (line != std::string("date | value"))
+			throw std::runtime_error("File format not valid");
+		while (std::getline(_file, line)) {
+			std::string	date;
+			std::string value;
+			if (!BitcoinExchange::split_line(line, " | ", date, value)) {
+				std::cout << "Error : line isn't complete." << std::endl;
+				continue;
+			}
+			t_date	s_date;
+			if (BitcoinExchange::date_is_valid(date, s_date)) {
+				double number = BitcoinExchange::value_is_valid(value);
+				if (number == -1) {
+					std::cout << "Error : value is not valid." << std::endl;
+					continue;
+				}
+				performCalculations(date, number, dataMap);
+			} else {
+				std::cout << "Error : date is not valid." << std::endl;
+				continue;
 			}
 		}
-		inputFile.close();
+		_file.close();
+		return ;
 	}
-	else
-	{
-		std::cerr << "Error: Unable to open file" << std::endl;
-	}
-	return data;
-}
-
-std::map<std::string, double> parseDataSheet (const std::string &filename)
-{
-	std::map<std::string, double> data;
-	std::ifstream inputFile(filename.c_str());
-	if (inputFile.is_open())
-	{
-		std::string line;
-		while (std::getline(inputFile, line))
-		{
-			std::map<std::string, double> tokens = split(line, ',');
-			for (std::map<std::string, double>::const_iterator it = tokens.begin(); it != tokens.end(); ++it)
-			{
-				data[it->first] = it->second;
-			}
-		}
-		inputFile.close();
-	}
-	else
-	{
-		std::cerr << "Error: Unable to open file" << std::endl;
-	}
-	return data;
-
-}
-
-void printMap(const std::map<std::string, double> &map)
-{
-	for (std::map<std::string, double>::const_iterator it = map.begin(); it != map.end(); ++it)
-	{
-		std::cout << it->first << " " << it->second << std::endl;
-	}
-}
-
-double calculateExchangeRate(const std::map<std::string, double> &database, const std::string &date)
-{
-	std::map<std::string, double>::const_iterator it = database.lower_bound(date);
-	if (it == database.end())
-	{
-		// 날짜를 찾을 수 없으면 가장 가까운 이전 날짜를 사용
-		if (database.empty())
-		{
-			std::cerr << "Error: Database is empty" << std::endl;
-			return 0.0;
-		}
-		it--;
-	}
-	return it->second;
-}
-
-std::map<std::string, double> split(const std::string &str, char delimiter)
-{
-	std::map<std::string, double> tokens;
-	std::string token;
-	std::istringstream tokenStream(str);
-	while (std::getline(tokenStream, token, delimiter))
-	{
-		tokens[token] = 0.0;
-	}
-	return tokens;
+	throw std::runtime_error("Can't open file.");
 }
