@@ -10,7 +10,7 @@ CXX=c++
 
 CXXFLAGS=-Wall -Wextra -Werror
 CXXFLAGS+=-std=c++98
-# CXXFLAGS+=-g3 -fsanitize=address
+CXXFLAGS+=-g3 -fsanitize=address
 
 RM=rm -rf
 
@@ -58,7 +58,7 @@ fclean: clean
 	|| echo $(RED)"fclean failed!"$(ANCI_INIT);
 
 re: 
-	fclean
-	all
+	@make clean
+	@make all
 
 .PHONY: all clean fclean re
