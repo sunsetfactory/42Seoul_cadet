@@ -16,9 +16,12 @@ bool	BitcoinExchange::in_history_range(std::string date, t_date& s_date)
 
 bool	BitcoinExchange::in_date_format(std::string date)
 {
-	for (size_t i = 0; i < date.length(); i++) {
+	for (size_t i = 0; i < date.length(); i++)
+	{
+		// 4번째와 7번째 문자가 '-'인지 확인
 		if ((i == 4 || i == 7) && date[i] != '-')
 			return false;
+		// 4번째와 7번째 문자를 제외한 나머지 문자가 숫자인지 확인
 		if (i != 4 && i != 7 && !isdigit(date[i]))
 			return false;
 	}
@@ -27,8 +30,10 @@ bool	BitcoinExchange::in_date_format(std::string date)
 
 bool	BitcoinExchange::date_is_valid(std::string date, t_date& s_date)
 {
+	// 날짜 형식이 맞는지 확인
 	if (in_date_format(date) == false)
 		return false;
+	// 날짜가 유효한 범위에 있는지 확인
 	if (in_history_range(date, s_date) == false)
 		return false;
 	return true;	
