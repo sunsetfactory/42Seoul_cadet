@@ -1,24 +1,50 @@
 #include "BitcoinExchange.hpp"
 
-std::map<std::string, double>	BitcoinExchange::getData(const std::string dataPath) {
+double	ft_strtod(std::string value)
+{
+	char	*endPtr;
+	double	number = std::strtod(value.c_str(), &endPtr);
+	return number;
+}
+
+bool	BitcoinExchange::split_line(std::string line, std::string del, std::string& date, std::string& value)
+{
+	// 구분자가 line에 있는지 확인
+	size_t	delPos = line.find(del);
+	// 구분자가 있으면 date와 value에 나누어 저장
+	if (delPos != std::string::npos)
+	{
+		date = line.substr(0, delPos);
+		value = line.substr(delPos + del.length());
+		return (true);
+	}
+	return (false);
+}
+
+std::map<std::string, double>	BitcoinExchange::getData(const std::string dataPath)
+{
 	std::map<std::string, double>	dataMap;
 	std::ifstream	_file(dataPath);
 	
-	if (!_file.is_open()) {
+	if (!_file.is_open())
+	{
 		throw std::exception();
 	}
 	std::string	line;
 	std::getline(_file, line);
-	while (std::getline(_file, line)) {
-		std::string date, value;
+	while (std::getline(_file, line))
+	{
+		std::string date;
+		std::string value;
 		BitcoinExchange::split_line(line, ",", date, value);
-		dataMap[date] = strtodouble(value);
+		dataMap[date] = ft_strtod(value);
 	}
 	_file.close();
 	return dataMap;
 }
 
-void	BitcoinExchange::startProcessing(std::ifstream& _file) {
+void	BitcoinExchange::startProcessing(std::ifstream& _file)
+{
 	// 파일이 열렸는지 확인
 	if (_file.is_open()) {
 		std::map<std::string, double> dataMap;
