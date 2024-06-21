@@ -42,6 +42,7 @@ void Command::messageAllChannel(int fd, std::string channelName, std::string com
 {	// 채널 전체에 귓속말, PRIVMSG 중에서 reciver -> channel인 경우
 	// 다만 자신에게는 PRIVMSG 내용이 출력되지 않음
 	// 입력 인자는, /PRIVMSG #channel :message
+	std::cout << "here=====================in ALLCHANNEL 0" << std::endl;
 	std::map<std::string, Channel*>& channelList = _server.getChannelList();
 
 	if (channelList.find(channelName) == channelList.end())
@@ -49,21 +50,24 @@ void Command::messageAllChannel(int fd, std::string channelName, std::string com
 	Channel *channel = channelList.find(channelName)->second;
 	std::vector<int> fdList = channel->getFdListClient();
 	std::vector<int>::iterator fd_iter = fdList.begin();
+	std::cout << "here=====================in ALLCHANNEL 1" << std::endl;
 	while (fd_iter != fdList.end())
 	{
+		std::cout << "here=====================in ALLCHANNEL 2" << std::endl;
 		Client& targetClient = _server.getClientList().find(*fd_iter)->second;
 		if ((fd == (*fd_iter)) && (command == "PRIVMSG")) // 자신에게는 보내지 않음
 		{
 			fd_iter++;
 			continue ;
 		}
+		std::cout << "here=====================in ALLCHANNEL 3" << std::endl;
 		targetClient.appendReciveBuf(makeMsgForm(fd) + " " + command + " " + channelName + " :" + message + "\r\n");
 		// prefix = (":" + client->getNickname() + "!" + client->getUsername() + "@" + client->getServername());
 		// <message>  ::= [':' <prefix> <SPACE> ] <command> <params> <crlf>
 		// == " : name ! user @ host PRIVMSG #channel : message \r\n"
 
 		// 2.3.1 Message format in 'pseudo' BNF -> [page 8]
-
+		std::cout << "here=====================in ALLCHANNEL 4" << std::endl;
 		fd_iter++;
 	}
 }
