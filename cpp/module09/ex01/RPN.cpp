@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   RPN.cpp                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: yabad <yabad@student.1337.ma>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/05 11:19:01 by yabad             #+#    #+#             */
-/*   Updated: 2023/12/05 16:33:34 by yabad            ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "RPN.hpp"
 
 bool	RPN::isop(char op)
@@ -32,11 +20,11 @@ void	RPN::perform_operation(std::stack<int> &_stack, char op)
 	
 	if (op == '+')
 		_stack.push(n1 + n2);
-	else if (op == '-')
+	if (op == '-')
 		_stack.push(n1 - n2);
-	else if (op == '*')
+	if (op == '*')
 		_stack.push(n1 * n2);
-	else
+	if (op == '/')
 		_stack.push(n1 / n2);
 }
 
@@ -60,7 +48,6 @@ void	RPN::calculate(std::string expr)
 		}
 		else
 			print_error();
-		std::cout << _stack.top() << std::endl;
 	}
 	if (_stack.size() == 1)
 		std::cout << _stack.top() << std::endl;
