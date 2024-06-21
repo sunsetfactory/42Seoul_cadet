@@ -1,5 +1,12 @@
 #include "BitcoinExchange.hpp"
 
+double	ft_strtod(std::string value)
+{
+	char	*endPtr;
+	double	number = std::strtod(value.c_str(), &endPtr);
+	return number;
+}
+
 void	BitcoinExchange::performCalculations(std::string date, double number, std::map<std::string, double> dataMap)
 {
 	std::map<std::string, double>::iterator it = dataMap.upper_bound(date);
@@ -68,12 +75,6 @@ bool	BitcoinExchange::date_is_valid(std::string date, t_date& s_date)
 	return true;	
 }
 
-double	ft_strtod(std::string value)
-{
-	char	*endPtr;
-	double	number = std::strtod(value.c_str(), &endPtr);
-	return number;
-}
 
 bool	BitcoinExchange::split_line(std::string line, std::string del, std::string& date, std::string& value)
 {

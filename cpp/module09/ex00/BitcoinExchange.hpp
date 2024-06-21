@@ -6,6 +6,7 @@
 # include <fstream>
 # include <map>
 # include <iterator>
+# include <cstdlib>
 
 typedef struct s_date {
 	int	year;
