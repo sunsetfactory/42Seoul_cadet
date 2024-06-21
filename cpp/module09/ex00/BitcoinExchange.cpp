@@ -1,5 +1,39 @@
 #include "BitcoinExchange.hpp"
 
+bool	BitcoinExchange::in_history_range(std::string date, t_date& s_date)
+{
+	s_date.year = atoi(date.substr(0, 4).c_str());
+	s_date.month = atoi(date.substr(5, 7).c_str());
+	s_date.day = atoi(date.substr(8, 10).c_str());
+	if (s_date.year < 2009 || s_date.year > 2024 ||\
+		s_date.month < 1 || s_date.month > 12 ||\
+		s_date.day < 1 || s_date.day > 31)
+			return false;
+	if (s_date.year == 2009 && s_date.month == 1 && s_date.day < 3)
+		return false;
+	return true;
+}
+
+bool	BitcoinExchange::in_date_format(std::string date)
+{
+	for (size_t i = 0; i < date.length(); i++) {
+		if ((i == 4 || i == 7) && date[i] != '-')
+			return false;
+		if (i != 4 && i != 7 && !isdigit(date[i]))
+			return false;
+	}
+	return true;
+}
+
+bool	BitcoinExchange::date_is_valid(std::string date, t_date& s_date)
+{
+	if (in_date_format(date) == false)
+		return false;
+	if (in_history_range(date, s_date) == false)
+		return false;
+	return true;	
+}
+
 double	ft_strtod(std::string value)
 {
 	char	*endPtr;
@@ -11,7 +45,7 @@ bool	BitcoinExchange::split_line(std::string line, std::string del, std::string&
 {
 	// 구분자가 line에 있는지 확인
 	size_t	delPos = line.find(del);
-	// 구분자가 있으면 date와 value에 나누어 저장
+	// delpos가 문자열의 끝이 아닌지 확인
 	if (delPos != std::string::npos)
 	{
 		date = line.substr(0, delPos);
@@ -36,7 +70,11 @@ std::map<std::string, double>	BitcoinExchange::getData(const std::string dataPat
 	{
 		std::string date;
 		std::string value;
-		BitcoinExchange::split_line(line, ",", date, value);
+		if (BitcoinExchange::split_line(line, ",", date, value) == false)
+		{
+			std::cout << "Error : line isn't complete." << std::endl;
+			continue;
+		}
 		dataMap[date] = ft_strtod(value);
 	}
 	_file.close();
