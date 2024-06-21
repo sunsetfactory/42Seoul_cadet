@@ -127,7 +127,7 @@ void Server::execute()
 				{
 					// std::cout << "#find# tae: " << tae << std::endl;
 					// char buf[1024];
-					// int n = recv(_curr_event->ident, buf, sizeof(buf), 0);
+					// int n = recv(_cur_event->ident, buf, sizeof(buf), 0);
 
 					// if (n <= 0)
 					// {
@@ -144,7 +144,7 @@ void Server::execute()
 						std::cout << "received data from " << _curr_event->ident << ": " << _clientList[_curr_event->ident].getReciveBuf() << std::endl;
 						_command->run(_curr_event->ident);
 					// }
-				}
+			}
 			}
 		}
 		std::map<int, Client>::iterator iter;
