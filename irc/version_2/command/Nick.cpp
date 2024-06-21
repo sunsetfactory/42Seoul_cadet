@@ -44,11 +44,11 @@ void Command::nick(int fd, std::vector<std::string> cmdVector)
 		return;
 	}
 	
-	if (nicknameDuplicate(cmdVector[1], clientList) == false)
-	{
-		ERROR_nicknameinuse_433(iter->second);
-		return;
-	}
+	// if (nicknameDuplicate(cmdVector[1], clientList) == false)
+	// {
+	// 	ERROR_nicknameinuse_433(iter->second);
+	// 	return;
+	// }
 
 	channelList = iter->second.getChannelList();
 	channelIter = channelList.begin();
