@@ -232,6 +232,7 @@ void PmergeMe::merge_insertion_vect(int_vect &numbers, size_t len, size_t pairLe
 void PmergeMe::start_sorting_vect(int_vect &numbers)
 {
 	merge_insertion_vect(numbers, numbers.size(), 1);
+	// std::cout << "sorted vector: ";
 }
 
 // Ford-Johnson Algorithm for Deques
