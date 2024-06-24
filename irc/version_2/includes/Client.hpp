@@ -25,7 +25,6 @@ class Client
 	public:
 		// OCCF
 		Client();
-		
 		Client(int);
 		Client(const Client &);
 		Client &operator=(const Client &);
