@@ -24,22 +24,21 @@
 #define RED "\033[1;31m"
 
 typedef std::vector<int> int_vect;
-typedef std::vector<std::pair <int_vect, int_vect> > int_vect_pair;
+typedef std::vector<std::pair<int_vect, int_vect> > int_vect_pair;
 typedef std::deque<int> int_deque;
-typedef std::deque<std::pair <int_deque, int_deque> > deque_pair;
+typedef std::deque<std::pair<int_deque, int_deque> > deque_pair;
 
 class PmergeMe
 {
 private:
 	PmergeMe();
 	PmergeMe(const PmergeMe &);
-	~PmergeMe();
-
 	PmergeMe &operator=(const PmergeMe &);
+	~PmergeMe();
 
 	// PARSING MATHODS
 	static bool positive_integer(std::string);
-	static bool exceeds_max(const char *, size_t);
+	static bool value_max(const char *, size_t);
 	static bool only_digits(std::string);
 
 public:
@@ -63,7 +62,7 @@ public:
 	static void insertion_deque(int_deque &, size_t, size_t);
 
 	// EXIT METHOD
-	static int safe_exit(int exit_status);
+	static int err_exit(int exit_status);
 
 	// PRINTING MATHODS
 	static void print_vect(const char *, const char *, int_vect &);

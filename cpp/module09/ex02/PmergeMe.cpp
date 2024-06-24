@@ -1,6 +1,6 @@
 #include "PmergeMe.hpp"
 
-bool PmergeMe::exceeds_max(const char *str, size_t len)
+bool PmergeMe::value_max(const char *str, size_t len)
 {
 	// 숫자가 MAX_INTEGER보다 크면 true
 	if (str[0] == '+')
@@ -45,7 +45,7 @@ bool PmergeMe::only_digits(std::string str)
 
 bool PmergeMe::positive_integer(std::string str)
 {
-	if (!only_digits(str) || exceeds_max(str.c_str(), str.length()))
+	if (!only_digits(str) || value_max(str.c_str(), str.length()))
 		return false;
 	return true;
 }
@@ -77,7 +77,7 @@ void PmergeMe::get_values(char **av, int_vect &vect_nums, int_deque &deque_nums)
 	}
 }
 
-int PmergeMe::safe_exit(int exit_status)
+int PmergeMe::err_exit(int exit_status)
 {
 	std::cout << "Error" << std::endl;
 	exit(exit_status);
@@ -112,17 +112,30 @@ void PmergeMe::print_vect(const char *color, const char *status, int_vect &vect)
 	std::cout << RESET << std::endl;
 }
 
+void print_vec(const char *color, const char *status, int_vect &vect)
+{
+	int_vect::iterator it;
+
+	std::cout << color << status;
+	for (it = vect.begin(); it != vect.end(); it++)
+	{
+		std::cout << *it;
+		if (it != vect.end() - 1)
+			std::cout << " ";
+	}
+}
+
 void PmergeMe::print_vect_of_pairs(int_vect_pair vect)
 {
 	int_vect_pair::iterator it;
 	std::cout << "{ ";
 	for (it = vect.begin(); it != vect.end(); it++)
 	{
-		std::cout << "(";
-		PmergeMe::print_vect(GREEN, "", (*it).first);
-		std::cout << " ,";
-		PmergeMe::print_vect(RED, "", (*it).second);
-		std::cout << ")";
+		std::cout << RED "(" RESET;
+		print_vec(GREEN, "", (*it).first);
+		std::cout << RESET " ,";
+		print_vec(GREEN, "", (*it).second);
+		std::cout << RED ")" RESET;
 		if (it != vect.end() - 1)
 			std::cout << " ";
 	}
@@ -152,13 +165,16 @@ void PmergeMe::print_time(clock_t start, clock_t end, size_t container_size, con
 
 // Ford-Johnson Algorithm for Vectors
 
+// args: numbers, v, len, pairLen
+// numbers: 인트 벡터
+// v: 인트 페어 벡터
+// len: 벡터의 길이
+// pairLen: 벡트 페어의 길이
 void PmergeMe::create_pairs_for_vect(int_vect &numbers, int_vect_pair &v, size_t len, size_t pairLen)
 {
 	size_t index = 0;
 	size_t pairsLeftToCreate;
 
-	// 1. pairLen이 len보다 크면 return
-	std::cout << "pairLen: " << pairLen << " len: " << len << std::endl;
 	if (len / pairLen % 2)
 		pairsLeftToCreate = len / pairLen - 1;
 	else
@@ -174,6 +190,7 @@ void PmergeMe::create_pairs_for_vect(int_vect &numbers, int_vect_pair &v, size_t
 		v.push_back(make_pair(v1, v2));
 		pairsLeftToCreate -= 2;
 	}
+	// print_vect_of_pairs(v); // _debug_module
 }
 
 void PmergeMe::merge_and_update_vect(int_vect &numbers, int_vect_pair &v)
@@ -186,18 +203,28 @@ void PmergeMe::merge_and_update_vect(int_vect &numbers, int_vect_pair &v)
 	{
 		if (it->first.back() > it->second.back())
 		{
+			// std::cout << "======================" << std::endl; // _debug_module
 			for (v_it = it->second.begin(); v_it != it->second.end(); v_it++)
+			{
+				// std::cout << "v_it1: " << *v_it << std::endl; // _debug_module
 				numbers[index++] = *v_it;
+			}
 			for (v_it = it->first.begin(); v_it != it->first.end(); v_it++)
+			{
+				// std::cout << "v_it2: " << *v_it << std::endl; // _debug_module
 				numbers[index++] = *v_it;
+			}
 		}
 		else
 			index += (it->first.size() * 2);
 	}
+	// print_vect(CYAN, "After merge: ", numbers);						// _debug_module
+	// std::cout << "==================================" << std::endl; // _debug_module
 }
 
 size_t binary_search_insert_vect(const int_vect &numbers, int value, size_t start, size_t end)
 {
+	// lower_bound는 value보다 크거나 같은 첫번째 원소의 위치를 반환
 	int_vect::const_iterator lower = std::lower_bound(numbers.begin() + start, numbers.begin() + end, value);
 	return static_cast<size_t>(lower - numbers.begin());
 }
@@ -220,9 +247,19 @@ void PmergeMe::insertion_vect(int_vect &numbers, size_t len, size_t pairLen)
 			j--;
 		}
 		numbers[insertionPoint] = current;
+			// print_vect(CYAN, "Before insertion: ", numbers); // _debug_module
+
 	}
 }
 
+// 11 1 4 8 2 6 5 9 3 7 10
+// { ("11" ,1) (4 ,"8") (2 ,"6") (5 ,"9") (3 ,"7") }
+// After merge: 1 "11" 4 "8" 2 "6" 5 "9" 3 "7" 10
+
+// { (1 "11" ,4 8) (2 6 ,5 "9") }
+// After merge: 4 8 1 "11" 2 6 5 "9" 3 7 10
+// { (4 8 1 "11" ,2 6 5 "9") }
+// After merge: (2 6 5 "9") (4 8 1 "11") 3 7 10
 void PmergeMe::merge_insertion_vect(int_vect &numbers, size_t len, size_t pairLen)
 {
 	int_vect_pair v;
@@ -231,7 +268,6 @@ void PmergeMe::merge_insertion_vect(int_vect &numbers, size_t len, size_t pairLe
 		newSize = len - pairLen;
 	else
 		newSize = len;
-	std::cout << "newSize: " << newSize << std::endl;
 	if (pairLen == len)
 		return;
 	create_pairs_for_vect(numbers, v, len, pairLen);
@@ -243,7 +279,6 @@ void PmergeMe::merge_insertion_vect(int_vect &numbers, size_t len, size_t pairLe
 void PmergeMe::start_sorting_vect(int_vect &numbers)
 {
 	merge_insertion_vect(numbers, numbers.size(), 1);
-	// std::cout << "sorted vector: ";
 }
 
 // Ford-Johnson Algorithm for Deques
@@ -298,7 +333,6 @@ void PmergeMe::create_pairs_for_deque(int_deque &numbers, deque_pair &v, size_t 
 {
 	size_t index = 0;
 	size_t pairsLeftToCreate = (len / pairLen) % 2 ? len / pairLen - 1 : len / pairLen;
-
 	while (pairsLeftToCreate)
 	{
 		int_deque v1, v2;
