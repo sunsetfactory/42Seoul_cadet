@@ -31,7 +31,6 @@ bool PmergeMe::exceeds_max(const char *str, size_t len)
 
 bool PmergeMe::only_digits(std::string str)
 {
-	// 숫자가 아니면 false
 	int i = 0;
 	if (str[i] == '+')
 		i++;
@@ -46,7 +45,6 @@ bool PmergeMe::only_digits(std::string str)
 
 bool PmergeMe::positive_integer(std::string str)
 {
-	// only_digits()와 exceeds_max()가 false를 반환하면 true 반환
 	if (!only_digits(str) || exceeds_max(str.c_str(), str.length()))
 		return false;
 	return true;
@@ -57,7 +55,6 @@ bool PmergeMe::numbers_valid(char **av)
 	int i = 1;
 	while (av[i])
 	{
-		// 인자가 숫자가 아니거나 양수가 아니면 false
 		if (!positive_integer(std::string(av[i])))
 			return false;
 		i++;
