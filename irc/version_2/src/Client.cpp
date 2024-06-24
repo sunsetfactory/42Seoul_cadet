@@ -8,6 +8,10 @@ Client::Client(int fd)
 	_isRegiPass = false;
 	_isRegiNick = false;
 	_isRegiUser = false;	
+	_reciveBuf = "";
+	_userName = "";
+	_hostName = "";
+	_serverName = "";
 }
 
 Client::Client()
@@ -17,6 +21,10 @@ Client::Client()
 	_isRegiPass = false;
 	_isRegiNick = false;
 	_isRegiUser = false;
+	_reciveBuf = "";
+	_userName = "";
+	_hostName = "";
+	_serverName = "";
 }
 
 Client::Client(const Client &ref)
@@ -152,6 +160,7 @@ void Client::appendChannelList(std::string channelName)
 void Client::clearReciveBuf()
 {
 	_reciveBuf.clear();
+	std::cout << _reciveBuf << std::endl;
 }
 
 void Client::clearAllChannel()

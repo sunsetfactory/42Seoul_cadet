@@ -109,18 +109,14 @@ void Command::join(int fd, std::vector<std::string> cmdVector)
 		}
 		else // 채널이 존재하지 않을 경우
 		{
-			std::cout << "here=====================10" << std::endl;
 			_server.appendNewChannel(fd, *iter);					// 채널 없으면 생성
 			_server.findChannel(*iter)->appendFdListClient(-1);		// -1은 봇 예정 -> 봇이 1빠 예정
 			_server.findChannel(*iter)->appendFdListClient(fd);		// 새로 만들어진 채널's 클라이언트 리스트 중 클라이언트(fd주인) 추가
 			client.appendChannelList(*iter);						// client가 속한 channelList에 '#채널' 추가
 			messageAllChannel(fd, *iter, "JOIN", "");
 		}
-		std::cout << "here=====================15" << std::endl;
 		nameListMsg(fd, *iter);
-		std::cout << "here=====================16" << std::endl;
 		iter++;
-		std::cout << "here=====================17" << std::endl;
 		if (cmdVector.size() > 2 || keyIter != joinKeyArgv.end())
 			keyIter++;
 	}

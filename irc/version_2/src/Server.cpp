@@ -3,6 +3,8 @@
 #include "../includes/Client.hpp"
 #include "../includes/Command.hpp"
 
+#define seok "debugSeok" << std::endl
+
 // Server::Server(char *portNum, char *password)
 Server::Server(int portNum, std::string password)
 {
@@ -26,6 +28,7 @@ void Server::setServerSock()
 {
 	int opiton = 1;
 	_serverSock = socket(PF_INET, SOCK_STREAM, 0);
+	std::cout << "socket 생성 : " << _serverSock << seok;
 	if (_serverSock == -1)
 		throw std::runtime_error("socket error");
 	if (setsockopt(_serverSock, SOL_SOCKET, SO_REUSEADDR, &opiton, sizeof(opiton)) == -1)
@@ -33,6 +36,7 @@ void Server::setServerSock()
 		close(_serverSock);
 		throw std::runtime_error("setsockopt error");
 	}
+	std::cout << "setsockopt 완료" << seok;
 }
 
 void Server::setServerAddr()
@@ -41,6 +45,7 @@ void Server::setServerAddr()
 	_serverAddr.sin_family = AF_INET;
 	_serverAddr.sin_addr.s_addr = INADDR_ANY;
 	_serverAddr.sin_port = htons(_portNum);
+	std::cout << "setServerAddr 완료" << seok;
 }
 
 void Server::setServerBind()
@@ -50,15 +55,18 @@ void Server::setServerBind()
 		close(_serverSock);
 		throw std::runtime_error("bind error");
 	}
+	std::cout << "bind 완료" << seok;
 }
 
 void Server::setServerListen()
 {
+	std::cout << "listen 시작" << seok;
 	if (listen(_serverSock, MAX_CONNECTION) == -1)
 	{
 		close(_serverSock);
 		throw std::runtime_error("listen error");
 	}
+	std::cout << "listen 완료" << seok;
 }
 
 void Server::kqueueInit()
@@ -72,15 +80,18 @@ void Server::kqueueInit()
 	changeEvent(_serverSock, READ, NULL);
     if (kevent(_kq, &_changeList[0], _changeList.size(), 0, 0, NULL) == -1) 
         throw std::logic_error("ERROR :: kevent() error");
+	std::cout << "kqueue 초기화 완료" << seok;
 }
 
 // command <option>
 
 void Server::execute()
-{	
+{
+	std::cout << "execute 시작" << seok;
 	while (1)
 	{
 		_eventCnt = kevent(_kq, &_changeList[0], _changeList.size(), _eventList, 256, NULL);
+		std::cout << "kevent 실행" << seok;
 		// Kq를 통해 생성된 이벤트 큐(kevent)를 식별할 것이고,
 		// changeList에 있는 이벤트들을 _changeList.size()만큼 감시하고,
 		// 실제로 이벤트가 발생한 것이 있으면, eventList[256]에 이벤트들을 저장한다 ->
@@ -111,40 +122,24 @@ void Server::execute()
 			}
 			else if (_curr_event->filter == EVFILT_READ)
 			{
+				std::cout << "READ EVENT 감지" << seok;
 				if (_curr_event->ident == static_cast<uintptr_t>(_serverSock))
 				{
 					int clientSock;
 					if ((clientSock = accept(_serverSock, NULL, NULL)) == -1)
 						throw acceptError();
+					std::cout << "accept 완료 :" << clientSock << seok;
 					std::cout << "accept new client: " << clientSock << std::endl;
 					fcntl(clientSock, F_SETFL, O_NONBLOCK);
-
 					changeEvent(clientSock, READ, NULL);
-					std::cout << "@@READEVENT: " << std::endl;
 					_clientList.insert(std::make_pair(clientSock, Client(clientSock)));
 				}
 				else if (_clientList.find(_curr_event->ident) != _clientList.end())
 				{
-					// std::cout << "#find# tae: " << tae << std::endl;
-					// char buf[1024];
-					// int n = recv(_cur_event->ident, buf, sizeof(buf), 0);
-
-					// if (n <= 0)
-					// {
-					// 	std::cout << "#find_if# tae: " << tae << std::endl;
-					// 	if (n < 0)
-					// 		std::cerr << "client read error!" << std::endl;
-					// 	// disconnectClient(_curr_event->ident);
-					// 	std::cout << "client disconnectedddddddddddd: " << _curr_event->ident << std::endl;
-					// }
-					// else
-					// {
-						// buf[n] = '\0';
-						// _clientList[_curr_event->ident].appendReciveBuf(buf);
-						std::cout << "received data from " << _curr_event->ident << ": " << _clientList[_curr_event->ident].getReciveBuf() << std::endl;
-						_command->run(_curr_event->ident);
-					// }
-			}
+					std::cout << "이벤트가 발생한 소캣 : " << _curr_event->ident << seok;
+					std::cout << "received data from " << _curr_event->ident << ": " << _clientList[_curr_event->ident].getReciveBuf() << std::endl;
+					_command->run(_curr_event->ident);
+				}
 			}
 		}
 		std::map<int, Client>::iterator iter;
