@@ -112,9 +112,9 @@ void PmergeMe::print_vect(const char *color, const char *status, int_vect &vect)
 	std::cout << RESET << std::endl;
 }
 
-void PmergeMe::print_vect_of_pairs(vect_pair vect)
+void PmergeMe::print_vect_of_pairs(int_vect_pair vect)
 {
-	vect_pair::iterator it;
+	int_vect_pair::iterator it;
 	std::cout << "{ ";
 	for (it = vect.begin(); it != vect.end(); it++)
 	{
@@ -152,9 +152,10 @@ void PmergeMe::print_time(clock_t start, clock_t end, size_t container_size, con
 
 // Ford-Johnson Algorithm for Vectors
 
-void PmergeMe::create_pairs_for_vect(int_vect &numbers, vect_pair &v, size_t len, size_t pairLen)
+void PmergeMe::create_pairs_for_vect(int_vect &numbers, int_vect_pair &v, size_t len, size_t pairLen)
 {
 	size_t index = 0;
+	// 2개씩 묶어서 pair로 만들어줌
 	size_t pairsLeftToCreate = (len / pairLen) % 2 ? len / pairLen - 1 : len / pairLen;
 
 	while (pairsLeftToCreate)
@@ -169,9 +170,9 @@ void PmergeMe::create_pairs_for_vect(int_vect &numbers, vect_pair &v, size_t len
 	}
 }
 
-void PmergeMe::merge_and_update_vect(int_vect &numbers, vect_pair &v)
+void PmergeMe::merge_and_update_vect(int_vect &numbers, int_vect_pair &v)
 {
-	vect_pair::iterator it;
+	int_vect_pair::iterator it;
 	int_vect::iterator v_it;
 	size_t index = 0;
 
@@ -218,9 +219,13 @@ void PmergeMe::insertion_vect(int_vect &numbers, size_t len, size_t pairLen)
 
 void PmergeMe::merge_insertion_vect(int_vect &numbers, size_t len, size_t pairLen)
 {
-	vect_pair v;
-	size_t newSize = (len / pairLen) % 2 ? len - pairLen : len;
-
+	int_vect_pair v;
+	size_t newSize;
+	if (len / pairLen % 2)
+		newSize = len - pairLen;
+	else
+		newSize = len;
+	std::cout << "newSize: " << newSize << std::endl;
 	if (pairLen == len)
 		return;
 	create_pairs_for_vect(numbers, v, len, pairLen);

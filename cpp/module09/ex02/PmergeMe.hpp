@@ -24,7 +24,7 @@
 #define RED "\033[1;31m"
 
 typedef std::vector<int> int_vect;
-typedef std::vector<std::pair <int_vect, int_vect> > vect_pair;
+typedef std::vector<std::pair <int_vect, int_vect> > int_vect_pair;
 typedef std::deque<int> int_deque;
 typedef std::deque<std::pair <int_deque, int_deque> > deque_pair;
 
@@ -52,8 +52,8 @@ public:
 
 	// SORTING METHODS FOR VECTOR
 	static void merge_insertion_vect(int_vect &, size_t, size_t);
-	static void create_pairs_for_vect(int_vect &, vect_pair &, size_t, size_t);
-	static void merge_and_update_vect(int_vect &, vect_pair &);
+	static void create_pairs_for_vect(int_vect &, int_vect_pair &, size_t, size_t);
+	static void merge_and_update_vect(int_vect &, int_vect_pair &);
 	static void insertion_vect(int_vect &, size_t, size_t);
 
 	// SORTING METHODS FOR DEQUE
@@ -67,7 +67,7 @@ public:
 
 	// PRINTING MATHODS
 	static void print_vect(const char *, const char *, int_vect &);
-	static void print_vect_of_pairs(vect_pair);
+	static void print_vect_of_pairs(int_vect_pair);
 	static void print_vect_of_vect(std::vector<int_vect>);
 	static void print_deque(const char *, const char *, int_deque &);
 	static void print_time(clock_t, clock_t, size_t, const char *);
