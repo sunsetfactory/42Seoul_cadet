@@ -155,8 +155,13 @@ void PmergeMe::print_time(clock_t start, clock_t end, size_t container_size, con
 void PmergeMe::create_pairs_for_vect(int_vect &numbers, int_vect_pair &v, size_t len, size_t pairLen)
 {
 	size_t index = 0;
-	// 2개씩 묶어서 pair로 만들어줌
-	size_t pairsLeftToCreate = (len / pairLen) % 2 ? len / pairLen - 1 : len / pairLen;
+	size_t pairsLeftToCreate;
+
+	// 1. pairLen이 len보다 크면 return
+	if (len / pairLen % 2)
+		pairsLeftToCreate = len / pairLen - 1;
+	else
+		pairsLeftToCreate = len / pairLen;
 
 	while (pairsLeftToCreate)
 	{
