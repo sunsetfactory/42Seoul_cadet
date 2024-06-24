@@ -24,10 +24,9 @@
 #define RED "\033[1;31m"
 
 typedef std::vector<int> int_vect;
-typedef std::vector<std::pair<int_vect, int_vect>> vect_pair;
-
+typedef std::vector<std::pair <int_vect, int_vect> > vect_pair;
 typedef std::deque<int> int_deque;
-typedef std::deque<std::pair<int_deque, int_deque>> deque_pair;
+typedef std::deque<std::pair <int_deque, int_deque> > deque_pair;
 
 class PmergeMe
 {
