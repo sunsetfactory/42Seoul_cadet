@@ -61,13 +61,16 @@ bool PmergeMe::numbers_valid(char **av)
 	}
 	return true;
 }
+// #parse the input values and store them in the vectors
 
 void PmergeMe::get_values(char **av, int_vect &vect_nums, int_deque &deque_nums)
 {
 	int i = 1;
 	while (av[i])
 	{
-		int num = atoi(av[i]);
+		int num;
+		std::stringstream ss(av[i]);
+		ss >> num;
 		vect_nums.push_back(num);
 		deque_nums.push_back(num);
 		i++;
