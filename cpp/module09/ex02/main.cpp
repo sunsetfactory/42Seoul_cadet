@@ -8,9 +8,9 @@ int	main(int ac, char **av)
 	
 	if (ac <= 1 || !PmergeMe::numbers_valid(av))
 		PmergeMe::safe_exit(EXIT_FAILURE);
-		
+
 	PmergeMe::get_values(av, vect_numbers, deque_numbers);
-	
+
 	//using vectors
 	PmergeMe::print_vect(PURPLE, "Before : ", vect_numbers);
 	start = clock();
