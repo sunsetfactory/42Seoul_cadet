@@ -158,6 +158,7 @@ void PmergeMe::create_pairs_for_vect(int_vect &numbers, int_vect_pair &v, size_t
 	size_t pairsLeftToCreate;
 
 	// 1. pairLen이 len보다 크면 return
+	std::cout << "pairLen: " << pairLen << " len: " << len << std::endl;
 	if (len / pairLen % 2)
 		pairsLeftToCreate = len / pairLen - 1;
 	else
