@@ -4,9 +4,9 @@ bool	PmergeMe::numbers_valid(char **av)
 {
 	int i = 1;
 	while (av[i])
-{
-			if (!positive_integer(std::string(av[i])))
-			return false;
+	{
+		if (!positive_integer(std::string(av[i])))
+		return false;
 		i++;
 	}
 	return true;
