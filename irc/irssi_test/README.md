@@ -11,7 +11,6 @@
 1. `make all` 명령어를 실행하여 컨테이너를 빌드하고 실행합니다.
 2. 컨테이너가 실행되면 다음과 같은 출력 문구가 나타납니다.
 
-
 ```
 ✔ Network irc-project_default	Created                                        0.0s
 ✔ Container irc       			Started

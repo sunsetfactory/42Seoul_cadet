@@ -265,7 +265,7 @@ void Server::appendNewChannel(int fd, std::string& channelName)
 std::string Server::getMessage(int clientSock)
 {
 	std::string message;
-	char buf[512]; // line max_len == 510	(512 - "\r\n")
+	char buf[2048]; // line max_len == 510	(512 - "\r\n")
 	int n = recv(clientSock, buf, sizeof(buf), 0);
 	if (n <= 0)
 	{
@@ -275,6 +275,17 @@ std::string Server::getMessage(int clientSock)
 	}
 	else
 	{
+		if (n > 512)
+		{
+			char real_buf[512];
+			real_buf[510] = '\r';
+			real_buf[511] = '\n';
+			real_buf[512] = '\0';
+			for (int i = 0; i < 510; i++)
+				real_buf[i] = buf[i];
+			message = real_buf;
+			return message;
+		}
 		buf[n] = '\0';
 		message = buf;
 	}

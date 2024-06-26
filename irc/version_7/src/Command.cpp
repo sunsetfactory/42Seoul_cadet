@@ -173,7 +173,7 @@ void Command::signIn(int fd, std::vector<std::string>& cmdVector)
 			ping(fd, cmdVector);
 		else
         {
-            // 등록되어 있지 않은 명령어의 경우 에러처리
+			
             std::map<int, Client>& clientList = _server.getClientList();
             std::map<int, Client>::iterator iter = clientList.find(fd);
             if (iter != clientList.end())
