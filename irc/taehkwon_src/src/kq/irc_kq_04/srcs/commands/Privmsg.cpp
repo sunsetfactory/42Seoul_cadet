@@ -4,54 +4,50 @@
 void Command::privmsg(int fd, std::vector<std::string> command_vec)
 {
 	/* PRIVMSG(or /msg) <channel/nickname> <messages ...> */
-	std::map<int, Client> &clients = _server.getClients();
+	std::map<int, Client>& clients = _server.getClients();
 	std::map<int, Client>::iterator client_iter = clients.find(fd);
-	if (command_vec.size() < 3) // 명령어에 필요한 인자가 부족한 경우 :
+	if (command_vec.size() < 2)
 	{
-		// ERR_NEEDMOREPARAMS = "Not enough parameters\r\n"
 		err_needmoreparams_461(client_iter->second);
-		return; 
+		return;
 	}
-	std::vector<std::string> msgChannels = split(command_vec[1], ',');
-	std::vector<std::string>::iterator msgChannelIter = msgChannels.begin();
-	for (; msgChannelIter != msgChannels.end(); msgChannelIter++) // 채널이 여러 개인 경우 -
+	std::istringstream iss(command_vec[1]);
+	std::string buffer;
+	std::vector<std::string> vec;
+	while (getline(iss, buffer, ','))
+		vec.push_back(buffer);
+	std::vector<std::string>::iterator vec_iter = vec.begin();
+	for (; vec_iter != vec.end(); vec_iter++)
 	{
-		if ((*msgChannelIter)[0] == '#' || (*msgChannelIter)[0] == '&') // 채널인 경우 :
+		if ((*vec_iter)[0] == '#' || (*vec_iter)[0] == '&')	// send to channel
 		{
-			Channel *channel = _server.findChannel(*msgChannelIter);
-			if (channel) // 채널이 존재하는 경우 :
+			Channel *channel = _server.findChannel(*vec_iter);
+			if (channel)	// if channel exists
 			{
-				if (command_vec.size() > 2 && checkBotCommand(command_vec[2])) // 만약 BOT 명령어인 경우
+				if (command_vec.size() > 2 && checkBotCommand(command_vec[2]))
 				{
-					// BOT 명령어 실행
 					botCommand(fd, command_vec);
 					return;
 				}
-				std::string message = channelMessage(2, command_vec); // 메시지 생성
-				// 채널에 메시지 전송
+				std::string message = channelMessage(2, command_vec);
 				channelPRIVMSG(message, client_iter->second, channel);
 			}
-			else // 채널이 존재하지 않는 경우 :
+			else	// if channel not exists
 			{
-				// ERR_NOSUCHCHANNEL = "No such channel\r\n"
-				err_nosuchchannel_403(client_iter->second, *msgChannelIter);
+				err_nosuchchannel_403(client_iter->second, *vec_iter);
 			}
 		}
 		else
 		{
-			// 채널이 아니고 클라이언트가 존재하는 경우
-			std::map<int, Client>::iterator client = _server.findClient(*msgChannelIter);
+			std::map<int, Client>::iterator client = _server.findClient(*vec_iter);
 			if (client != _server.getClients().end())
 			{
-				// 메시지 생성
 				std::string message = channelMessage(2, command_vec);
-				// 클라이언트에게 메시지 전송
 				client->second.appendClientRecvBuf(":" + client_iter->second.getNickname() + " PRIVMSG " + client->second.getNickname() + " :" + message + "\r\n");
 			}
 			else
 			{
-				// ERR_NOSUCHNICK = "No such nick/channel\r\n"
-				err_nosuchnick_401(client_iter->second, *msgChannelIter);
+				err_nosuchnick_401(client_iter->second, *vec_iter);
 			}
 		}
 	}

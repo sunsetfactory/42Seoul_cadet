@@ -16,22 +16,24 @@ class ClapTrap
 {
   private:
     string _Name;
-    unsigned int _Hit_point;
-    unsigned int _Max_hit_point;
-    unsigned int _Energy_point;
-    unsigned int _Attack_damage;
+    unsigned int _Hit_point;      // 체력
+    unsigned int _Max_hit_point;  // 최대 체력
+    unsigned int _Energy_point;   // 에너지
+    unsigned int _Attack_damage;  // 공격력
 
   public:
     ClapTrap();
     ClapTrap(string Name);
-    explicit ClapTrap(const ClapTrap &claptrap);
-    ClapTrap &operator=(const ClapTrap &claptrap);
+    ClapTrap(const ClapTrap &claptrap);  // 복사 생성자
+    ClapTrap &operator=(const ClapTrap &claptrap);// 대입 연산자
     ~ClapTrap();
-    unsigned int get_Damage(void) const;
-    void attack(const string &target);
-    void takeDamage(unsigned int amount);
-    void beRepaired(unsigned int amount);
-    string get_Name() const;
+
+    void attack(const string &target);    // 공격
+    void takeDamage(unsigned int amount); // 데미지 입기
+    void beRepaired(unsigned int amount); // 수리
+  
+    string get_Name() const;              // 이름 반환
+    unsigned int get_Damage(void) const;  // 공격력 반환
 };
 
 #endif

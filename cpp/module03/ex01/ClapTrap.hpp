@@ -24,7 +24,7 @@ class ClapTrap
   public:
     ClapTrap();
     ClapTrap(string Name);
-    explicit ClapTrap(const ClapTrap &claptrap);
+    ClapTrap(const ClapTrap &claptrap);
     ClapTrap &operator=(const ClapTrap &claptrap);
     ~ClapTrap();
     unsigned int get_Damage(void) const;

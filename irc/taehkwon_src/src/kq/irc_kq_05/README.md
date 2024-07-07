@@ -34,7 +34,7 @@ apt-get install irssi -y
 # timezone 6, 69 선택
 
 # irssi -c <host> -p <port> -n <nickname> -w <password>
-irssi -c 10.18.222.197-p 8080 -n seokjyan -w 0000
+irssi -c 10.12.6.3 -p 8080 -n nickname -w 1234
 ```
 
 ##### netcat 사용

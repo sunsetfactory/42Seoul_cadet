@@ -11,10 +11,6 @@
 #define READ 0
 #define WRITE 1
 
-class	Client;
-class	Channel;
-class	Command;
-
 class	Server
 {
 private:
@@ -127,9 +123,9 @@ public:
 	class unknownError : public std::exception
 	{
 	public:
-		virtual const char *what(std::string& msg) const throw()
+		virtual const char *what() const throw()
 		{
-			return (msg.c_str());
+			return ("unknown error");
 		}
 	};
 };

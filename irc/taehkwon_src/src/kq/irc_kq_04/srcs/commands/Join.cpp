@@ -4,9 +4,8 @@
 void Command::join(int fd, std::vector<std::string> command_vec)
 {
 	/* JOIN <channel> (<options>) */
-	if (command_vec.size() < 2) // 명령어에 인자가 부족할 때 :
+	if (command_vec.size() < 2)
 	{
-		// ERR_NEEDMOREPARAMS = ":<server> 461 <nickname> JOIN :Not enough parameters"
 		err_needmoreparams_461(_server.getClients().find(fd)->second);
 		return;
 	}
@@ -14,119 +13,95 @@ void Command::join(int fd, std::vector<std::string> command_vec)
 	std::vector<std::string>::iterator iter = joinChannel.begin();
 	std::vector<std::string> joinKey;
 	std::vector<std::string>::iterator keyIter;
-	if (command_vec.size() > 2) // (<options>)가 존재할 때 :
+	if (command_vec.size() > 2)
 	{
-		// <options> = <key>
 		joinKey = split(command_vec[2], ',');
 		keyIter = joinKey.begin();
 	}
-	std::map<int, Client> &clients = _server.getClients();
+	std::map<int, Client>& clients = _server.getClients();
 	Client &client = clients.find(fd)->second;
-	while (iter != joinChannel.end()) // 채널이름이 여러개일 경우를 대비하여 ','로 구분 -
+	while (iter != joinChannel.end())
 	{
-		if ((*iter)[0] != '#' && (*iter)[0] != '&') // 채널 이름이 # 또는 &로 시작하지 않을 때 :
+		if ((*iter)[0] != '#' && (*iter)[0] != '&')
 		{
-			// ERR_NOSUCHCHANNEL = ":<server> 403 <nickname> <channel> :No such channel"
 			err_nosuchchannel_403(client, *iter);
 			iter++;
-			if (command_vec.size() > 2 || keyIter != joinKey.end()) // (<options>)가 존재할 때 :
-			{
-				// key처리
+			if (command_vec.size() > 2 || keyIter != joinKey.end())
 				keyIter++;
-			}
 			continue;
 		}
-		std::map<std::string, Channel *> &channelList = _server.getChannelList();
+		std::map<std::string, Channel *>& channelList = _server.getChannelList();
 		std::map<std::string, Channel *>::iterator channelIt = channelList.find(*iter);
-		if (channelIt != channelList.end()) // 채널이 존재할 경우 :
+		if (channelIt != channelList.end())	// channel exists
 		{
+			/* conditions: if clients can join to channel */
 			Channel *channel = channelIt->second;
-			if (channel->checkClientInChannel(fd)) // 이미 채널에 존재할 경우 :
+			if (channel->checkClientInChannel(fd))	// aready in channel
 			{
-				// 접속 무시
 				iter++;
-				if (command_vec.size() > 2 || keyIter != joinKey.end()) // (<options>)가 존재할 때 :
-				{
-					// key처리
+				if (command_vec.size() > 2 || keyIter != joinKey.end())
 					keyIter++;
-				}
 				continue;
 			}
-			if (channel->checkMode(INVITE)) // INVITE 모드일 때 :
+			if (channel->checkMode(INVITE))	// if MODE(invite) == true
 			{
-				if (!channel->checkInvite(fd)) // INVITE가 없을 때 :
+				if (!channel->checkInvite(fd))
 				{
-					// ERR_INVITEONLYCHAN = ":<server> 473 <nickname> <channel> :Cannot join channel (+i)"
 					err_inviteonlychan_473(client, *iter);
 					iter++;
-					if (command_vec.size() > 2 || keyIter != joinKey.end()) // (<options>)가 존재할 때 :
-					{
-						// key처리
+					if (command_vec.size() > 2 || keyIter != joinKey.end())
 						keyIter++;
-					}
 					continue;
 				}
 			}
-			if (channel->checkMode(KEY)) // KEY 모드일 때 :
+			if (channel->checkMode(KEY))	// if MODE(key) == true
 			{
-				if (command_vec.size() <= 2 || keyIter == joinKey.end() || !channel->checkKey(*keyIter)) // KEY가 일치하지 않을 때 :
+				if (command_vec.size() <= 2 || keyIter == joinKey.end() || !channel->checkKey(*keyIter))	// if invalid key
 				{
-					// ERR_BADCHANNELKEY = ":<server> 475 <nickname> <channel> :Cannot join channel (+k)"
 					err_badchannelkey_475(client, *iter);
 					iter++;
-					if (command_vec.size() > 2 || keyIter != joinKey.end()) // (<options>)가 존재할 때 :
-					{
-						// key처리
+					if (command_vec.size() > 2 || keyIter != joinKey.end())
 						keyIter++;
-					}
 					continue;
 				}
 			}
-			if (channel->checkMode(LIMIT)) // LIMIT 모드일 때 :
+			if (channel->checkMode(LIMIT))	// if MODE(limit) == true
 			{
-				if (channel->getClientFdList().size() >= channel->getLimit()) // LIMIT을 초과할 때 :
+				if (channel->getClientFdList().size() >= channel->getLimit())
 				{
-					// ERR_CHANNELISFULL = ":<server> 471 <nickname> <channel> :Cannot join channel (+l)"
 					err_channelisfull_471(client, *iter);
 					iter++;
-					if (command_vec.size() > 2 || keyIter != joinKey.end()) // (<options>)가 존재할 때 :
-					{
-						// KEY 처리
+					if (command_vec.size() > 2 || keyIter != joinKey.end())
 						keyIter++;
-					}
 					continue;
 				}
 			}
 			std::string channelName = (*channelIt).second->getChannelName();
 			(*channelIt).second->appendClientFdList(fd);
-			// 채널에 클라이언트 추가
-			client.appendChannelList(channelName);
-			// JOIN 메시지 전송
+			client.appendChannelList(channelName);			// join clients to channel
+			msgToAllChannel(fd, channelName, "JOIN", "");	// send join-message to clients(in channel)
+			topicMsg(fd, channelName);
 		}
-		else // 채널이 존재하지 않을 경우 :
+		else	// channel not exists (new channel)
 		{
-			_server.appendNewChannel(*iter, fd); // 채널 생성
+			_server.appendNewChannel(*iter, fd);				// create new channel
 			_server.findChannel(*iter)->appendClientFdList(-1);
-			_server.findChannel(*iter)->appendClientFdList(fd); // 채널에 클라이언트 추가
-			client.appendChannelList(*iter);					// 클라이언트에 채널 추가
-			msgToAllChannel(fd, *iter, "JOIN", "");				// JOIN 메시지 전송
-			_server.findChannel(*iter)->addOperatorFd(fd);		// 채널 오퍼레이터 추가
+			_server.findChannel(*iter)->appendClientFdList(fd);	// join clients to channel
+			client.appendChannelList(*iter);
+			msgToAllChannel(fd, *iter, "JOIN", "");
+			_server.findChannel(*iter)->addOperatorFd(fd);
 		}
-		nameListMsg(fd, *iter); // 채널에 있는 클라이언트 리스트 전송
-		// 채널에 봇이 있을 경우 봇 메시지 전송
+		nameListMsg(fd, *iter);
 		msgToAllChannel(-1, *iter, "PRIVMSG", _server.findChannel(*iter)->getBot()->introduce());
 		iter++;
-		if (command_vec.size() > 2 || keyIter != joinKey.end()) // (<options>)가 존재할 때 :
-		{
-			// key처리
+		if (command_vec.size() > 2 || keyIter != joinKey.end())
 			keyIter++;
-		}
 	}
 }
 
 void Command::topicMsg(int fd, std::string channelName)
 {
-	std::map<std::string, Channel *> &channelList = _server.getChannelList();
+	std::map<std::string, Channel *>& channelList = _server.getChannelList();
 	Channel *channel = channelList.find(channelName)->second;
 	std::string topic = channel->getTopic();
 	if (topic.length() == 0)
