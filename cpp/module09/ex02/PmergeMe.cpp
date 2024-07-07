@@ -190,7 +190,7 @@ void PmergeMe::create_pairs_for_vect(int_vect &numbers, int_vect_pair &v, size_t
 		v.push_back(make_pair(v1, v2));
 		pairsLeftToCreate -= 2;
 	}
-	// print_vect_of_pairs(v); // _debug_module
+	print_vect_of_pairs(v); // _debug_module
 }
 
 void PmergeMe::merge_and_update_vect(int_vect &numbers, int_vect_pair &v)
@@ -203,23 +203,23 @@ void PmergeMe::merge_and_update_vect(int_vect &numbers, int_vect_pair &v)
 	{
 		if (it->first.back() > it->second.back())
 		{
-			// std::cout << "======================" << std::endl; // _debug_module
+			std::cout << "======================" << std::endl; // _debug_module
 			for (v_it = it->second.begin(); v_it != it->second.end(); v_it++)
 			{
-				// std::cout << "v_it1: " << *v_it << std::endl; // _debug_module
+				std::cout << "v_it1: " << *v_it << std::endl; // _debug_module
 				numbers[index++] = *v_it;
 			}
 			for (v_it = it->first.begin(); v_it != it->first.end(); v_it++)
 			{
-				// std::cout << "v_it2: " << *v_it << std::endl; // _debug_module
+				std::cout << "v_it2: " << *v_it << std::endl; // _debug_module
 				numbers[index++] = *v_it;
 			}
 		}
 		else
 			index += (it->first.size() * 2);
 	}
-	// print_vect(CYAN, "After merge: ", numbers);						// _debug_module
-	// std::cout << "==================================" << std::endl; // _debug_module
+	print_vect(CYAN, "After merge: ", numbers);						// _debug_module
+	std::cout << "==================================" << std::endl; // _debug_module
 }
 
 size_t binary_search_insert_vect(const int_vect &numbers, int value, size_t start, size_t end)
@@ -241,25 +241,15 @@ void PmergeMe::insertion_vect(int_vect &numbers, size_t len, size_t pairLen)
 		{
 			numbers[j + 1] = numbers[j];
 			if (j == 0)
-			{
 				break;
-			}
 			j--;
 		}
 		numbers[insertionPoint] = current;
-			// print_vect(CYAN, "Before insertion: ", numbers); // _debug_module
+		print_vect(CYAN, "Before insertion: ", numbers); // _debug_module
 
 	}
 }
 
-// 11 1 4 8 2 6 5 9 3 7 10
-// { ("11" ,1) (4 ,"8") (2 ,"6") (5 ,"9") (3 ,"7") }
-// After merge: 1 "11" 4 "8" 2 "6" 5 "9" 3 "7" 10
-
-// { (1 "11" ,4 8) (2 6 ,5 "9") }
-// After merge: 4 8 1 "11" 2 6 5 "9" 3 7 10
-// { (4 8 1 "11" ,2 6 5 "9") }
-// After merge: (2 6 5 "9") (4 8 1 "11") 3 7 10
 void PmergeMe::merge_insertion_vect(int_vect &numbers, size_t len, size_t pairLen)
 {
 	int_vect_pair v;
