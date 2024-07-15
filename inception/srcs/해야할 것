@@ -1,0 +1,13 @@
+
+[Docker Compose]
+1. expose vs port 차이 알고서 expose 써보기
+2. volums에 대해서 알아보기
+
+[Dockerfile]
+1. Dockerfile은 다시 알아보기
+2. 이후 alpine의 두번째 안정버전을 찾아서 설치하기
+3. 환경변수 치환이 안되는 파일이 있으니 주의
+4. ENTRYPOINT에 대해 알아보기
+
+[ETC]
+1. 테스트할때 물어보기 
