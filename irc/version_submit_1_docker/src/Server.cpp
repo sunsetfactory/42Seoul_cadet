@@ -137,6 +137,7 @@ void Server::execute()
 				else if (_clientList.find(_curr_event->ident) != _clientList.end())
 				{
 					std::cout << "#Client socket: " << _curr_event->ident << std::endl;
+					std::cout << "_curr_event->data : " << _curr_event->data << std::endl;
 					_command->run(_curr_event->ident, _curr_event->data);
 					std::cout << "#command run 완료" << std::endl;
 				}
