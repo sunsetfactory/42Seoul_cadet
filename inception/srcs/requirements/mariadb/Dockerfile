@@ -1,7 +1,7 @@
 # Base image
-FROM alpine:3.19.2
+FROM alpine:3.19
 
-RUN apk update
+# RUN apk update
 # Install MariaDB
 # RUN apk update && \
 #     apk add --no-cache mariadb mariadb-client && \

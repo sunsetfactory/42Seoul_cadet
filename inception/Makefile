@@ -1,6 +1,6 @@
 all: up
 # Start the containers in detached mode
-up:
+up: build
 	@docker-compose -f srcs/docker-compose.yml up -d
 	@sleep 5
 	@docker ps
