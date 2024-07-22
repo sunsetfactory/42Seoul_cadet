@@ -9,12 +9,6 @@ down:
 	@docker-compose -f srcs/docker-compose.yml down
 # Display logs from the containers
 logs:
-	@echo "Nginx"
-	@docker exec -it nginx /bin/sh -c "cat /var/log/nginx/error.log"
-	@echo "-----------------------------------------------------------------"
-	@echo "Wordpress"
-	@docker exec -it wordpress /bin/sh -c "cat /var/log/php83/error.log"
-	@echo "-----------------------------------------------------------------"
 	@docker-compose -f srcs/docker-compose.yml logs -f
 check_web:
 	curl -vI https://seokjyan.42.fr
