@@ -4,6 +4,8 @@ services:
     restart: always
     build:
       context: requirements/mariadb
+    cap_add:
+      - SYS_ADMIN
     env_file:
       - .env
     volumes:
@@ -62,7 +64,3 @@ volumes:
 networks:
   seokyangNet:
     driver: bridge
-
-
-# https://docs.docker.com/reference/dockerfile/
-# Users = home

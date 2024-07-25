@@ -1,17 +1,21 @@
 all: up
+
 # Start the containers in detached mode
 up: build
 	@docker-compose -f srcs/docker-compose.yml up -d
 	@sleep 5
-	@docker ps
+	@docker ps --format "table {{.ID}}\t{{.Names}}\t{{.Ports}}"
+
 # Stop the containers
 down:
 	@docker-compose -f srcs/docker-compose.yml down
+
 # Display logs from the containers
 logs:
 	@docker-compose -f srcs/docker-compose.yml logs -f
 check_web:
 	curl -vI https://seokjyan.42.fr
+
 # Open a shell in the container
 in_mariadb:
 	@docker exec -it mariadb /bin/sh
@@ -19,6 +23,7 @@ in_wordpress:
 	@docker exec -it wordpress /bin/sh
 in_nginx:
 	@docker exec -it nginx /bin/sh
+
 # Build the docker containers
 build:
 	@mkdir -p /Users/seokjyan/data/mariadb
@@ -26,6 +31,7 @@ build:
 	@chmod -R 777 ./srcs
 	@docker-compose -f srcs/docker-compose.yml build --no-cache
 # 클러 맥에서는 Users가 아니라 home일 수 있다.
+
 .PHONY: fclean
 
 fclean:

@@ -2,12 +2,12 @@
 FROM alpine:3.20
 
 # Install MariaDB
-RUN apk update && \b/mysq
+RUN apk update && \
     apk add --no-cache mariadb mariadb-client && \
     mkdir -p /run/mysqld && \
     chown -R mysql:mysql /run/mysqld && \
     mkdir -p /var/lib/mysql && \
-    chown -R mysql:mysql /var/lil
+    chown -R mysql:mysql /var/lib/mysql
 
 # MariaDB 설정 파일을 복사합니다.
 COPY conf/my.cnf /etc/mysql/my.cnf
