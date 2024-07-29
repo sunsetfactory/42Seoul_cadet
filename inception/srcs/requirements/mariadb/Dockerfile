@@ -19,6 +19,8 @@ RUN mkdir -p /var/lib/mysql && \
 # MariaDB 초기화
 RUN mysql_install_db --user=mysql --datadir=/var/lib/mysql
 
-# MariaDB 시작 스크립트 설정
-COPY tools/entrypoint.sh /entrypoint.sh
-ENTRYPOINT ["sh", "/entrypoint.sh"]
+# 로그 파일 생성
+RUN echo "This is a log file" > /var/log/mylog.log
+
+# ENTRYPOINT 설정 - tail 명령어로 로그 파일을 계속해서 출력, 무한히 실행
+ENTRYPOINT ["tail", "-f", "/var/log/mylog.log"]
