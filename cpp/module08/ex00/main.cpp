@@ -11,8 +11,7 @@ int main() {
   vec.push_back(8);
   try {
     std::vector<int>::iterator it = easyfind(vec, 4);
-    std::cout << "Value found at index: " << std::distance(vec.begin(), it)
-              << std::endl;
+    std::cout << "Value found at index: " << std::distance(vec.begin(), it) << std::endl;
   } catch (const std::exception& e) {
     std::cout << "Error: " << e.what() << std::endl;
   }

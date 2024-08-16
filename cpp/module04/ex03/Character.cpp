@@ -74,6 +74,7 @@ void Character::unequip(int idx)
     if (idx >= 0 && idx < 4)
     {
         _materia = _inventory[idx];
+        _floor.dropMateria(_materia);
         _inventory[idx] = NULL;
     }
 }

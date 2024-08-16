@@ -7,14 +7,15 @@
 #include <stack>
 
 template <typename T>
-class MutantStack : public std::stack<T> {
- private:
-  MutantStack(const MutantStack& other);
-  MutantStack& operator=(const MutantStack& other);
+class MutantStack : public std::stack<T>
+{
+private:
+  MutantStack(const MutantStack &other);
+  MutantStack &operator=(const MutantStack &other);
 
- public:
+public:
   MutantStack() : std::stack<T>(){};
-  virtual ~MutantStack(){};  // virtual 소멸자
+  virtual ~MutantStack(){}; // virtual 소멸자
 
   // typedef는 복잡한 타입을 간단하게 표현하기 위해 사용
   // typename은 템플릿 타입을 나타내는 키워드

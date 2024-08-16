@@ -1,7 +1,7 @@
-#ifndef WHATEVER_HPP
-#define WHATEVER_HPP
-
+#ifndef whatever_hpp
+#define whatever_hpp
 #include <iostream>
+#include <string>
 
 template <typename T>
 void swap(T &a, T &b)

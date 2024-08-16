@@ -64,7 +64,8 @@ void ScalarConverter::convertChar(const std::string &str)
 {
     try
     {
-        double c = std::strtod(str.c_str(), NULL);
+        // double c = std::strtod(str.c_str(), NULL);
+        double c = 0;
         if (c == 0)
         {
             c = static_cast<double>((str[0]));
@@ -98,6 +99,7 @@ void ScalarConverter::convertInt(const std::string &str)
             d = static_cast<double>((str[0]));
         }
         int i = static_cast<int>(d);
+
         if (d < -2147483648 || d > 2147483647)
         {
             std::cout << "int: impossible" << std::endl;
@@ -125,7 +127,9 @@ void ScalarConverter::convertFloat(const std::string &str)
         {
             f = static_cast<float>((str[0]));
         }
-        std::cout << "float: " << std::fixed << std::setprecision(1) << f << "f" << std::endl;
+        // std::cout << "float: " << static_cast<float>(f) << std::endl;
+        std::cout << "double: " << std::fixed << std::setprecision(16) << f << "f" << std::endl;
+        std::cout << "float: " << std::fixed << std::setprecision(7) << f << "f" << std::endl;
     }
     catch (std::exception &e)
     {

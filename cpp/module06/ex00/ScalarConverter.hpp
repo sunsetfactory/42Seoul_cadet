@@ -3,7 +3,6 @@
 
 #include <cctype>  // std::isprint
 #include <iomanip> // std::setprecision
-#include <iosfwd>  // std::stringstream
 #include <iostream>
 #include <limits>  // std::numeric_limits
 #include <cstdlib> // std::strtod

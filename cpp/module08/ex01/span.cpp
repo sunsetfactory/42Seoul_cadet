@@ -13,6 +13,13 @@ void Span::addNumber(int number) {
   numbers.push_back(number);
 }
 
+void Span::addNumber(std::vector<int>::iterator begin, std::vector<int>::iterator end) {
+  if (numbers.size() + std::distance(begin, end) > capacity) {
+    throw std::runtime_error("Cannot add more numbers. Capacity reached.");
+  }
+  numbers.insert(numbers.end(), begin, end);
+}
+
 int Span::shortestSpan() {
   if (numbers.size() <= 1) {
     throw std::runtime_error("Not enough numbers to find span.");
@@ -34,4 +41,10 @@ int Span::longestSpan() {
   }
   std::sort(numbers.begin(), numbers.end());
   return numbers.back() - numbers.front();
+}
+
+void Span::printNumbers() {
+  for (std::vector<int>::iterator it = numbers.begin(); it != numbers.end(); it++) {
+    std::cout << *it << std::endl;
+  }
 }

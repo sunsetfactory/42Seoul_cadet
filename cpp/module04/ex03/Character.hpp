@@ -3,6 +3,7 @@
 
 #include "AMateria.hpp"
 #include "ICharacter.hpp"
+#include "Floor.hpp"
 
 class Character : public ICharacter
 {
@@ -10,6 +11,7 @@ class Character : public ICharacter
     std::string _name;
     AMateria *_inventory[4];
     AMateria *_materia;
+    Floor _floor;
 
   public:
     Character();
