@@ -63,4 +63,4 @@ volumes:
 
 networks:
   seokyangNet:
-    driver: bridge
+    driver: host
