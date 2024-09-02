@@ -1,7 +1,9 @@
 services:
   mariadb:
+    image: mariadb # 이미지 이름만 바꾸고싶은데... 임시방편으로 발라놈... 고치는거 알려줘...
     container_name: mariadb
     restart: always
+    # restart: on-failure
     build:
       context: requirements/mariadb
     cap_add:
@@ -36,8 +38,10 @@ services:
     restart: always
     build:
       context: requirements/nginx
+    env_file:
+      - .env
     volumes:
-      - wp_volume:/var/www/html:ro  # Read-Only로 마운트
+      - wp_volume:/var/www/html:ro # Read-Only로 마운트
     depends_on:
       - wordpress
     networks:
@@ -63,4 +67,4 @@ volumes:
 
 networks:
   seokyangNet:
-    driver: host
+    driver: bridge
