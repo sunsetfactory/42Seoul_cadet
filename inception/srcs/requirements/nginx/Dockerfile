@@ -1,10 +1,18 @@
-# Base image
-FROM alpine:3.19
+FROM alpine:latest
 
-# # Install niginx
-# RUN apk update && \
-# 	apk add --no-cache nginx && \
-# 	mkdir -p /run/nginx
+# Install necessary packages
+RUN apk add --no-cache dumb-init nginx openssl vim
 
-# # Default command to start MariaDB
-# CMD ["nginx", "-g", "daemon off;"]
+COPY ./conf/nginx.conf /etc/nginx/nginx.conf
+COPY ./conf/default.conf /etc/nginx/http.d/default.conf
+
+COPY ./tools/entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+ENTRYPOINT [ "/entrypoint.sh" ]
+
+# 로그 파일 생성
+# RUN echo "This is a log file" > /var/log/mylog.log
+
+# # ENTRYPOINT 설정 - tail 명령어로 로그 파일을 계속해서 출력, 무한히 실행
+# ENTRYPOINT ["tail", "-f", "/var/log/mylog.log"]
