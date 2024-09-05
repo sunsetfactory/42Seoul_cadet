@@ -24,7 +24,6 @@ void Command::privmsg(int fd, std::vector<std::string> cmdVector)
 			{
 				messageAllChannel(fd, *msgArgv1Iter, "PRIVMSG", channelMessage(2, cmdVector));
 			}
-
 		}
 		else
 		{
