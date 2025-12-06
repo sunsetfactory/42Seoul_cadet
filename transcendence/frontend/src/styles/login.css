@@ -1,0 +1,22 @@
+/* 추가적인 사용자 정의 스타일 */
+.login {
+    min-height: 66vh; /* 전체 높이를 차지하도록 설정 */
+    width: 100vh;
+    display: flex;
+}
+
+.login-title {
+    font-size: calc(4rem + 8vw); /* 기본 폰트 크기를 설정하고 뷰포트 너비에 따라 조정 */
+    text-align: center;
+}
+
+.login-input-container {
+    width: 75%;
+    padding-bottom: 4rem;
+}
+
+.button-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+}

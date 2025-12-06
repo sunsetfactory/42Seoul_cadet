@@ -1,0 +1,34 @@
+.friendwindow {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    padding: 20px;
+}
+.addfriend {
+    width: 100%;
+    /* height: 40px; */
+    background: none;
+    border: none;
+    color: white;
+    font-size: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.friends {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.list-group-item {
+    background-color: #ffffff40;
+    border: none
+}
+
+.delete-button {
+    z-index: 999;
+}

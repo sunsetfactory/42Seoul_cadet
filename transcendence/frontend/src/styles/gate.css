@@ -1,0 +1,20 @@
+.gate {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+	/* 부모 컨테이너가 전체 뷰포트를 차지하도록 설정 */
+}
+
+.gate .logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: var(--gate-logo-img);
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: calc(12rem + 24vw);
+    height: auto;
+    aspect-ratio: 670 / 380;
+}

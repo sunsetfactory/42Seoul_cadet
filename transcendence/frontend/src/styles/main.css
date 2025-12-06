@@ -1,0 +1,25 @@
+.main {
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	flex-direction: column;
+}
+  
+/* 모바일 환경에서만 패딩 적용 */
+@media screen and (max-width: 767px) {
+	.main {
+		padding: 120px 0;
+	}
+}
+
+.head-line {
+    flex: 0 0 auto;
+    /* 헤더의 높이를 조절하려면 이 값을 변경하세요 */
+    /* height: 60px; */
+}
+
+.body-line {
+    flex: 1 0 auto;
+    overflow-y: auto;
+	/* 스크롤이 필요한 경우 */
+}

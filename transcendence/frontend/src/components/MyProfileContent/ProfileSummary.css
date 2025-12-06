@@ -1,0 +1,43 @@
+.profile-summary {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 20px;
+    margin: 0 20px;
+}
+
+.profile-summary > * {
+    flex: 1 1 300px; /* flex-grow, flex-shrink, flex-basis */
+}
+
+.profile-summary-user-state {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    min-width: 45vh;
+}
+
+.profile-summary-logandbtn {
+    display: flex;
+    align-items: center;
+    flex-wrap: nowrap;
+    min-width: 40vh;
+}
+
+.profile-state-input {
+    min-width: 290px;
+}
+
+.profile-win {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+	min-width: 67.8px;
+	font-size: clamp(18.8px, calc(0.5rem + 0.5vw), 24px);
+}
+
+.profile-logoutBtn, .profile-withdrawalBtn, .profile-saveBtn {
+	height: 6vh;
+	min-width: 47.25px;
+}

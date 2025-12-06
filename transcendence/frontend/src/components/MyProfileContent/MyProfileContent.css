@@ -1,0 +1,34 @@
+.my-profile {
+	width: calc(100vw - 300px);
+	background-color: black;
+	color: white;
+}
+
+.my-profile .profile-summary {
+	margin-top: 20px;
+}
+
+.my-profile .horizontal-line {
+	border: none;
+	border-top: 3px solid #ffffff;
+	margin: 20px 0;
+	width: 100%;
+}
+
+.macro-and-records {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    /* padding: 20px; */
+    gap: 40px;
+    justify-content: center;
+}
+
+.game-records > .col-12, .my-macro > .col-12 {
+    flex: 0 0 auto;
+}
+/* flex: 1 0 auto */
+
+.my-profile-content {
+	padding-left: 20px;
+}

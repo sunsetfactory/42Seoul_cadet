@@ -1,0 +1,17 @@
+.selectpage {
+    display: flex;
+    padding: 20px;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+.game-list {
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+
+.selectpage .one-to-one:hover,
+.selectpage .tournament:hover {
+    color: var(--strong-color);
+}

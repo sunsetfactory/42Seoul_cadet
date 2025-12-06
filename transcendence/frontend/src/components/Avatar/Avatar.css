@@ -1,0 +1,95 @@
+.Avatar {
+  position: relative;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  border-radius: 50%;
+  background-color: white;
+  padding: 0;
+  margin: 0;
+}
+
+.Avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  border: calc(0.1rem + 0.15vh) solid;
+  pointer-events: none;
+  box-sizing: border-box;
+}
+
+.Avatar-img-online {
+  border-color: var(--avatar-alive-border-color);
+}
+
+.Avatar-img-offline {
+  border-color: var(--avatar-dead-border-color);
+}
+
+.Avatar-s {
+  width: 2rem;
+  height: 2rem;
+}
+
+.Avatar-m {
+  width: 3rem;
+  height: 3rem;
+}
+
+.Avatar-l {
+  width: 4rem;
+  height: 4rem;
+}
+
+@media screen and (max-width: 768px) {
+  .Avatar-s {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+
+  .Avatar-m {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  .Avatar-l {
+    width: 3.5rem;
+    height: 3.5rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .Avatar-s {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+
+  .Avatar-m {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  .Avatar-l {
+    width: 3rem;
+    height: 3rem;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .Avatar-s {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+
+  .Avatar-m {
+    width: 3.5rem;
+    height: 3.5rem;
+  }
+
+  .Avatar-l {
+    width: 4.5rem;
+    height: 4.5rem;
+  }
+}

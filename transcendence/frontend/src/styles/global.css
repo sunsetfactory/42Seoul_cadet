@@ -1,0 +1,96 @@
+/* 전역 스타일 정의 */
+
+@font-face {
+	/* 알파벳에 적용 */
+	font-family: 'Pixeboy';
+	src: url('../../public/fonts/Pixeboy.ttf');
+}
+
+@font-face {
+	/* 한글에 적용 */
+	font-family: 'DungGeunMo';
+	src: url('../../public/fonts/DungGeunMo.ttf');
+}
+
+html {
+	font-size: 16px;
+	overflow: hidden;
+}
+
+:root {
+	--text-color: #fff;
+	--strong-color: yellow;
+	--absolute-color-black: #000;
+	/* edit bootstrap variables */
+	--bs-body-font-family: 'DungGeunMo', var(--bs-font-sans-serif);
+	--title-font: 'Pixeboy', sans-serif;
+
+	/* for button */
+	--small-font-size: 40px;
+	--medium-font-size: 50px;
+	--large-font-size: 80px;
+	--xlarge-font-size: 120px;
+
+	/* for text */
+	--big-font-size: 150px;
+
+	--base-line-height: 1.6;
+	--header-color: #011635;
+	--gate-page-background-img: url('../../public/images/space_bg.png');
+	--gate-logo-img: url('../../public/images/gate-logo.png');
+	--modal-bg-color: #011635;
+
+	/* for Avatar */
+	--avatar-alive-border-color: #48d23e;
+	--avatar-dead-border-color: #000;
+	--alert-box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+	--btn-border-color: #a9a9a9;
+}
+
+header {
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: 15vh;
+	width: 100vw;
+	z-index: 100;
+	background-color: #00000050;
+}
+
+body {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	color: var(--text-color);
+	background-image: var(--gate-page-background-img);
+	background-size: cover;
+	width: 100vw;
+	height: 100vh;
+}
+
+#root {
+	overflow: auto;
+	transform: translateX(0);
+}
+
+h1 {
+	font-size: calc(4rem + 3vw);
+	line-height: var(--base-line-height);
+	text-align: center;
+}
+
+/* button.css로 이동하지 않아도 될까요? */
+button {
+	cursor: pointer;
+}
+
+input {
+	outline: none;
+	padding: 5px;
+	color: var(--text-color);
+}
+
+.router-view {
+    display: flex;
+    justify-content: center;
+}

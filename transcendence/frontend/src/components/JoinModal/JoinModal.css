@@ -1,0 +1,63 @@
+.joinInputLabel {
+    display: block;
+    color: black;
+    margin-bottom: 5px;
+    /* Space between the label and input */
+}
+
+.join_row {
+    align-items: center;
+    padding-left: 30px;
+    /* margin-top: 55px; 모달 ui 바꾸면 수정 */
+}
+
+.modal-content .input_row {
+    margin-top: 10px;
+    padding: 0 40px 0 10px;
+}
+
+.modal-content .input_row div {
+    margin-bottom: 10px;
+}
+
+.modal-content .input_row .label {
+    margin-bottom: 0;
+    margin-top: 0;
+    font-size: 20px;
+}
+
+.modal-content .input_row input {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 15px;
+}
+
+.close-button {
+    position: absolute;
+    top: 7px;
+    right: 56px;
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: red;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+
+.finish-button {
+    margin-left: auto;
+    right: 28px;
+    margin-top: 12px;
+}
+
+.input_join {
+    margin: 0 20px;
+    margin-bottom: 6px;
+}

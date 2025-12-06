@@ -1,0 +1,5 @@
+.select-charactor {
+	flex-wrap: wrap;
+	width : 101%;
+	max-width: 25rem;
+}

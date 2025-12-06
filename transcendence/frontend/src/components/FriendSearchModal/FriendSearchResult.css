@@ -1,0 +1,45 @@
+.friend-search-result {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.search-results {
+    max-height: 400px;
+    /* Adjust this value as needed */
+    overflow-y: auto;
+    padding-right: 10px;
+    /* To prevent content from touching the scrollbar */
+}
+
+.friend-profile {
+    flex: 1;
+    min-width: 0;
+    /* 자식 요소가 부모 컨테이너를 벗어나지 않도록 함 */
+}
+
+.add-friend-btn {
+    margin-left: 10px;
+    /* friend-profile과의 간격 */
+}
+
+.add-friend-btn added {
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+/* 반응형 디자인을 위한 미디어 쿼리 */
+@media (max-width: 480px) {
+    .friend-search-result {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .add-friend-btn {
+        margin-left: 0;
+        margin-top: 10px;
+        align-self: flex-end;
+    }
+}
